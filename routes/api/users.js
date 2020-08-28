@@ -8,7 +8,7 @@ require('dotenv').config();
 
 const User = require('../../models/User');
 
-// Create a new user
+// Register user
 router.post(
   '/',
   [
