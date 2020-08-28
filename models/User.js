@@ -17,6 +17,12 @@ const UserSchema = new mongoose.Schema({
   avatar: {
     type: String,
   },
+  ownedBoards: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'boards'
+    }
+  ]
 });
 
 module.exports = User = mongoose.model('user', UserSchema);
