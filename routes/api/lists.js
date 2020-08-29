@@ -72,4 +72,31 @@ router.patch('/unarchive/:id', auth, async (req, res) => {
   }
 });
 
+// Edit a list's name
+router.patch(
+  '/rename/:id',
+  [auth, [check('name', 'Name is required').not().isEmpty()]],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      const list = await List.findById(req.params.id);
+      if (!list) {
+        return res.status(404).json({ msg: 'List not found' });
+      }
+
+      list.name = req.body.name;
+      list.save();
+
+      res.json({ msg: 'List name changed' });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
+
 module.exports = router;
