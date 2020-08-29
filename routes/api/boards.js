@@ -18,6 +18,22 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
+// Get a board by id
+router.get('/:id', auth, async (req, res) => {
+  try {
+    const board = await Board.findById(req.params.id);
+
+    if (!board) {
+      return res.status(404).json({ msg: 'Board not found' });
+    }
+
+    res.json(board);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+})
+
 // Create a board
 router.post(
   '/',
