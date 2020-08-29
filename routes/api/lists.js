@@ -6,6 +6,21 @@ const { check, validationResult } = require('express-validator');
 const List = require('../../models/List');
 const Board = require('../../models/Board');
 
+// Get a list by id
+router.get('/:id', auth, async (req, res) => {
+  try {
+    const list = await List.findById(req.params.id);
+    if (!list) {
+      return res.status(404).json({ msg: 'List not found' });
+    }
+
+    res.json(list);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 // Create a list
 router.post(
   '/',
