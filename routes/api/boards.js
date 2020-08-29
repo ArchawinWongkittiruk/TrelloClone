@@ -22,7 +22,6 @@ router.get('/', auth, async (req, res) => {
 router.get('/:id', auth, async (req, res) => {
   try {
     const board = await Board.findById(req.params.id);
-
     if (!board) {
       return res.status(404).json({ msg: 'Board not found' });
     }
@@ -76,7 +75,6 @@ router.patch(
 
     try {
       const board = await Board.findById(req.params.id);
-
       if (!board) {
         return res.status(404).json({ msg: 'Board not found' });
       }
@@ -96,7 +94,6 @@ router.patch(
 router.get('/lists/:boardId', auth, async (req, res) => {
   try {
     const board = await Board.findById(req.params.boardId);
-
     if (!board) {
       return res.status(404).json({ msg: 'Board not found' });
     }
