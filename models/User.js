@@ -19,10 +19,17 @@ const UserSchema = new mongoose.Schema({
   },
   ownedBoards: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'boards'
-    }
-  ]
+      _id: false,
+      id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'boards',
+      },
+      title: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
 });
 
 module.exports = User = mongoose.model('user', UserSchema);
