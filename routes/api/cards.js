@@ -60,4 +60,40 @@ router.patch('/:id', auth, async (req, res) => {
   }
 });
 
+// Archive a card
+router.patch('/archive/:id', auth, async (req, res) => {
+  try {
+    const card = await Card.findById(req.params.id);
+    if (!card) {
+      return res.status(404).json({ msg: 'Card not found' });
+    }
+
+    card.archived = true;
+    card.save();
+
+    res.json(card);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// Unarchive a card
+router.patch('/unarchive/:id', auth, async (req, res) => {
+  try {
+    const card = await Card.findById(req.params.id);
+    if (!card) {
+      return res.status(404).json({ msg: 'Card not found' });
+    }
+
+    card.archived = false;
+    card.save();
+
+    res.json(card);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 module.exports = router;
