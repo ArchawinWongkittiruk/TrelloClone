@@ -11,6 +11,11 @@ const ListSchema = new mongoose.Schema({
       ref: 'cards',
     },
   ],
+  archived: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
 });
 
 module.exports = List = mongoose.model('list', ListSchema);

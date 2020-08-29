@@ -36,4 +36,22 @@ router.post(
   }
 );
 
+// Archive a list
+router.patch('/archive/:id', auth, async (req, res) => {
+  try {
+    const list = await List.findById(req.params.id);
+    if (!list) {
+      return res.status(404).json({ msg: 'List not found' });
+    }
+
+    list.archived = true;
+    list.save();
+
+    res.json({ msg: 'List archived' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 module.exports = router;
