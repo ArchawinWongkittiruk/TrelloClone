@@ -65,7 +65,7 @@ router.post(
 );
 
 // Change a board's title
-router.put(
+router.patch(
   '/:id',
   [auth, [check('title', 'Title is required').not().isEmpty()]],
   async (req, res) => {
