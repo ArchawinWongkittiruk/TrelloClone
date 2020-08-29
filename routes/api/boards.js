@@ -6,6 +6,18 @@ const { check, validationResult } = require('express-validator');
 const Board = require('../../models/Board');
 const User = require('../../models/User');
 
+// Get all owned boards
+router.get('/', auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+
+    res.json(user.ownedBoards);
+  } catch (error) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 // Create a board
 router.post(
   '/',
@@ -25,7 +37,7 @@ router.post(
 
       // Assign the board to the user
       const user = await User.findById(req.user.id).select('-password');
-      user.ownedBoards.unshift(board.id);
+      user.ownedBoards.unshift({ id: board.id, title: board.title });
       await user.save();
 
       res.json(board);
