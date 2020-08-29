@@ -92,4 +92,16 @@ router.patch(
   }
 );
 
+// Get all of a board's lists
+router.get('/lists/:boardId', auth, async (req, res) => {
+  try {
+    const board = await Board.findById(req.params.boardId);
+
+    res.json(board.lists);
+  } catch (error) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 module.exports = router;
