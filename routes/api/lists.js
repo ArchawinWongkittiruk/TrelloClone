@@ -54,4 +54,22 @@ router.patch('/archive/:id', auth, async (req, res) => {
   }
 });
 
+// Unarchive a list
+router.patch('/unarchive/:id', auth, async (req, res) => {
+  try {
+    const list = await List.findById(req.params.id);
+    if (!list) {
+      return res.status(404).json({ msg: 'List not found' });
+    }
+
+    list.archived = false;
+    list.save();
+
+    res.json({ msg: 'List back on board' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 module.exports = router;
