@@ -24,7 +24,7 @@ router.get('/:id', auth, async (req, res) => {
 // Create a list
 router.post(
   '/',
-  [auth, [check('name', 'Name is required').not().isEmpty()]],
+  [auth, [check('title', 'Title is required').not().isEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -32,10 +32,10 @@ router.post(
     }
 
     try {
-      const { name, boardId } = req.body;
+      const { title, boardId } = req.body;
 
       // Create and save the list
-      const newList = new List({ name });
+      const newList = new List({ title });
       const list = await newList.save();
 
       // Assign the list to the board
@@ -87,10 +87,10 @@ router.patch('/unarchive/:id', auth, async (req, res) => {
   }
 });
 
-// Edit a list's name
+// Edit a list's title
 router.patch(
   '/rename/:id',
-  [auth, [check('name', 'Name is required').not().isEmpty()]],
+  [auth, [check('title', 'Title is required').not().isEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -103,7 +103,7 @@ router.patch(
         return res.status(404).json({ msg: 'List not found' });
       }
 
-      list.name = req.body.name;
+      list.title = req.body.title;
       list.save();
 
       res.json(list);
