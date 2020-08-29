@@ -25,7 +25,7 @@ router.post(
 
       // Assign the card to the list
       const list = await List.findById(listId);
-      list.cards.unshift(card.id);
+      list.cards.push(card.id);
       await list.save();
 
       res.json(card);

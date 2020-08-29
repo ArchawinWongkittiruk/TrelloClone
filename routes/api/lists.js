@@ -40,7 +40,7 @@ router.post(
 
       // Assign the list to the board
       const board = await Board.findById(boardId);
-      board.lists.unshift(list.id);
+      board.lists.push(list.id);
       await board.save();
 
       res.json(list);
@@ -127,7 +127,7 @@ router.patch('/moveCard/:cardId/:from/:to', auth, async (req, res) => {
     from.cards.splice(from.cards.indexOf(cardId), 1);
     await from.save();
 
-    to.cards.unshift(cardId);
+    to.cards.push(cardId);
     await to.save();
 
     res.send({ from, to });
