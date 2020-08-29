@@ -97,6 +97,10 @@ router.get('/lists/:boardId', auth, async (req, res) => {
   try {
     const board = await Board.findById(req.params.boardId);
 
+    if (!board) {
+      return res.status(404).json({ msg: 'Board not found' });
+    }
+
     res.json(board.lists);
   } catch (error) {
     console.error(err.message);
