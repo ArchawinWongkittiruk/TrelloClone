@@ -32,7 +32,7 @@ router.get('/:id', auth, async (req, res) => {
     console.error(err.message);
     res.status(500).send('Server Error');
   }
-})
+});
 
 // Create a board
 router.post(
@@ -53,8 +53,36 @@ router.post(
 
       // Assign the board to the user
       const user = await User.findById(req.user.id).select('-password');
-      user.ownedBoards.unshift({ id: board.id, title: board.title });
+      user.ownedBoards.unshift(board.id);
       await user.save();
+
+      res.json(board);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
+
+// Change a board's title
+router.put(
+  '/:id',
+  [auth, [check('title', 'Title is required').not().isEmpty()]],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      const board = await Board.findById(req.params.id);
+
+      if (!board) {
+        return res.status(404).json({ msg: 'Board not found' });
+      }
+
+      board.title = req.body.title;
+      board.save();
 
       res.json(board);
     } catch (err) {
