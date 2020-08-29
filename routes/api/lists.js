@@ -47,7 +47,7 @@ router.patch('/archive/:id', auth, async (req, res) => {
     list.archived = true;
     list.save();
 
-    res.json({ msg: 'List archived' });
+    res.json(list);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
@@ -65,7 +65,7 @@ router.patch('/unarchive/:id', auth, async (req, res) => {
     list.archived = false;
     list.save();
 
-    res.json({ msg: 'List back on board' });
+    res.json(list);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
@@ -91,7 +91,7 @@ router.patch(
       list.name = req.body.name;
       list.save();
 
-      res.json({ msg: 'List name changed' });
+      res.json(list);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
