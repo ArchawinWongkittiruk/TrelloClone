@@ -54,7 +54,12 @@ router.get('/listCards/:listId', auth, async (req, res) => {
       return res.status(404).json({ msg: 'List not found' });
     }
 
-    res.json(list.cards);
+    const cards = [];
+    for (const cardId of list.cards) {
+      cards.push(await List.findById(cardId));
+    }
+
+    res.json(cards);
   } catch (error) {
     console.error(err.message);
     res.status(500).send('Server Error');

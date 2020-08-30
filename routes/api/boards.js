@@ -47,7 +47,12 @@ router.get('/', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
 
-    res.json(user.ownedBoards);
+    const boards = [];
+    for (const boardId of user.ownedBoards) {
+      boards.push(await Board.findById(boardId));
+    }
+
+    res.json(boards);
   } catch (error) {
     console.error(err.message);
     res.status(500).send('Server Error');

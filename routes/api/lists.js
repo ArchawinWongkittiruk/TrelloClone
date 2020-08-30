@@ -51,7 +51,12 @@ router.get('/boardLists/:boardId', auth, async (req, res) => {
       return res.status(404).json({ msg: 'Board not found' });
     }
 
-    res.json(board.lists);
+    const lists = [];
+    for (const listId of board.lists) {
+      lists.push(await List.findById(listId));
+    }
+
+    res.json(lists);
   } catch (error) {
     console.error(err.message);
     res.status(500).send('Server Error');
