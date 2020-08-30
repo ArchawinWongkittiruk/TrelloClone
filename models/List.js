@@ -1,13 +1,13 @@
-const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 
-const ListSchema = new mongoose.Schema({
+const ListSchema = new Schema({
   title: {
     type: String,
     required: true,
   },
   cards: [
     {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: 'cards',
     },
   ],
@@ -18,4 +18,4 @@ const ListSchema = new mongoose.Schema({
   },
 });
 
-module.exports = List = mongoose.model('list', ListSchema);
+module.exports = List = model('list', ListSchema);

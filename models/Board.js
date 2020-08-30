@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 
-const BoardSchema = new mongoose.Schema(
+const BoardSchema = new Schema(
   {
     title: {
       type: String,
@@ -8,7 +8,7 @@ const BoardSchema = new mongoose.Schema(
     },
     lists: [
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'lists',
       },
     ],
@@ -21,4 +21,4 @@ const BoardSchema = new mongoose.Schema(
   }
 );
 
-module.exports = Board = mongoose.model('board', BoardSchema);
+module.exports = Board = model('board', BoardSchema);
