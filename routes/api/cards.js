@@ -3,10 +3,10 @@ const router = express.Router();
 const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
 
-const Card = require('../../models/Card');
 const List = require('../../models/List');
+const Card = require('../../models/Card');
 
-// Create a card
+// Add a card
 router.post(
   '/',
   [auth, [check('title', 'Title is required').not().isEmpty()]],
@@ -60,15 +60,15 @@ router.patch('/:id', auth, async (req, res) => {
   }
 });
 
-// Archive a card
-router.patch('/archive/:id', auth, async (req, res) => {
+// Archive/Unarchive a card
+router.patch('/archive/:archive/:id', auth, async (req, res) => {
   try {
     const card = await Card.findById(req.params.id);
     if (!card) {
       return res.status(404).json({ msg: 'Card not found' });
     }
 
-    card.archived = true;
+    card.archived = req.params.archive === 'true';
     card.save();
 
     res.json(card);
@@ -78,18 +78,25 @@ router.patch('/archive/:id', auth, async (req, res) => {
   }
 });
 
-// Unarchive a card
-router.patch('/unarchive/:id', auth, async (req, res) => {
+// Move a card
+router.patch('/move/:cardId/:from/:to', auth, async (req, res) => {
   try {
-    const card = await Card.findById(req.params.id);
-    if (!card) {
-      return res.status(404).json({ msg: 'Card not found' });
+    const cardId = req.params.cardId;
+    const from = await List.findById(req.params.from);
+    const to = await List.findById(req.params.to);
+    if (!cardId || !from || !to) {
+      return res.status(404).json({ msg: 'List/card not found' });
     }
 
-    card.archived = false;
-    card.save();
+    from.cards.splice(from.cards.indexOf(cardId), 1);
+    await from.save();
 
-    res.json(card);
+    if (!to.cards.includes(cardId)) {
+      to.cards.push(cardId);
+      await to.save();
+    }
+
+    res.send({ from, to });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

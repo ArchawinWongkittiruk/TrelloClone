@@ -3,25 +3,10 @@ const router = express.Router();
 const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
 
-const List = require('../../models/List');
 const Board = require('../../models/Board');
+const List = require('../../models/List');
 
-// Get a list by id
-router.get('/:id', auth, async (req, res) => {
-  try {
-    const list = await List.findById(req.params.id);
-    if (!list) {
-      return res.status(404).json({ msg: 'List not found' });
-    }
-
-    res.json(list);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
-  }
-});
-
-// Create a list
+// Add a list
 router.post(
   '/',
   [auth, [check('title', 'Title is required').not().isEmpty()]],
@@ -51,34 +36,28 @@ router.post(
   }
 );
 
-// Archive a list
-router.patch('/archive/:id', auth, async (req, res) => {
+// Get all of a board's lists
+router.get('/boardLists/:boardId', auth, async (req, res) => {
   try {
-    const list = await List.findById(req.params.id);
-    if (!list) {
-      return res.status(404).json({ msg: 'List not found' });
+    const board = await Board.findById(req.params.boardId);
+    if (!board) {
+      return res.status(404).json({ msg: 'Board not found' });
     }
 
-    list.archived = true;
-    list.save();
-
-    res.json(list);
-  } catch (err) {
+    res.json(board.lists);
+  } catch (error) {
     console.error(err.message);
     res.status(500).send('Server Error');
   }
 });
 
-// Unarchive a list
-router.patch('/unarchive/:id', auth, async (req, res) => {
+// Get a list by id
+router.get('/:id', auth, async (req, res) => {
   try {
     const list = await List.findById(req.params.id);
     if (!list) {
       return res.status(404).json({ msg: 'List not found' });
     }
-
-    list.archived = false;
-    list.save();
 
     res.json(list);
   } catch (err) {
@@ -114,25 +93,18 @@ router.patch(
   }
 );
 
-// Move a card
-router.patch('/moveCard/:cardId/:from/:to', auth, async (req, res) => {
+// Archive/Unarchive a list
+router.patch('/archive/:archive/:id', auth, async (req, res) => {
   try {
-    const cardId = req.params.cardId;
-    const from = await List.findById(req.params.from);
-    const to = await List.findById(req.params.to);
-    if (!cardId || !from || !to) {
-      return res.status(404).json({ msg: 'List/card not found' });
+    const list = await List.findById(req.params.id);
+    if (!list) {
+      return res.status(404).json({ msg: 'List not found' });
     }
 
-    from.cards.splice(from.cards.indexOf(cardId), 1);
-    await from.save();
+    list.archived = req.params.archive === 'true';
+    list.save();
 
-    if (!to.cards.includes(cardId)) {
-      to.cards.push(cardId);
-      await to.save();
-    }
-
-    res.send({ from, to });
+    res.json(list);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

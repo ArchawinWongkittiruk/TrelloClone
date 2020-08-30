@@ -3,37 +3,10 @@ const router = express.Router();
 const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
 
-const Board = require('../../models/Board');
 const User = require('../../models/User');
+const Board = require('../../models/Board');
 
-// Get all owned boards
-router.get('/', auth, async (req, res) => {
-  try {
-    const user = await User.findById(req.user.id).select('-password');
-
-    res.json(user.ownedBoards);
-  } catch (error) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
-  }
-});
-
-// Get a board by id
-router.get('/:id', auth, async (req, res) => {
-  try {
-    const board = await Board.findById(req.params.id);
-    if (!board) {
-      return res.status(404).json({ msg: 'Board not found' });
-    }
-
-    res.json(board);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
-  }
-});
-
-// Create a board
+// Add a board
 router.post(
   '/',
   [auth, [check('title', 'Title is required').not().isEmpty()]],
@@ -63,6 +36,33 @@ router.post(
   }
 );
 
+// Get all owned boards
+router.get('/', auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+
+    res.json(user.ownedBoards);
+  } catch (error) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// Get a board by id
+router.get('/:id', auth, async (req, res) => {
+  try {
+    const board = await Board.findById(req.params.id);
+    if (!board) {
+      return res.status(404).json({ msg: 'Board not found' });
+    }
+
+    res.json(board);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 // Change a board's title
 router.patch(
   '/:id',
@@ -89,20 +89,5 @@ router.patch(
     }
   }
 );
-
-// Get all of a board's lists
-router.get('/lists/:boardId', auth, async (req, res) => {
-  try {
-    const board = await Board.findById(req.params.boardId);
-    if (!board) {
-      return res.status(404).json({ msg: 'Board not found' });
-    }
-
-    res.json(board.lists);
-  } catch (error) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
-  }
-});
 
 module.exports = router;
