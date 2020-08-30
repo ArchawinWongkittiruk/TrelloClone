@@ -129,11 +129,11 @@ router.patch('/archive/:archive/:id', auth, async (req, res) => {
 });
 
 // Move a card
-router.patch('/move/:cardId/:from/:to', auth, async (req, res) => {
+router.patch('/move/:cardId', auth, async (req, res) => {
   try {
     const cardId = req.params.cardId;
-    const from = await List.findById(req.params.from);
-    const to = await List.findById(req.params.to);
+    const from = await List.findById(req.body.from);
+    const to = await List.findById(req.body.to);
     if (!cardId || !from || !to) {
       return res.status(404).json({ msg: 'List/card not found' });
     }
