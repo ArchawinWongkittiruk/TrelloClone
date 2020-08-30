@@ -24,9 +24,15 @@ router.post(
       const board = await newBoard.save();
 
       // Assign the board to the user
-      const user = await User.findById(req.user.id).select('-password');
+      const user = await User.findById(req.user.id);
       user.ownedBoards.unshift(board.id);
       await user.save();
+
+      // Log activity
+      board.activity.unshift({
+        text: `${user.name} created this board`,
+      });
+      await board.save();
 
       res.json(board);
     } catch (err) {
@@ -39,7 +45,7 @@ router.post(
 // Get all owned boards
 router.get('/', auth, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select('-password');
+    const user = await User.findById(req.user.id);
 
     res.json(user.ownedBoards);
   } catch (error) {
@@ -79,8 +85,14 @@ router.patch(
         return res.status(404).json({ msg: 'Board not found' });
       }
 
+      // Log activity
+      const user = await User.findById(req.user.id);
+      board.activity.unshift({
+        text: `${user.name} renamed this board (from ${board.title})`,
+      });
+
       board.title = req.body.title;
-      board.save();
+      await board.save();
 
       res.json(board);
     } catch (err) {

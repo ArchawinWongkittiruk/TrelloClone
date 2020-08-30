@@ -3,6 +3,7 @@ const router = express.Router();
 const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
 
+const User = require('../../models/User');
 const Board = require('../../models/Board');
 const List = require('../../models/List');
 
@@ -26,6 +27,12 @@ router.post(
       // Assign the list to the board
       const board = await Board.findById(boardId);
       board.lists.push(list.id);
+
+      // Log activity
+      const user = await User.findById(req.user.id);
+      board.activity.unshift({
+        text: `${user.name} added ${title} to this board`,
+      });
       await board.save();
 
       res.json(list);
@@ -83,7 +90,7 @@ router.patch(
       }
 
       list.title = req.body.title;
-      list.save();
+      await list.save();
 
       res.json(list);
     } catch (err) {
@@ -102,7 +109,17 @@ router.patch('/archive/:archive/:id', auth, async (req, res) => {
     }
 
     list.archived = req.params.archive === 'true';
-    list.save();
+    await list.save();
+
+    // Log activity
+    const user = await User.findById(req.user.id);
+    const board = await Board.findById(req.body.boardId);
+    board.activity.unshift({
+      text: list.archived
+        ? `${user.name} archived list ${list.title}`
+        : `${user.name} sent list ${list.title} to the board`,
+    });
+    await board.save();
 
     res.json(list);
   } catch (err) {

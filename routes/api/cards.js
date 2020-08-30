@@ -3,6 +3,8 @@ const router = express.Router();
 const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
 
+const User = require('../../models/User');
+const Board = require('../../models/Board');
 const List = require('../../models/List');
 const Card = require('../../models/Card');
 
@@ -17,7 +19,7 @@ router.post(
     }
 
     try {
-      const { title, listId } = req.body;
+      const { title, listId, boardId } = req.body;
 
       // Create and save the card
       const newCard = new Card({ title });
@@ -27,6 +29,14 @@ router.post(
       const list = await List.findById(listId);
       list.cards.push(card.id);
       await list.save();
+
+      // Log activity
+      const user = await User.findById(req.user.id);
+      const board = await Board.findById(boardId);
+      board.activity.unshift({
+        text: `${user.name} added ${title} to ${list.title}`,
+      });
+      await board.save();
 
       res.json(card);
     } catch (err) {
@@ -81,7 +91,7 @@ router.patch('/:id', auth, async (req, res) => {
 
     card.title = title ? title : card.title;
     card.description = description ? description : card.description;
-    card.save();
+    await card.save();
 
     res.json(card);
   } catch (err) {
@@ -99,7 +109,17 @@ router.patch('/archive/:archive/:id', auth, async (req, res) => {
     }
 
     card.archived = req.params.archive === 'true';
-    card.save();
+    await card.save();
+
+    // Log activity
+    const user = await User.findById(req.user.id);
+    const board = await Board.findById(req.body.boardId);
+    board.activity.unshift({
+      text: card.archived
+        ? `${user.name} archived card ${card.title}`
+        : `${user.name} sent card ${card.title} to the board`,
+    });
+    await board.save();
 
     res.json(card);
   } catch (err) {
@@ -118,13 +138,25 @@ router.patch('/move/:cardId/:from/:to', auth, async (req, res) => {
       return res.status(404).json({ msg: 'List/card not found' });
     }
 
-    from.cards.splice(from.cards.indexOf(cardId), 1);
-    await from.save();
+    const cardIndex = from.cards.indexOf(cardId);
+    if (cardIndex !== -1) {
+      from.cards.splice(cardIndex, 1);
+      await from.save();
+    }
 
     if (!to.cards.includes(cardId)) {
       to.cards.push(cardId);
       await to.save();
     }
+
+    // Log activity
+    const user = await User.findById(req.user.id);
+    const board = await Board.findById(req.body.boardId);
+    const card = await Card.findById(cardId);
+    board.activity.unshift({
+      text: `${user.name} moved ${card.title} from ${from.title} to ${to.title}`,
+    });
+    await board.save();
 
     res.send({ from, to });
   } catch (err) {
@@ -145,6 +177,14 @@ router.delete('/:id', auth, async (req, res) => {
     list.cards.splice(list.cards.indexOf(req.params.id), 1);
     await list.save();
     await card.remove();
+
+    // Log activity
+    const user = await User.findById(req.user.id);
+    const board = await Board.findById(req.body.boardId);
+    board.activity.unshift({
+      text: `${user.name} deleted ${card.title} from ${list.title}`,
+    });
+    await board.save();
 
     res.json({ msg: 'Card removed' });
   } catch (err) {

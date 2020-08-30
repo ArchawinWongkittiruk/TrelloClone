@@ -12,6 +12,17 @@ const BoardSchema = new Schema(
         ref: 'lists',
       },
     ],
+    activity: [
+      {
+        text: {
+          type: String,
+        },
+        date: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
     backgroundURL: {
       type: String,
     },
