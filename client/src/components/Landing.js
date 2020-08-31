@@ -14,7 +14,9 @@ const Landing = () => {
         </nav>
         <div className='landing-inner'>
           <h1>TrelloClone</h1>
-          <p>Just like Trello, but made by an amateur!</p>
+          <p>
+            Just like <a href='https://trello.com/'>Trello</a>, but made by an amateur!
+          </p>
           <div className='buttons'>
             <Button variant='outlined' color='inherit'>
               Sign Up

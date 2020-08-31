@@ -7,6 +7,15 @@
   font-family: 'Roboto', sans-serif;
 }
 
+a {
+  text-decoration: none;
+  color: lightgrey;
+  transition: 0.3s;
+  &:hover {
+    color: darkgrey;
+  }
+}
+
 // Navbar
 
 .navbar {
