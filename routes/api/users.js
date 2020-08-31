@@ -69,9 +69,7 @@ router.get('/', async (req, res) => {
     const regex = new RegExp(req.body.input, 'i');
     const users = await User.find({
       $or: [{ name: regex }, { email: regex }],
-    })
-      .select('-password')
-      .exec();
+    }).select('-password');
 
     res.json(users);
   } catch (err) {
