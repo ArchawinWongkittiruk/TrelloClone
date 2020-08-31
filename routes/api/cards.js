@@ -61,7 +61,7 @@ router.get('/listCards/:listId', auth, async (req, res) => {
     }
 
     res.json(cards);
-  } catch (error) {
+  } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
   }

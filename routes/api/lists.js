@@ -58,7 +58,7 @@ router.get('/boardLists/:boardId', auth, async (req, res) => {
     }
 
     res.json(lists);
-  } catch (error) {
+  } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
   }
