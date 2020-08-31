@@ -63,4 +63,19 @@ router.post(
   }
 );
 
+// Get users with name/email substring
+router.get('/', async (req, res) => {
+  try {
+    const regex = new RegExp(req.body.input, 'i');
+    const users = await User.find({
+      $or: [{ name: regex }, { email: regex }],
+    }).exec();
+
+    res.json(users);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
 module.exports = router;
