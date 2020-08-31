@@ -138,13 +138,21 @@ router.patch('/move/:id', auth, async (req, res) => {
   try {
     const { toIndex, boardId } = req.body;
     const board = await Board.findById(boardId);
-
     const listId = req.params.id;
+    if (!listId) {
+      return res.status(404).json({ msg: 'List not found' });
+    }
+
     board.lists.splice(board.lists.indexOf(listId), 1);
     board.lists.splice(toIndex, 0, listId);
     await board.save();
 
-    res.send(board);
+    const lists = [];
+    for (const listId of board.lists) {
+      lists.push(await List.findById(listId));
+    }
+
+    res.send(lists);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
