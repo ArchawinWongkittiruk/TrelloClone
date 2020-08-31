@@ -11,6 +11,11 @@ body {
   color: #333;
 }
 
+.copyright {
+  text-align: center;
+  color: #eee;
+}
+
 .navbar {
   display: flex;
   flex-direction: row;
