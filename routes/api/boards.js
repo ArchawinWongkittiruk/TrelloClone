@@ -76,7 +76,7 @@ router.get('/:id', auth, async (req, res) => {
 
 // Change a board's title
 router.patch(
-  '/:id',
+  '/rename/:id',
   [auth, [check('title', 'Title is required').not().isEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);

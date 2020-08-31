@@ -82,7 +82,7 @@ router.get('/:id', auth, async (req, res) => {
 });
 
 // Edit a card's title and/or description
-router.patch('/:id', auth, async (req, res) => {
+router.patch('/edit/:id', auth, async (req, res) => {
   try {
     const { title, description } = req.body;
     if (title === '') {
