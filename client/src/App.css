@@ -5,14 +5,10 @@
   font-family: 'Roboto', sans-serif;
 }
 
-a {
-  text-decoration: none;
-  color: lightgrey;
-  transition: 0.3s;
-}
-
-a:hover {
-  color: darkgrey;
+body {
+  font-size: 1rem;
+  background-color: #eee;
+  color: #333;
 }
 
 .navbar {
@@ -33,7 +29,7 @@ a:hover {
   align-items: center;
   display: flex;
   flex-direction: column;
-  padding: 100px 50px;
+  padding: 150px 50px;
 }
 
 .landing h1 {
@@ -46,8 +42,18 @@ a:hover {
   margin-bottom: 20px;
 }
 
+.landing p a {
+  text-decoration: none;
+  color: lightgrey;
+  transition: 0.3s;
+}
+
+.landing p a:hover {
+  color: darkgrey;
+}
+
 @media (max-width: 700px) {
   .landing h1 {
-    font-size: 3rem;
+    font-size: 3.5rem;
   }
 }

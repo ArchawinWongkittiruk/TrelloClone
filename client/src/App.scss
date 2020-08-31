@@ -7,13 +7,10 @@
   font-family: 'Roboto', sans-serif;
 }
 
-a {
-  text-decoration: none;
-  color: lightgrey;
-  transition: 0.3s;
-  &:hover {
-    color: darkgrey;
-  }
+body {
+  font-size: 1rem;
+  background-color: #eee;
+  color: #333;
 }
 
 // Navbar
@@ -37,7 +34,7 @@ a {
     align-items: center;
     display: flex;
     flex-direction: column;
-    padding: 100px 50px;
+    padding: 150px 50px;
   }
 
   h1 {
@@ -48,11 +45,20 @@ a {
   p {
     font-size: 1.5rem;
     margin-bottom: 20px;
+
+    a {
+      text-decoration: none;
+      color: lightgrey;
+      transition: 0.3s;
+      &:hover {
+        color: darkgrey;
+      }
+    }
   }
 
   @media (max-width: 700px) {
     h1 {
-      font-size: 3rem;
+      font-size: 3.5rem;
     }
   }
 }
