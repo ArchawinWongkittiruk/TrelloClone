@@ -133,4 +133,22 @@ router.patch('/archive/:archive/:id', auth, async (req, res) => {
   }
 });
 
+// Move a list
+router.patch('/move/:id', auth, async (req, res) => {
+  try {
+    const { toIndex, boardId } = req.body;
+    const board = await Board.findById(boardId);
+
+    const listId = req.params.id;
+    board.lists.splice(board.lists.indexOf(listId), 1);
+    board.lists.splice(toIndex, 0, listId);
+    await board.save();
+
+    res.send(board);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 module.exports = router;
