@@ -63,7 +63,7 @@ router.post(
   }
 );
 
-// Get users with name/email substring
+// Get users with name/email regex
 router.get('/', async (req, res) => {
   try {
     const regex = new RegExp(req.body.input, 'i');
