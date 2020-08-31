@@ -17,7 +17,7 @@ const UserSchema = new Schema({
   avatar: {
     type: String,
   },
-  ownedBoards: [
+  boards: [
     {
       type: Schema.Types.ObjectId,
       ref: 'boards',

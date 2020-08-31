@@ -14,6 +14,7 @@ const BoardSchema = new Schema(
     ],
     activity: [
       {
+        _id: false,
         text: {
           type: String,
         },
@@ -26,6 +27,19 @@ const BoardSchema = new Schema(
     backgroundURL: {
       type: String,
     },
+    members: [
+      {
+        _id: false,
+        user: {
+          type: Schema.Types.ObjectId,
+          ref: 'users',
+        },
+        role: {
+          type: String,
+          default: 'admin',
+        },
+      },
+    ],
   },
   {
     timestamps: true,

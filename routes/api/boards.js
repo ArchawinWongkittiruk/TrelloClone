@@ -23,10 +23,13 @@ router.post(
       const newBoard = new Board({ title, backgroundURL });
       const board = await newBoard.save();
 
-      // Assign the board to the user
+      // Add board to user's boards
       const user = await User.findById(req.user.id);
-      user.ownedBoards.unshift(board.id);
+      user.boards.unshift(board.id);
       await user.save();
+
+      // Add user to board's members as admin
+      board.members.push({ user: user.id });
 
       // Log activity
       board.activity.unshift({
@@ -42,13 +45,13 @@ router.post(
   }
 );
 
-// Get all owned boards
+// Get user's boards
 router.get('/', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
 
     const boards = [];
-    for (const boardId of user.ownedBoards) {
+    for (const boardId of user.boards) {
       boards.push(await Board.findById(boardId));
     }
 
@@ -106,5 +109,30 @@ router.patch(
     }
   }
 );
+
+// Add a board member
+router.put('/addMember/:id', auth, async (req, res) => {
+  try {
+    // Add board to user's boards
+    const board = await Board.findById(req.body.boardId);
+    const user = await User.findById(req.params.id);
+    user.boards.unshift(board.id);
+    await user.save();
+
+    // Add user to board's members with 'normal' role
+    board.members.push({ user: user.id, role: 'normal' });
+
+    // Log activity
+    board.activity.unshift({
+      text: `${user.name} joined this board`,
+    });
+    await board.save();
+
+    res.json(board);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 
 module.exports = router;
