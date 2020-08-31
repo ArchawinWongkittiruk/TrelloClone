@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
+const member = require('../../middleware/member');
 const { check, validationResult } = require('express-validator');
 
 const User = require('../../models/User');
@@ -10,7 +11,7 @@ const List = require('../../models/List');
 // Add a list
 router.post(
   '/',
-  [auth, [check('title', 'Title is required').not().isEmpty()]],
+  [auth, member, [check('title', 'Title is required').not().isEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -81,7 +82,7 @@ router.get('/:id', auth, async (req, res) => {
 // Edit a list's title
 router.patch(
   '/rename/:id',
-  [auth, [check('title', 'Title is required').not().isEmpty()]],
+  [auth, member, [check('title', 'Title is required').not().isEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -106,7 +107,7 @@ router.patch(
 );
 
 // Archive/Unarchive a list
-router.patch('/archive/:archive/:id', auth, async (req, res) => {
+router.patch('/archive/:archive/:id', [auth, member], async (req, res) => {
   try {
     const list = await List.findById(req.params.id);
     if (!list) {
@@ -134,7 +135,7 @@ router.patch('/archive/:archive/:id', auth, async (req, res) => {
 });
 
 // Move a list
-router.patch('/move/:id', auth, async (req, res) => {
+router.patch('/move/:id', [auth, member], async (req, res) => {
   try {
     const { toIndex, boardId } = req.body;
     const board = await Board.findById(boardId);

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
+const member = require('../../middleware/member');
 const { check, validationResult } = require('express-validator');
 
 const User = require('../../models/User');
@@ -80,7 +81,7 @@ router.get('/:id', auth, async (req, res) => {
 // Change a board's title
 router.patch(
   '/rename/:id',
-  [auth, [check('title', 'Title is required').not().isEmpty()]],
+  [auth, member, [check('title', 'Title is required').not().isEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -111,7 +112,7 @@ router.patch(
 );
 
 // Add a board member
-router.put('/addMember/:id', auth, async (req, res) => {
+router.put('/addMember/:id', [auth, member], async (req, res) => {
   try {
     // Add board to user's boards
     const board = await Board.findById(req.body.boardId);

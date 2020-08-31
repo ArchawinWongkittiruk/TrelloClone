@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
+const member = require('../../middleware/member');
 const { check, validationResult } = require('express-validator');
 
 const User = require('../../models/User');
@@ -11,7 +12,7 @@ const Card = require('../../models/Card');
 // Add a card
 router.post(
   '/',
-  [auth, [check('title', 'Title is required').not().isEmpty()]],
+  [auth, member, [check('title', 'Title is required').not().isEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -82,7 +83,7 @@ router.get('/:id', auth, async (req, res) => {
 });
 
 // Edit a card's title and/or description
-router.patch('/edit/:id', auth, async (req, res) => {
+router.patch('/edit/:id', [auth, member], async (req, res) => {
   try {
     const { title, description } = req.body;
     if (title === '') {
@@ -106,7 +107,7 @@ router.patch('/edit/:id', auth, async (req, res) => {
 });
 
 // Archive/Unarchive a card
-router.patch('/archive/:archive/:id', auth, async (req, res) => {
+router.patch('/archive/:archive/:id', [auth, member], async (req, res) => {
   try {
     const card = await Card.findById(req.params.id);
     if (!card) {
@@ -134,7 +135,7 @@ router.patch('/archive/:archive/:id', auth, async (req, res) => {
 });
 
 // Move a card
-router.patch('/move/:cardId', auth, async (req, res) => {
+router.patch('/move/:cardId', [auth, member], async (req, res) => {
   try {
     const { fromId, toId, toIndex, boardId } = req.body;
 
@@ -181,7 +182,7 @@ router.patch('/move/:cardId', auth, async (req, res) => {
 });
 
 // Delete a card
-router.delete('/:id', auth, async (req, res) => {
+router.delete('/:id', [auth, member], async (req, res) => {
   try {
     const card = await Card.findById(req.params.id);
     const list = await List.findById(req.body.listId);
