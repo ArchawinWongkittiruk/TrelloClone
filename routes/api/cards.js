@@ -136,32 +136,42 @@ router.patch('/archive/:archive/:id', auth, async (req, res) => {
 // Move a card
 router.patch('/move/:cardId', auth, async (req, res) => {
   try {
+    const { fromId, toId, toIndex, boardId } = req.body;
+
     const cardId = req.params.cardId;
-    const from = await List.findById(req.body.from);
-    const to = await List.findById(req.body.to);
+    const from = await List.findById(fromId);
+    let to = await List.findById(toId);
     if (!cardId || !from || !to) {
       return res.status(404).json({ msg: 'List/card not found' });
+    } else if (fromId === toId) {
+      to = from;
     }
 
-    const cardIndex = from.cards.indexOf(cardId);
-    if (cardIndex !== -1) {
-      from.cards.splice(cardIndex, 1);
+    const fromIndex = from.cards.indexOf(cardId);
+    if (fromIndex !== -1) {
+      from.cards.splice(fromIndex, 1);
       await from.save();
     }
 
     if (!to.cards.includes(cardId)) {
-      to.cards.push(cardId);
+      if (toIndex) {
+        to.cards.splice(toIndex, 0, cardId);
+      } else {
+        to.cards.push(cardId);
+      }
       await to.save();
     }
 
     // Log activity
-    const user = await User.findById(req.user.id);
-    const board = await Board.findById(req.body.boardId);
-    const card = await Card.findById(cardId);
-    board.activity.unshift({
-      text: `${user.name} moved ${card.title} from ${from.title} to ${to.title}`,
-    });
-    await board.save();
+    if (fromId !== toId) {
+      const user = await User.findById(req.user.id);
+      const board = await Board.findById(boardId);
+      const card = await Card.findById(cardId);
+      board.activity.unshift({
+        text: `${user.name} moved ${card.title} from ${from.title} to ${to.title}`,
+      });
+      await board.save();
+    }
 
     res.send({ from, to });
   } catch (err) {
