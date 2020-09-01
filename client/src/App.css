@@ -20,7 +20,19 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 20px;
+  padding: 10px;
+  background-color: #026aa7;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+  opacity: 0.7;
+}
+
+.navbar a:hover {
+  opacity: 1;
 }
 
 .landing {
@@ -28,6 +40,13 @@ body {
   color: white;
   text-align: center;
   background: linear-gradient(135deg, #0079bf, #5067c5);
+}
+
+.landing .top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
 }
 
 .landing .landing-inner {

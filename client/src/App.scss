@@ -24,7 +24,18 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 20px;
+  padding: 10px;
+  background-color: #026aa7;
+
+  a {
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+    opacity: 0.7;
+    &:hover {
+      opacity: 1;
+    }
+  }
 }
 
 // Landing
@@ -34,6 +45,13 @@ body {
   color: white;
   text-align: center;
   background: linear-gradient(135deg, #0079bf, #5067c5);
+
+  .top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px;
+  }
 
   .landing-inner {
     align-items: center;

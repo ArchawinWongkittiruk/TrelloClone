@@ -4,7 +4,7 @@ import { Button } from '@material-ui/core';
 const Landing = () => {
   return (
     <section className='landing'>
-      <nav className='navbar'>
+      <nav className='top'>
         <h2>TrelloClone</h2>
         <div>
           <Button color='inherit' href='/login'>
