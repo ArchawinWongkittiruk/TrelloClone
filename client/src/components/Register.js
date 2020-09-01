@@ -1,6 +1,9 @@
 // https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/sign-up
 
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { setAlert } from '../actions/alert';
+import PropTypes from 'prop-types';
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -16,7 +19,7 @@ import Container from '@material-ui/core/Container';
 import Copyright from './Copyright';
 import useStyles from '../utils/formStyles';
 
-export default function SignUp() {
+const Register = ({ setAlert }) => {
   const classes = useStyles();
 
   const [formData, setFormData] = useState({
@@ -33,7 +36,7 @@ export default function SignUp() {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      console.log('Passwords do not match');
+      setAlert('Passwords do not match', 'error');
     } else {
       console.log('Success');
     }
@@ -128,4 +131,10 @@ export default function SignUp() {
       </Box>
     </Container>
   );
-}
+};
+
+Register.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+};
+
+export default connect(null, { setAlert })(Register);

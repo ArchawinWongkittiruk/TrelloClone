@@ -16,7 +16,7 @@ import Container from '@material-ui/core/Container';
 import Copyright from './Copyright';
 import useStyles from '../utils/formStyles';
 
-export default function SignIn() {
+const Login = () => {
   const classes = useStyles();
 
   const [formData, setFormData] = useState({
@@ -94,3 +94,5 @@ export default function SignIn() {
     </Container>
   );
 }
+
+export default Login;
