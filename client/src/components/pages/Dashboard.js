@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import CreateBoard from '../subcomponents/CreateBoard';
 
 const Dashboard = ({ auth: { user, isAuthenticated } }) => {
   const [boards, setBoards] = useState([]);
@@ -23,11 +24,11 @@ const Dashboard = ({ auth: { user, isAuthenticated } }) => {
       <h2>Your Boards</h2>
       <div className='boards'>
         {boards.map((board) => (
-          <Link key={board._id} to='/board' className='board-card'>
+          <Link key={board._id} to={`/board/${board._id}`} className='board-card'>
             {board.title}
           </Link>
         ))}
-        <button className='board-card create-board-card'>Create new board</button>
+        <CreateBoard />
       </div>
     </section>
   );

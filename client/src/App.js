@@ -5,6 +5,7 @@ import Landing from './components/pages/Landing';
 import Register from './components/pages/Register';
 import Login from './components/pages/Login';
 import Dashboard from './components/pages/Dashboard';
+import Board from './components/pages/Board';
 import Alert from './components/subcomponents/Alert';
 
 // Redux
@@ -35,6 +36,7 @@ const App = () => {
             <Route exact path='/register' component={Register} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/dashboard' component={Dashboard} />
+            <Route exact path='/board/:id' component={Board} />
           </Switch>
         </Fragment>
       </Router>
