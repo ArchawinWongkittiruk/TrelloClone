@@ -1,11 +1,11 @@
 import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Landing from './components/Landing';
-import Register from './components/Register';
-import Login from './components/Login';
-import Dashboard from './components/Dashboard';
-import Alert from './components/Alert';
+import Navbar from './components/subcomponents/Navbar';
+import Landing from './components/pages/Landing';
+import Register from './components/pages/Register';
+import Login from './components/pages/Login';
+import Dashboard from './components/pages/Dashboard';
+import Alert from './components/subcomponents/Alert';
 
 // Redux
 import { Provider } from 'react-redux';

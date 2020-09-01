@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { login } from '../actions/auth';
+import { login } from '../../actions/auth';
 import PropTypes from 'prop-types';
 
 import Button from '@material-ui/core/Button';
@@ -15,8 +15,8 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
-import Copyright from './Copyright';
-import useStyles from '../utils/formStyles';
+import Copyright from '../subcomponents/Copyright';
+import useStyles from '../../utils/formStyles';
 
 const Login = ({ login, isAuthenticated }) => {
   const classes = useStyles();
