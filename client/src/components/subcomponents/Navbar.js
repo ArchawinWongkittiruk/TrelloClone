@@ -7,17 +7,17 @@ import { logout } from '../../actions/auth';
 const Navbar = ({ isAuthenticated, logout }) => {
   if (!isAuthenticated) {
     return '';
-  } else {
-    return (
-      <nav className='navbar'>
-        <Link to='/dashboard'>Home</Link>
-        <Link to='/dashboard'>TrelloClone</Link>
-        <Link to='/' onClick={logout}>
-          Logout
-        </Link>
-      </nav>
-    );
   }
+
+  return (
+    <nav className='navbar'>
+      <Link to='/dashboard'>Home</Link>
+      <Link to='/dashboard'>TrelloClone</Link>
+      <Link to='/' onClick={logout}>
+        Logout
+      </Link>
+    </nav>
+  );
 };
 
 Navbar.propTypes = {
