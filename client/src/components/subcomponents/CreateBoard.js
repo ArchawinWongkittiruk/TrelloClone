@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import { Modal, TextField, Button } from '@material-ui/core';
 import useStyles from '../../utils/modalStyles';
 // import { createBoard } from '../../actions/board';
 
-const CreateBoard = () => {
+const CreateBoard = ({ history }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');
@@ -48,4 +49,4 @@ const CreateBoard = () => {
   );
 };
 
-export default CreateBoard;
+export default withRouter(CreateBoard);
