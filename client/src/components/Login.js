@@ -1,6 +1,10 @@
 // https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/sign-in
 
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { login } from '../actions/auth';
+import PropTypes from 'prop-types';
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -16,7 +20,7 @@ import Container from '@material-ui/core/Container';
 import Copyright from './Copyright';
 import useStyles from '../utils/formStyles';
 
-const Login = () => {
+const Login = ({ login, isAuthenticated }) => {
   const classes = useStyles();
 
   const [formData, setFormData] = useState({
@@ -30,8 +34,12 @@ const Login = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log('Success');
+    login(email, password);
   };
+
+  if (isAuthenticated) {
+    return <Redirect to='/dashboard' />;
+  }
 
   return (
     <Container component='main' maxWidth='xs' className={classes.container}>
@@ -93,6 +101,15 @@ const Login = () => {
       </Box>
     </Container>
   );
-}
+};
 
-export default Login;
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { login })(Login);
