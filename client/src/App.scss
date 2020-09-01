@@ -85,3 +85,58 @@ body {
     }
   }
 }
+
+// Dashboard
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px;
+
+  h1 {
+    text-align: center;
+    font-weight: 500;
+  }
+
+  h2 {
+    margin-top: 40px;
+    font-weight: 400;
+  }
+
+  .boards {
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .board-card {
+    width: 220px;
+    height: 120px;
+    padding: 20px 50px 20px 20px;
+    margin: 20px;
+    text-decoration: none;
+    font-weight: 500;
+    color: white;
+    border-radius: 10px;
+    background-color: #5067c5;
+    &:hover {
+      background-color: #4057b5;
+    }
+  }
+
+  .create-board-card {
+    padding: 0;
+    border: none;
+    color: #333;
+    font-size: 1rem;
+    background-color: lightgrey;
+    &:hover {
+      background-color: darkgrey;
+    }
+    cursor: pointer;
+  }
+}
