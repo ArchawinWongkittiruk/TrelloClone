@@ -116,7 +116,6 @@ router.patch(
 // Add a board member
 router.put('/addMember/:userId', [auth, member], async (req, res) => {
   try {
-    // Add board to user's boards
     const board = await Board.findById(req.header('boardId'));
     const user = await User.findById(req.params.userId);
     if (!user) {
@@ -128,6 +127,7 @@ router.put('/addMember/:userId', [auth, member], async (req, res) => {
       return res.status(400).json({ msg: 'Already member of board' });
     }
 
+    // Add board to user's boards
     user.boards.unshift(board.id);
     await user.save();
 
