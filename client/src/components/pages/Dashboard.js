@@ -19,7 +19,7 @@ const Dashboard = ({ auth: { user, isAuthenticated }, boards, getBoards }) => {
     <section className='dashboard'>
       <h1>Welcome {user && user.name}</h1>
       <h2>Your Boards</h2>
-      {boards.length === 0 && <CircularProgress className='loading' />}
+      {boards.length === 0 && <CircularProgress className='dashboard-loading' />}
       <div className='boards'>
         {boards.map((board) => (
           <Link key={board._id} to={`/board/${board._id}`} className='board-card'>

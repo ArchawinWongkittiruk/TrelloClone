@@ -1,16 +1,21 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getBoard } from '../../actions/board';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-const Board = ({ board, getBoard, match }) => {
+const Board = ({ board, getBoard, match, isAuthenticated }) => {
   useEffect(() => {
     getBoard(match.params.id);
   }, [getBoard, match.params.id]);
 
+  if (!isAuthenticated) {
+    return <Redirect to='/' />;
+  }
+
   return !board ? (
-    <CircularProgress />
+    <CircularProgress className='board-loading' />
   ) : (
     <section className='board'>
       <h1>{board.title}</h1>
@@ -25,6 +30,7 @@ Board.propTypes = {
 
 const mapStateToProps = (state) => ({
   board: state.board.board,
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { getBoard })(Board);

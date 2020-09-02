@@ -26,6 +26,7 @@ body {
   justify-content: space-between;
   padding: 10px;
   background-color: #026aa7;
+  height: 4.5vh;
 
   a {
     text-decoration: none;
@@ -104,7 +105,7 @@ body {
     font-weight: 400;
   }
 
-  .loading {
+  .dashboard-loading {
     margin: 40px;
   }
 
@@ -147,6 +148,14 @@ body {
 
 // Board
 
+.board-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
 .board {
   padding: 20px;
+  background-color: lightgrey;
+  height: 95.5vh;
 }
