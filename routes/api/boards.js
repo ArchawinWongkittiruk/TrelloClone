@@ -117,7 +117,7 @@ router.patch(
 router.put('/addMember/:id', [auth, member], async (req, res) => {
   try {
     // Add board to user's boards
-    const board = await Board.findById(req.body.boardId);
+    const board = await Board.findById(req.header('boardId'));
     const user = await User.findById(req.params.id);
     if (!user) {
       return res.status(404).json({ msg: 'User not found' });

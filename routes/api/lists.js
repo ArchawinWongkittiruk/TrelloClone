@@ -19,7 +19,8 @@ router.post(
     }
 
     try {
-      const { title, boardId } = req.body;
+      const title = req.body.title;
+      const boardId = req.header('boardId');
 
       // Create and save the list
       const newList = new List({ title });
@@ -119,7 +120,7 @@ router.patch('/archive/:archive/:id', [auth, member], async (req, res) => {
 
     // Log activity
     const user = await User.findById(req.user.id);
-    const board = await Board.findById(req.body.boardId);
+    const board = await Board.findById(req.header('boardId'));
     board.activity.unshift({
       text: list.archived
         ? `${user.name} archived list ${list.title}`
@@ -137,7 +138,8 @@ router.patch('/archive/:archive/:id', [auth, member], async (req, res) => {
 // Move a list
 router.patch('/move/:id', [auth, member], async (req, res) => {
   try {
-    const { toIndex, boardId } = req.body;
+    const toIndex = req.body.toIndex;
+    const boardId = req.header('boardId');
     const board = await Board.findById(boardId);
     const listId = req.params.id;
     if (!listId) {

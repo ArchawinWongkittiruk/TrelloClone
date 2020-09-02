@@ -1,7 +1,7 @@
 const Board = require('../models/Board');
 
 module.exports = async function (req, res, next) {
-  const board = await Board.findById(req.body.boardId);
+  const board = await Board.findById(req.header('boardId'));
   const members = board.members.map((member) => member.user);
 
   if (members.includes(req.user.id)) {
