@@ -2,6 +2,12 @@ import axios from 'axios';
 import { setAlert } from './alert';
 import { GET_BOARDS, GET_BOARD, ADD_BOARD, BOARD_ERROR } from './types';
 
+const config = {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+};
+
 // Get boards
 export const getBoards = () => async (dispatch) => {
   try {
@@ -37,15 +43,11 @@ export const getBoard = (id) => async (dispatch) => {
 };
 
 // Add board
-export const addBoard = (formData) => async (dispatch) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-
+export const addBoard = (formData, history) => async (dispatch) => {
   try {
-    const res = await axios.post('/api/boards/', formData, config);
+    const body = JSON.stringify(formData);
+
+    const res = await axios.post('/api/boards', body, config);
 
     dispatch({
       type: ADD_BOARD,
@@ -53,6 +55,8 @@ export const addBoard = (formData) => async (dispatch) => {
     });
 
     dispatch(setAlert('Board Created', 'success'));
+
+    history.push(`/board/${res.data._id}`);
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
