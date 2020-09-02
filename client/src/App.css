@@ -140,3 +140,7 @@ body {
 .dashboard .create-board-card:hover {
   background-color: darkgrey;
 }
+
+.board {
+  padding: 20px;
+}
