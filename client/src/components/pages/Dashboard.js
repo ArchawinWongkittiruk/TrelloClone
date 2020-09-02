@@ -1,19 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { getBoards } from '../../actions/board';
 import CreateBoard from '../subcomponents/CreateBoard';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-const Dashboard = ({ auth: { user, isAuthenticated } }) => {
-  const [boards, setBoards] = useState([]);
-
+const Dashboard = ({ auth: { user, isAuthenticated }, boards, getBoards }) => {
   useEffect(() => {
-    (async function getBoards() {
-      setBoards((await axios.get('/api/boards')).data);
-    })();
-  }, []);
+    getBoards();
+  }, [getBoards]);
 
   if (!isAuthenticated) {
     return <Redirect to='/' />;
@@ -38,10 +34,13 @@ const Dashboard = ({ auth: { user, isAuthenticated } }) => {
 
 Dashboard.propTypes = {
   auth: PropTypes.object.isRequired,
+  boards: PropTypes.array,
+  getBoards: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  boards: state.board.boards,
 });
 
-export default connect(mapStateToProps)(Dashboard);
+export default connect(mapStateToProps, { getBoards })(Dashboard);
