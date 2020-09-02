@@ -4,8 +4,9 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getBoard } from '../../actions/board';
 import { CircularProgress, Box } from '@material-ui/core';
+import BoardTitle from '../board/BoardTitle';
 
-const Board = ({ board, getBoard, match, isAuthenticated }) => {
+const Board = ({ board: { board, loading }, getBoard, match, isAuthenticated }) => {
   useEffect(() => {
     getBoard(match.params.id);
   }, [getBoard, match.params.id]);
@@ -14,13 +15,13 @@ const Board = ({ board, getBoard, match, isAuthenticated }) => {
     return <Redirect to='/' />;
   }
 
-  return !board ? (
+  return loading || !board ? (
     <Box className='board-loading'>
       <CircularProgress />
     </Box>
   ) : (
     <section className='board'>
-      <h1>{board.title}</h1>
+      <BoardTitle originalTitle={board.title} boardId={board._id} />
     </section>
   );
 };
@@ -31,7 +32,7 @@ Board.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  board: state.board.board,
+  board: state.board,
   isAuthenticated: state.auth.isAuthenticated,
 });
 

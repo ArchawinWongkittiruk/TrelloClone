@@ -1,4 +1,10 @@
-import { GET_BOARDS, GET_BOARD, ADD_BOARD, BOARD_ERROR } from '../actions/types';
+import {
+  GET_BOARDS,
+  GET_BOARD,
+  ADD_BOARD,
+  BOARD_ERROR,
+  RENAME_BOARD,
+} from '../actions/types';
 
 const initialState = {
   boards: [],
@@ -15,8 +21,10 @@ export default function (state = initialState, action) {
       return {
         ...state,
         boards: payload,
+        board: null,
         loading: false,
       };
+    case RENAME_BOARD:
     case GET_BOARD:
       return {
         ...state,

@@ -11,3 +11,4 @@ export const GET_BOARDS = 'GET_BOARDS';
 export const GET_BOARD = 'GET_BOARD';
 export const ADD_BOARD = 'ADD_BOARD';
 export const BOARD_ERROR = 'BOARD_ERROR';
+export const RENAME_BOARD = 'RENAME_BOARD';

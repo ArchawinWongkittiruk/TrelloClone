@@ -95,10 +95,12 @@ router.patch(
       }
 
       // Log activity
-      const user = await User.findById(req.user.id);
-      board.activity.unshift({
-        text: `${user.name} renamed this board (from ${board.title})`,
-      });
+      if (req.body.title !== board.title) {
+        const user = await User.findById(req.user.id);
+        board.activity.unshift({
+          text: `${user.name} renamed this board (from ${board.title})`,
+        });
+      }
 
       board.title = req.body.title;
       await board.save();

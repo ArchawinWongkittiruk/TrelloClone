@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { setAlert } from './alert';
-import { GET_BOARDS, GET_BOARD, ADD_BOARD, BOARD_ERROR } from './types';
+import { GET_BOARDS, GET_BOARD, ADD_BOARD, BOARD_ERROR, RENAME_BOARD } from './types';
 
 const config = {
   headers: {
@@ -57,6 +57,25 @@ export const addBoard = (formData, history) => async (dispatch) => {
     dispatch(setAlert('Board Created', 'success'));
 
     history.push(`/board/${res.data._id}`);
+  } catch (err) {
+    dispatch({
+      type: BOARD_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Rename board
+export const renameBoard = ({ boardId, title }) => async (dispatch) => {
+  try {
+    const body = JSON.stringify({ boardId, title });
+
+    const res = await axios.patch(`/api/boards/rename/${boardId}`, body, config);
+
+    dispatch({
+      type: RENAME_BOARD,
+      payload: res.data,
+    });
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
