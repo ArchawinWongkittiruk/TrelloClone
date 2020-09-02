@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import { renameBoard } from '../../actions/board';
 import { TextField } from '@material-ui/core';
 
-const BoardTitle = ({ originalTitle, renameBoard }) => {
+const BoardTitle = ({ boardId, originalTitle, renameBoard }) => {
   const [title, setTitle] = useState(originalTitle);
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    renameBoard({ title });
+    renameBoard(boardId, { title });
   };
 
   return (
@@ -20,6 +20,7 @@ const BoardTitle = ({ originalTitle, renameBoard }) => {
 };
 
 BoardTitle.propTypes = {
+  boardId: PropTypes.string.isRequired,
   originalTitle: PropTypes.string.isRequired,
   renameBoard: PropTypes.func.isRequired,
 };

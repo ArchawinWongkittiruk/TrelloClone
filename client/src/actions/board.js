@@ -72,11 +72,9 @@ export const addBoard = (formData, history) => async (dispatch) => {
 };
 
 // Rename board
-export const renameBoard = ({ boardId, title }) => async (dispatch) => {
+export const renameBoard = (boardId, formData) => async (dispatch) => {
   try {
-    const body = JSON.stringify({ boardId, title });
-
-    const res = await axios.patch(`/api/boards/rename/${boardId}`, body, config);
+    const res = await axios.patch(`/api/boards/rename/${boardId}`, formData, config);
 
     dispatch({
       type: RENAME_BOARD,
