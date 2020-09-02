@@ -157,7 +157,7 @@ router.patch('/move/:id', [auth, member], async (req, res) => {
     }
 
     if (!to.cards.includes(cardId)) {
-      if (toIndex) {
+      if (toIndex === 0 || toIndex) {
         to.cards.splice(toIndex, 0, cardId);
       } else {
         to.cards.push(cardId);
