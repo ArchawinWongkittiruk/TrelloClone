@@ -1,6 +1,14 @@
 import axios from 'axios';
 import { setAlert } from './alert';
-import { GET_BOARDS, GET_BOARD, ADD_BOARD, BOARD_ERROR, RENAME_BOARD } from './types';
+import {
+  GET_BOARDS,
+  GET_BOARD,
+  ADD_BOARD,
+  BOARD_ERROR,
+  RENAME_BOARD,
+  GET_LISTS,
+  GET_LIST,
+} from './types';
 
 const config = {
   headers: {
@@ -40,6 +48,8 @@ export const getBoard = (id) => async (dispatch) => {
       type: GET_BOARD,
       payload: res.data,
     });
+
+    dispatch(getLists(res.data._id));
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
@@ -78,6 +88,40 @@ export const renameBoard = (boardId, formData) => async (dispatch) => {
 
     dispatch({
       type: RENAME_BOARD,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: BOARD_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Get lists
+export const getLists = (boardId) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/lists/boardLists/${boardId}`);
+
+    dispatch({
+      type: GET_LISTS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: BOARD_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Get list
+export const getList = (id) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/lists/${id}`);
+
+    dispatch({
+      type: GET_LIST,
       payload: res.data,
     });
   } catch (err) {

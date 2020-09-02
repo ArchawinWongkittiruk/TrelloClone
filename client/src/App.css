@@ -144,11 +144,24 @@ body {
 
 .board-loading {
   text-align: center;
-  margin-top: 50%;
+  margin-top: 20%;
 }
 
 .board {
   padding: 20px;
-  background-color: lightgrey;
+  background-color: #eee;
   height: 95.5vh;
+}
+
+.lists {
+  display: flex;
+  flex-direction: row;
+}
+
+.list {
+  background-color: lightgrey;
+  width: 250px;
+  margin-top: 10px;
+  margin-right: 10px;
+  padding: 10px;
 }

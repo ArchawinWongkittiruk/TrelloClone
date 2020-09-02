@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { getBoard } from '../../actions/board';
 import { CircularProgress, Box } from '@material-ui/core';
 import BoardTitle from '../board/BoardTitle';
+import List from '../board/List';
 
 const Board = ({ board: { board, loading }, getBoard, match, isAuthenticated }) => {
   useEffect(() => {
@@ -22,6 +23,11 @@ const Board = ({ board: { board, loading }, getBoard, match, isAuthenticated }) 
   ) : (
     <section className='board'>
       <BoardTitle boardId={board._id} originalTitle={board.title} />
+      <div className='lists'>
+        {board.lists.map((list) => (
+          <List key={list._id ? list._id : list} list={list._id ? list : {}} />
+        ))}
+      </div>
     </section>
   );
 };
