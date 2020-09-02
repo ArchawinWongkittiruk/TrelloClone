@@ -4,6 +4,7 @@ import { Redirect, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import CreateBoard from '../subcomponents/CreateBoard';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const Dashboard = ({ auth: { user, isAuthenticated } }) => {
   const [boards, setBoards] = useState([]);
@@ -22,6 +23,7 @@ const Dashboard = ({ auth: { user, isAuthenticated } }) => {
     <section className='dashboard'>
       <h1>Welcome {user && user.name}</h1>
       <h2>Your Boards</h2>
+      {boards.length === 0 && <CircularProgress className='loading' />}
       <div className='boards'>
         {boards.map((board) => (
           <Link key={board._id} to={`/board/${board._id}`} className='board-card'>

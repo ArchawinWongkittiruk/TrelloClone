@@ -99,6 +99,10 @@ body {
   font-weight: 400;
 }
 
+.dashboard .loading {
+  margin: 40px;
+}
+
 .dashboard .boards {
   margin: 10px;
   display: flex;
