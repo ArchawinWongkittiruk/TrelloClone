@@ -114,11 +114,11 @@ router.patch(
 );
 
 // Add a board member
-router.put('/addMember/:id', [auth, member], async (req, res) => {
+router.put('/addMember/:userId', [auth, member], async (req, res) => {
   try {
     // Add board to user's boards
     const board = await Board.findById(req.header('boardId'));
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.userId);
     if (!user) {
       return res.status(404).json({ msg: 'User not found' });
     }

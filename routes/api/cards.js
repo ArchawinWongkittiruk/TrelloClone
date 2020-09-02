@@ -136,12 +136,12 @@ router.patch('/archive/:archive/:id', [auth, member], async (req, res) => {
 });
 
 // Move a card
-router.patch('/move/:cardId', [auth, member], async (req, res) => {
+router.patch('/move/:id', [auth, member], async (req, res) => {
   try {
     const { fromId, toId, toIndex } = req.body;
     const boardId = req.header('boardId');
 
-    const cardId = req.params.cardId;
+    const cardId = req.params.id;
     const from = await List.findById(fromId);
     let to = await List.findById(toId);
     if (!cardId || !from || !to) {
