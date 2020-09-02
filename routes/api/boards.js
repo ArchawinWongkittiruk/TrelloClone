@@ -117,6 +117,15 @@ router.put('/addMember/:id', [auth, member], async (req, res) => {
     // Add board to user's boards
     const board = await Board.findById(req.body.boardId);
     const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ msg: 'User not found' });
+    }
+
+    // See if already member of board
+    if (board.members.map((member) => member.user).includes(req.params.id)) {
+      return res.status(400).json({ msg: 'Already member of board' });
+    }
+
     user.boards.unshift(board.id);
     await user.save();
 

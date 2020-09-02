@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../../middleware/auth');
 const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -64,14 +65,14 @@ router.post(
 );
 
 // Get users with name/email regex
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
   try {
     const regex = new RegExp(req.body.input, 'i');
     const users = await User.find({
       $or: [{ name: regex }, { email: regex }],
     }).select('-password');
 
-    res.json(users);
+    res.json(users.filter((user) => user.id !== req.user.id));
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
