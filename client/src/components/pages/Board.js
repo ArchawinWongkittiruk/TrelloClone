@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getBoard } from '../../actions/board';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { CircularProgress, Box } from '@material-ui/core';
 
 const Board = ({ board, getBoard, match, isAuthenticated }) => {
   useEffect(() => {
@@ -15,7 +15,9 @@ const Board = ({ board, getBoard, match, isAuthenticated }) => {
   }
 
   return !board ? (
-    <CircularProgress className='board-loading' />
+    <Box className='board-loading'>
+      <CircularProgress />
+    </Box>
   ) : (
     <section className='board'>
       <h1>{board.title}</h1>

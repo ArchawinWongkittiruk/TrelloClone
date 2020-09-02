@@ -143,9 +143,8 @@ body {
 }
 
 .board-loading {
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  text-align: center;
+  margin-top: 50%;
 }
 
 .board {
