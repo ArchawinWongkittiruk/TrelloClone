@@ -21,7 +21,7 @@ const Board = ({ board: { board, loading }, getBoard, match, isAuthenticated }) 
     </Box>
   ) : (
     <section className='board'>
-      <BoardTitle originalTitle={board.title} boardId={board._id} />
+      <BoardTitle originalTitle={board.title} />
     </section>
   );
 };

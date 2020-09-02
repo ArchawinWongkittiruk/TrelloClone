@@ -30,6 +30,12 @@ export const getBoard = (id) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/boards/${id}`);
 
+    if (res) {
+      axios.defaults.headers.common['boardId'] = id;
+    } else {
+      delete axios.defaults.headers.common['boardId'];
+    }
+
     dispatch({
       type: GET_BOARD,
       payload: res.data,
