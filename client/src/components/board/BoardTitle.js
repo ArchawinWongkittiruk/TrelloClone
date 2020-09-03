@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { renameBoard } from '../../actions/board';
 import { TextField } from '@material-ui/core';
 
-const BoardTitle = ({ boardId, originalTitle, renameBoard }) => {
+const BoardTitle = ({ boardId, originalTitle }) => {
   const [title, setTitle] = useState(originalTitle);
+  const dispatch = useDispatch();
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    renameBoard(boardId, { title });
+    dispatch(renameBoard(boardId, { title }));
   };
 
   return (
@@ -22,11 +23,6 @@ const BoardTitle = ({ boardId, originalTitle, renameBoard }) => {
 BoardTitle.propTypes = {
   boardId: PropTypes.string.isRequired,
   originalTitle: PropTypes.string.isRequired,
-  renameBoard: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  board: state.board.board,
-});
-
-export default connect(mapStateToProps, { renameBoard })(BoardTitle);
+export default BoardTitle;

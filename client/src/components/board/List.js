@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-// import { renameList } from '../../actions/board';
 import { TextField } from '@material-ui/core';
 
 const List = ({ list }) => {
@@ -13,7 +11,6 @@ const List = ({ list }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    // renameList({ title });
   };
 
   return list._id ? (
@@ -29,11 +26,6 @@ const List = ({ list }) => {
 
 List.propTypes = {
   list: PropTypes.object.isRequired,
-  // renameList: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  board: state.board.board,
-});
-
-export default connect(mapStateToProps)(List);
+export default List;

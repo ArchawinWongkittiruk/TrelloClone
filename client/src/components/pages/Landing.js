@@ -1,10 +1,11 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
-const Landing = ({ isAuthenticated }) => {
+const Landing = () => {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
   if (isAuthenticated) {
     return <Redirect to='/dashboard' />;
   }
@@ -37,12 +38,4 @@ const Landing = ({ isAuthenticated }) => {
   );
 };
 
-Landing.propTypes = {
-  isAuthenticated: PropTypes.bool,
-};
-
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-});
-
-export default connect(mapStateToProps)(Landing);
+export default Landing;

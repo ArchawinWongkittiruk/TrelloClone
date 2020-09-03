@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { addBoard } from '../../actions/board';
 import { Modal, TextField, Button } from '@material-ui/core';
 import useStyles from '../../utils/modalStyles';
 
-const CreateBoard = ({ addBoard, history }) => {
+const CreateBoard = ({ history }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');
+  const dispatch = useDispatch();
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    addBoard({ title }, history);
+    dispatch(addBoard({ title }, history));
   };
 
   const body = (
@@ -51,8 +51,4 @@ const CreateBoard = ({ addBoard, history }) => {
   );
 };
 
-CreateBoard.propTypes = {
-  addBoard: PropTypes.func.isRequired,
-};
-
-export default connect(null, { addBoard })(withRouter(CreateBoard));
+export default withRouter(CreateBoard);

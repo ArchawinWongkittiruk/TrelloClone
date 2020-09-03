@@ -1,22 +1,25 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { getBoard } from '../../actions/board';
 import { CircularProgress, Box } from '@material-ui/core';
 import BoardTitle from '../board/BoardTitle';
 import List from '../board/List';
 
-const Board = ({ board: { board, loading }, getBoard, match, isAuthenticated }) => {
+const Board = ({ match }) => {
+  const board = useSelector((state) => state.board.board);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    getBoard(match.params.id);
-  }, [getBoard, match.params.id]);
+    dispatch(getBoard(match.params.id));
+  }, [dispatch, match.params.id]);
 
   if (!isAuthenticated) {
     return <Redirect to='/' />;
   }
 
-  return loading || !board ? (
+  return !board ? (
     <Box className='board-loading'>
       <CircularProgress />
     </Box>
@@ -32,14 +35,4 @@ const Board = ({ board: { board, loading }, getBoard, match, isAuthenticated }) 
   );
 };
 
-Board.propTypes = {
-  board: PropTypes.object.isRequired,
-  getBoard: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  board: state.board,
-  isAuthenticated: state.auth.isAuthenticated,
-});
-
-export default connect(mapStateToProps, { getBoard })(Board);
+export default Board;
