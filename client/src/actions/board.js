@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { setAlert } from './alert';
 import {
+  CLEAR_BOARD,
   GET_BOARDS,
   GET_BOARD,
   ADD_BOARD,
@@ -20,6 +21,8 @@ const config = {
 // Get boards
 export const getBoards = () => async (dispatch) => {
   try {
+    dispatch({ type: CLEAR_BOARD });
+
     const res = await axios.get('/api/boards');
 
     dispatch({
@@ -37,6 +40,8 @@ export const getBoards = () => async (dispatch) => {
 // Get board
 export const getBoard = (id) => async (dispatch) => {
   try {
+    dispatch({ type: CLEAR_BOARD });
+    
     const res = await axios.get(`/api/boards/${id}`);
 
     if (res) {

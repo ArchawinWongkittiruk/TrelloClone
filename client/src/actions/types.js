@@ -7,6 +7,7 @@ export const AUTH_ERROR = 'AUTH_ERROR';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
+export const CLEAR_BOARD = 'CLEAR_BOARD';
 export const GET_BOARDS = 'GET_BOARDS';
 export const GET_BOARD = 'GET_BOARD';
 export const ADD_BOARD = 'ADD_BOARD';

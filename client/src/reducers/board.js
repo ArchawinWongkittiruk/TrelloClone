@@ -1,4 +1,5 @@
 import {
+  CLEAR_BOARD,
   GET_BOARDS,
   GET_BOARD,
   ADD_BOARD,
@@ -20,11 +21,15 @@ export default function (state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
+    case CLEAR_BOARD:
+      return {
+        ...state,
+        board: null,
+      }
     case GET_BOARDS:
       return {
         ...state,
         boards: payload,
-        board: null,
         dashboardLoading: false,
       };
     case RENAME_BOARD:
