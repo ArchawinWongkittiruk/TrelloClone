@@ -8,6 +8,7 @@ import {
   RENAME_BOARD,
   GET_LISTS,
   GET_LIST,
+  ADD_LIST,
 } from './types';
 
 const config = {
@@ -46,10 +47,8 @@ export const getBoard = (id) => async (dispatch) => {
 
     dispatch({
       type: GET_BOARD,
-      payload: res.data,
+      payload: { ...res.data, listObjects: [] },
     });
-
-    dispatch(getLists(res.data._id));
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
@@ -122,6 +121,25 @@ export const getList = (id) => async (dispatch) => {
 
     dispatch({
       type: GET_LIST,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: BOARD_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Add list
+export const addList = (formData) => async (dispatch) => {
+  try {
+    const body = JSON.stringify(formData);
+
+    const res = await axios.post('/api/lists', body, config);
+
+    dispatch({
+      type: ADD_LIST,
       payload: res.data,
     });
   } catch (err) {

@@ -5,6 +5,7 @@ import { getBoard } from '../../actions/board';
 import { CircularProgress, Box } from '@material-ui/core';
 import BoardTitle from '../board/BoardTitle';
 import List from '../board/List';
+import CreateList from '../board/CreateList';
 
 const Board = ({ match }) => {
   const board = useSelector((state) => state.board.board);
@@ -25,11 +26,14 @@ const Board = ({ match }) => {
     </Box>
   ) : (
     <section className='board'>
-      <BoardTitle boardId={board._id} originalTitle={board.title} />
+      <div className='board-top'>
+        <BoardTitle boardId={board._id} originalTitle={board.title} />
+      </div>
       <div className='lists'>
-        {board.lists.map((list) => (
-          <List key={list._id ? list._id : list} list={list._id ? list : {}} />
+        {board.lists.map((listId) => (
+          <List key={listId} listId={listId} />
         ))}
+        <CreateList />
       </div>
     </section>
   );

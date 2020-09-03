@@ -14,3 +14,4 @@ export const BOARD_ERROR = 'BOARD_ERROR';
 export const RENAME_BOARD = 'RENAME_BOARD';
 export const GET_LISTS = 'GET_LISTS';
 export const GET_LIST = 'GET_LIST';
+export const ADD_LIST = 'ADD_LIST';

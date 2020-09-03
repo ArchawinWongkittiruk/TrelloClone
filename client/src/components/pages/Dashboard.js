@@ -8,7 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 const Dashboard = () => {
   const { user, isAuthenticated } = useSelector((state) => state.auth);
   const boards = useSelector((state) => state.board.boards);
-  const loading = useSelector((state) => state.board.loading);
+  const loading = useSelector((state) => state.board.dashboardLoading);
   const dispatch = useDispatch();
 
   useEffect(() => {

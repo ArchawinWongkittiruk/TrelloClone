@@ -6,12 +6,13 @@ import {
   RENAME_BOARD,
   GET_LISTS,
   GET_LIST,
+  ADD_LIST,
 } from '../actions/types';
 
 const initialState = {
   boards: [],
   board: null,
-  loading: true,
+  dashboardLoading: true,
   error: {},
 };
 
@@ -24,44 +25,47 @@ export default function (state = initialState, action) {
         ...state,
         boards: payload,
         board: null,
-        loading: false,
+        dashboardLoading: false,
       };
     case RENAME_BOARD:
     case GET_BOARD:
       return {
         ...state,
         board: payload,
-        loading: false,
       };
     case ADD_BOARD:
       return {
         ...state,
         boards: [payload, ...state.boards],
-        loading: false,
       };
     case BOARD_ERROR:
       return {
         ...state,
         error: payload,
-        loading: false,
       };
     case GET_LISTS:
       return {
         ...state,
         board: {
           ...state.board,
-          lists: payload,
+          listObjects: payload,
         },
-        loading: false,
       };
     case GET_LIST:
       return {
         ...state,
         board: {
           ...state.board,
-          lists: state.board.lists.map((list) => (list === payload._id ? payload : list)),
+          listObjects: [...state.board.listObjects, payload],
         },
-        loading: false,
+      };
+    case ADD_LIST:
+      return {
+        ...state,
+        board: {
+          ...state.board,
+          lists: [...state.board.lists, payload._id],
+        },
       };
     default:
       return state;

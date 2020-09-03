@@ -149,19 +149,38 @@ body {
 
 .board {
   padding: 20px;
-  background-color: #eee;
+  background-color: #ccc;
   height: 95.5vh;
+}
+
+.board-top {
+  height: 4vh;
 }
 
 .lists {
   display: flex;
   flex-direction: row;
+  overflow-x: auto;
+  height: 88vh;
 }
 
 .list {
-  background-color: lightgrey;
-  width: 250px;
+  background-color: #eee;
+  border-radius: 5px;
+  min-width: 280px;
+  height: fit-content;
   margin-top: 10px;
   margin-right: 10px;
   padding: 10px;
+}
+
+.create-list-button {
+  margin-top: 10px;
+  min-width: 200px;
+}
+
+.create-list-form {
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
 }
