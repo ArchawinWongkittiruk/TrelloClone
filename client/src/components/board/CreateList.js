@@ -4,7 +4,7 @@ import { addList } from '../../actions/board';
 import { TextField, Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
-const CreateBoard = () => {
+const CreateList = () => {
   const [adding, setAdding] = useState(false);
   const [title, setTitle] = useState('');
   const dispatch = useDispatch();
@@ -49,4 +49,4 @@ const CreateBoard = () => {
   );
 };
 
-export default CreateBoard;
+export default CreateList;
