@@ -40,7 +40,7 @@ router.post(
       });
       await board.save();
 
-      res.json(card);
+      res.json({ cardId: card.id, listId });
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');

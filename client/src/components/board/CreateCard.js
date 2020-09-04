@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-// import { useDispatch } from 'react-redux';
-// import { addCard } from '../../actions/board';
+import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+import { addCard } from '../../actions/board';
 import { TextField, Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
-const CreateCard = () => {
+const CreateCard = ({ listId }) => {
   const [adding, setAdding] = useState(false);
   const [title, setTitle] = useState('');
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    // dispatch(addCard({ title }));
+    dispatch(addCard({ title, listId }));
     setTitle('');
     setAdding(false);
   };
@@ -49,6 +50,10 @@ const CreateCard = () => {
       </form>
     </div>
   );
+};
+
+CreateCard.propTypes = {
+  listId: PropTypes.string.isRequired,
 };
 
 export default CreateCard;

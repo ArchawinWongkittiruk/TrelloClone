@@ -29,7 +29,7 @@ const List = ({ listId }) => {
         {list.cards.map((cardId) => (
           <Card key={cardId} cardId={cardId} />
         ))}
-        <CreateCard />
+        <CreateCard listId={listId}/>
       </div>
     </div>
   );

@@ -12,6 +12,7 @@ import {
   ADD_LIST,
   RENAME_LIST,
   ARCHIVE_LIST,
+  ADD_CARD,
 } from './types';
 
 const config = {
@@ -182,8 +183,25 @@ export const archiveList = (listId, archive) => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
-    console.log(err);
+    dispatch({
+      type: BOARD_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
 
+// Add card
+export const addCard = (formData) => async (dispatch) => {
+  try {
+    const body = JSON.stringify(formData);
+
+    const res = await axios.post('/api/cards', body, config);
+
+    dispatch({
+      type: ADD_CARD,
+      payload: res.data,
+    });
+  } catch (err) {
     dispatch({
       type: BOARD_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },

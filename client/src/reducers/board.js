@@ -10,6 +10,7 @@ import {
   ADD_LIST,
   RENAME_LIST,
   ARCHIVE_LIST,
+  ADD_CARD,
 } from '../actions/types';
 
 const initialState = {
@@ -91,6 +92,18 @@ export default function (state = initialState, action) {
           ...state.board,
           listObjects: state.board.listObjects.map((list) =>
             list._id === payload._id ? { ...list, archived: payload.archived } : list
+          ),
+        },
+      };
+    case ADD_CARD:
+      return {
+        ...state,
+        board: {
+          ...state.board,
+          listObjects: state.board.listObjects.map((list) =>
+            list._id === payload.listId
+              ? { ...list, cards: [...list.cards, payload.cardId] }
+              : list
           ),
         },
       };
