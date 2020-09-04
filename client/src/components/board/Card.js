@@ -51,42 +51,41 @@ const Card = ({ cardId }) => {
           <EditIcon fontSize='small' />
         </Button>
       )}
-      {!editing ? (
-        <CardContent>
+      <CardContent>
+        {!editing ? (
           <p>{card.title}</p>
-        </CardContent>
-      ) : (
-        <div className='create-card-form'>
-          <form onSubmit={(e) => onSubmitEdit(e)}>
-            <TextField
-              variant='filled'
-              margin='normal'
-              fullWidth
-              multiline
-              required
-              id='title'
-              label="Edit this card's title"
-              name='title'
-              autoFocus
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-            <div>
-              <Button type='submit' variant='contained' color='primary'>
-                Save
-              </Button>
-              <Button
-                onClick={() => {
-                  setEditing(false);
-                  setMouseOver(false);
-                }}
-              >
-                <CloseIcon />
-              </Button>
-            </div>
-          </form>
-        </div>
-      )}
+        ) : (
+          <div className='create-card-form'>
+            <form onSubmit={(e) => onSubmitEdit(e)}>
+              <TextField
+                margin='normal'
+                fullWidth
+                multiline
+                required
+                id='title'
+                label="Edit this card's title"
+                name='title'
+                autoFocus
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+              <div>
+                <Button type='submit' variant='contained' color='primary'>
+                  Save
+                </Button>
+                <Button
+                  onClick={() => {
+                    setEditing(false);
+                    setMouseOver(false);
+                  }}
+                >
+                  <CloseIcon />
+                </Button>
+              </div>
+            </form>
+          </div>
+        )}
+      </CardContent>
     </CardMUI>
   );
 };
