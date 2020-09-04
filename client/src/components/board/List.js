@@ -20,17 +20,19 @@ const List = ({ listId }) => {
   return !list || (list && list.archived) ? (
     ''
   ) : (
-    <div className='list'>
+    <div className='list-wrapper'>
       <div className='list-top'>
         <ListTitle listId={listId} originalTitle={list.title} />
         <ListMenu listId={listId} />
       </div>
-      <div className='cards'>
-        {list.cards.map((cardId) => (
-          <Card key={cardId} cardId={cardId} />
-        ))}
-        <CreateCard listId={listId}/>
+      <div className='list'>
+        <div className='cards'>
+          {list.cards.map((cardId) => (
+            <Card key={cardId} cardId={cardId} />
+          ))}
+        </div>
       </div>
+      <CreateCard listId={listId} />
     </div>
   );
 };

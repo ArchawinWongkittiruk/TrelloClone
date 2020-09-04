@@ -182,7 +182,7 @@ body {
     overflow-x: auto;
     height: 90vh;
 
-    .list {
+    .list-wrapper {
       background-color: #eee;
       border-radius: 5px;
       min-width: 280px;
@@ -207,23 +207,29 @@ body {
         flex-direction: column;
       }
 
-      .cards {
-        display: flex;
-        flex-direction: column;
+      .list {
+        max-height: 76vh;
+        overflow-y: auto;
 
-        .card {
-          margin: 5px 0;
-          position: relative;
+        .cards {
+          display: flex;
+          flex-direction: column;
+          margin-right: 2px;
 
-          .edit-button {
-            position: absolute;
-            bottom: 20px;
-            left: 190px;
+          .card {
+            margin: 5px 0;
+            position: relative;
+
+            .edit-button {
+              position: absolute;
+              bottom: 20px;
+              left: 190px;
+            }
           }
-        }
 
-        .mouse-over {
-          background-color: #e5e5e5;
+          .mouse-over {
+            background-color: #e5e5e5;
+          }
         }
       }
     }

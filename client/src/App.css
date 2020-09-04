@@ -178,7 +178,7 @@ body {
   height: 90vh;
 }
 
-.board .lists .list {
+.board .lists .list-wrapper {
   background-color: #eee;
   border-radius: 5px;
   min-width: 280px;
@@ -189,37 +189,43 @@ body {
   padding: 10px;
 }
 
-.board .lists .list .list-top {
+.board .lists .list-wrapper .list-top {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.board .lists .list .create-card-button {
+.board .lists .list-wrapper .create-card-button {
   margin-top: 10px;
 }
 
-.board .lists .list .create-card-form {
+.board .lists .list-wrapper .create-card-form {
   display: flex;
   flex-direction: column;
 }
 
-.board .lists .list .cards {
-  display: flex;
-  flex-direction: column;
+.board .lists .list-wrapper .list {
+  max-height: 76vh;
+  overflow-y: auto;
 }
 
-.board .lists .list .cards .card {
+.board .lists .list-wrapper .list .cards {
+  display: flex;
+  flex-direction: column;
+  margin-right: 2px;
+}
+
+.board .lists .list-wrapper .list .cards .card {
   margin: 5px 0;
   position: relative;
 }
 
-.board .lists .list .cards .card .edit-button {
+.board .lists .list-wrapper .list .cards .card .edit-button {
   position: absolute;
   bottom: 20px;
   left: 190px;
 }
 
-.board .lists .list .cards .mouse-over {
+.board .lists .list-wrapper .list .cards .mouse-over {
   background-color: #e5e5e5;
 }
