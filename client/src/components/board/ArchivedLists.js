@@ -12,7 +12,6 @@ const ArchivedLists = () => {
   const dispatch = useDispatch();
 
   const onSubmit = (listId) => {
-    console.log(listId);
     dispatch(archiveList(listId, false));
   };
 
