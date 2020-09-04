@@ -211,6 +211,13 @@ body {
 
 .board .lists .list .cards .card {
   margin: 5px 0;
+  position: relative;
+}
+
+.board .lists .list .cards .card .edit-button {
+  position: absolute;
+  bottom: 20px;
+  left: 190px;
 }
 
 .board .lists .list .cards .mouse-over {

@@ -3,9 +3,9 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 
 import CardMUI from '@material-ui/core/Card';
-// import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-// import Button from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button';
+import EditIcon from '@material-ui/icons/Edit';
 
 const Card = ({ cardId }) => {
   const [mouseOver, setMouseOver] = useState(false);
@@ -25,6 +25,11 @@ const Card = ({ cardId }) => {
       onMouseEnter={() => setMouseOver(true)}
       onMouseLeave={() => setMouseOver(false)}
     >
+      {mouseOver && (
+        <Button className='edit-button'>
+          <EditIcon fontSize='small' />
+        </Button>
+      )}
       <CardContent>
         <p>{card.title}</p>
       </CardContent>

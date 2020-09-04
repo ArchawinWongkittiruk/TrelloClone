@@ -213,6 +213,13 @@ body {
 
         .card {
           margin: 5px 0;
+          position: relative;
+
+          .edit-button {
+            position: absolute;
+            bottom: 20px;
+            left: 190px;
+          }
         }
 
         .mouse-over {
