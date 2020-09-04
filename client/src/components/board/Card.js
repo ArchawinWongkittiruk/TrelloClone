@@ -77,6 +77,7 @@ const Card = ({ cardId }) => {
                   onClick={() => {
                     setEditing(false);
                     setMouseOver(false);
+                    setTitle(card.title);
                   }}
                 >
                   <CloseIcon />
