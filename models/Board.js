@@ -14,7 +14,6 @@ const BoardSchema = new Schema(
     ],
     activity: [
       {
-        _id: false,
         text: {
           type: String,
         },
