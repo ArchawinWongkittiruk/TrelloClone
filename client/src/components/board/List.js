@@ -5,6 +5,7 @@ import { getList } from '../../actions/board';
 import ListTitle from './ListTitle';
 import ListMenu from './ListMenu';
 import Card from './Card';
+import CreateCard from './CreateCard';
 
 const List = ({ listId }) => {
   const list = useSelector((state) =>
@@ -28,7 +29,7 @@ const List = ({ listId }) => {
         {list.cards.map((cardId) => (
           <Card key={cardId} cardId={cardId} />
         ))}
-        {/* <CreateCard /> */}
+        <CreateCard />
       </div>
     </div>
   );

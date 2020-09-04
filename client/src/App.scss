@@ -197,6 +197,15 @@ body {
         justify-content: space-between;
       }
 
+      .create-card-button {
+        margin-top: 10px;
+      }
+
+      .create-card-form {
+        display: flex;
+        flex-direction: column;
+      }
+
       .cards {
         display: flex;
         flex-direction: column;

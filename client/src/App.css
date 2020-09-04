@@ -194,6 +194,15 @@ body {
   justify-content: space-between;
 }
 
+.board .lists .list .create-card-button {
+  margin-top: 10px;
+}
+
+.board .lists .list .create-card-form {
+  display: flex;
+  flex-direction: column;
+}
+
 .board .lists .list .cards {
   display: flex;
   flex-direction: column;
