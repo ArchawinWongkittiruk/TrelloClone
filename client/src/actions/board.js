@@ -42,8 +42,6 @@ export const getBoards = () => async (dispatch) => {
 // Get board
 export const getBoard = (id) => async (dispatch) => {
   try {
-    dispatch({ type: CLEAR_BOARD });
-
     const res = await axios.get(`/api/boards/${id}`);
 
     if (res) {
