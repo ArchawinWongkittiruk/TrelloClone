@@ -212,3 +212,7 @@ body {
 .board .lists .list .cards .card {
   margin: 5px 0;
 }
+
+.board .lists .list .cards .mouse-over {
+  background-color: #e5e5e5;
+}

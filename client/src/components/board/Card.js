@@ -8,6 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 // import Button from '@material-ui/core/Button';
 
 const Card = ({ cardId }) => {
+  const [mouseOver, setMouseOver] = useState(false);
   const [card, setCard] = useState(null);
 
   useEffect(() => {
@@ -19,7 +20,11 @@ const Card = ({ cardId }) => {
   return !card || (card && card.archived) ? (
     ''
   ) : (
-    <CardMUI className='card'>
+    <CardMUI
+      className={`card ${mouseOver ? 'mouse-over' : ''}`}
+      onMouseEnter={() => setMouseOver(true)}
+      onMouseLeave={() => setMouseOver(false)}
+    >
       <CardContent>
         <p>{card.title}</p>
       </CardContent>
