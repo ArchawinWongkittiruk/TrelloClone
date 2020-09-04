@@ -18,7 +18,7 @@ const ListMenu = ({ listId }) => {
   };
 
   const archive = async () => {
-    dispatch(archiveList(listId));
+    dispatch(archiveList(listId, true));
   };
 
   return (

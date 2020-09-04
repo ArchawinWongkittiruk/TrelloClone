@@ -172,10 +172,10 @@ export const renameList = (listId, formData) => async (dispatch) => {
   }
 };
 
-// Archive list
-export const archiveList = (listId) => async (dispatch) => {
+// Archive/Unarchive list
+export const archiveList = (listId, archive) => async (dispatch) => {
   try {
-    const res = await axios.patch(`/api/lists/archive/true/${listId}`);
+    const res = await axios.patch(`/api/lists/archive/${archive}/${listId}`);
 
     dispatch({
       type: ARCHIVE_LIST,
