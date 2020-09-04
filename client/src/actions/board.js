@@ -11,6 +11,7 @@ import {
   GET_LIST,
   ADD_LIST,
   RENAME_LIST,
+  ARCHIVE_LIST,
 } from './types';
 
 const config = {
@@ -166,6 +167,25 @@ export const renameList = (listId, formData) => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
+    dispatch({
+      type: BOARD_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Archive list
+export const archiveList = (listId) => async (dispatch) => {
+  try {
+    const res = await axios.patch(`/api/lists/archive/true/${listId}`);
+
+    dispatch({
+      type: ARCHIVE_LIST,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err);
+
     dispatch({
       type: BOARD_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },

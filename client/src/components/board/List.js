@@ -21,7 +21,7 @@ const List = ({ listId }) => {
     <div className='list'>
       <div className='list-top'>
         <ListTitle listId={listId} originalTitle={list.title} />
-        <ListMenu />
+        <ListMenu listId={listId} />
       </div>
     </div>
   );

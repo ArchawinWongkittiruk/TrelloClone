@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+import { archiveList } from '../../actions/board';
+import { Button, Menu, MenuItem } from '@material-ui/core';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
-const ListMenu = () => {
+const ListMenu = ({ listId }) => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const dispatch = useDispatch();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -13,6 +15,10 @@ const ListMenu = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const archive = async () => {
+    dispatch(archiveList(listId));
   };
 
   return (
@@ -30,10 +36,21 @@ const ListMenu = () => {
         <MenuItem onClick={handleClose}>
           <MoreHorizIcon />
         </MenuItem>
-        <MenuItem onClick={handleClose}>Archive This List</MenuItem>
+        <MenuItem
+          onClick={() => {
+            archive();
+            handleClose();
+          }}
+        >
+          Archive This List
+        </MenuItem>
       </Menu>
     </div>
   );
+};
+
+ListMenu.propTypes = {
+  listId: PropTypes.string.isRequired,
 };
 
 export default ListMenu;

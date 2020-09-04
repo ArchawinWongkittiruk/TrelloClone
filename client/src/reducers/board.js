@@ -9,6 +9,7 @@ import {
   GET_LIST,
   ADD_LIST,
   RENAME_LIST,
+  ARCHIVE_LIST,
 } from '../actions/types';
 
 const initialState = {
@@ -73,7 +74,7 @@ export default function (state = initialState, action) {
           lists: [...state.board.lists, payload._id],
         },
       };
-    case RENAME_LIST:
+    case RENAME_LIST: {
       const index = state.board.listObjects.findIndex((list) => list._id === payload._id);
       const newListObjects = [...state.board.listObjects];
       newListObjects[index].title = payload.title;
@@ -85,6 +86,20 @@ export default function (state = initialState, action) {
           listObjects: newListObjects,
         },
       };
+    }
+    case ARCHIVE_LIST: {
+      const index = state.board.listObjects.findIndex((list) => list._id === payload._id);
+      const newListObjects = [...state.board.listObjects];
+      newListObjects[index].archived = payload.archived;
+
+      return {
+        ...state,
+        board: {
+          ...state.board,
+          listObjects: newListObjects,
+        },
+      };
+    }
     default:
       return state;
   }
