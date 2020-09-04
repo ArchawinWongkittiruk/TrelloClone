@@ -20,7 +20,7 @@ const CreateCard = ({ listId }) => {
   return !adding ? (
     <div className='create-card-button'>
       <Button variant='contained' onClick={() => setAdding(true)}>
-        Add a card
+        + Add a card
       </Button>
     </div>
   ) : (
