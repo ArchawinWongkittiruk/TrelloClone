@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { addBoard } from '../../actions/board';
 import { Modal, TextField, Button } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 import useStyles from '../../utils/modalStyles';
 
 const CreateBoard = ({ history }) => {
@@ -18,7 +19,12 @@ const CreateBoard = ({ history }) => {
 
   const body = (
     <div className={classes.paper}>
-      <h1>Create new board</h1>
+      <div className={classes.modalTop}>
+        <h1>Create new board</h1>
+        <Button onClick={() => setOpen(false)}>
+          <CloseIcon />
+        </Button>
+      </div>
       <form onSubmit={(e) => onSubmit(e)}>
         <TextField
           variant='outlined'

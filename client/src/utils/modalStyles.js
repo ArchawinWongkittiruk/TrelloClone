@@ -12,6 +12,10 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
+  modalTop: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
 }));
 
 export default useStyles;
