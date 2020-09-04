@@ -26,7 +26,7 @@ const CreateList = () => {
     <div className='create-list-form'>
       <form onSubmit={(e) => onSubmit(e)}>
         <TextField
-          variant='outlined'
+          variant='filled'
           margin='normal'
           required
           id='title'
