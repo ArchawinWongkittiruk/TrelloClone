@@ -196,6 +196,15 @@ body {
         flex-direction: row;
         justify-content: space-between;
       }
+
+      .cards {
+        display: flex;
+        flex-direction: column;
+
+        .card {
+          margin: 5px 0;
+        }
+      }
     }
   }
 }

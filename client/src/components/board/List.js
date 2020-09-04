@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { getList } from '../../actions/board';
 import ListTitle from './ListTitle';
 import ListMenu from './ListMenu';
+import Card from './Card';
 
 const List = ({ listId }) => {
   const list = useSelector((state) =>
@@ -22,6 +23,12 @@ const List = ({ listId }) => {
       <div className='list-top'>
         <ListTitle listId={listId} originalTitle={list.title} />
         <ListMenu listId={listId} />
+      </div>
+      <div className='cards'>
+        {list.cards.map((cardId) => (
+          <Card key={cardId} cardId={cardId} />
+        ))}
+        {/* <CreateCard /> */}
       </div>
     </div>
   );

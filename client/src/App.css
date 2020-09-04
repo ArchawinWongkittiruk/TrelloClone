@@ -193,3 +193,12 @@ body {
   flex-direction: row;
   justify-content: space-between;
 }
+
+.board .lists .list .cards {
+  display: flex;
+  flex-direction: column;
+}
+
+.board .lists .list .cards .card {
+  margin: 5px 0;
+}
