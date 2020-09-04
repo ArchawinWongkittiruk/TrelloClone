@@ -148,23 +148,37 @@ body {
 }
 
 .board {
-  padding: 20px;
+  padding: 10px;
   background-color: #ccc;
   height: 95.5vh;
 }
 
-.board-top {
+.board .board-top {
   height: 4vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-.lists {
+.board .create-list-button {
+  margin-top: 10px;
+  min-width: 200px;
+}
+
+.board .create-list-form {
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.board .lists {
   display: flex;
   flex-direction: row;
   overflow-x: auto;
-  height: 88vh;
+  height: 90vh;
 }
 
-.list {
+.board .lists .list {
   background-color: #eee;
   border-radius: 5px;
   min-width: 280px;
@@ -174,18 +188,7 @@ body {
   padding: 10px;
 }
 
-.create-list-button {
-  margin-top: 10px;
-  min-width: 200px;
-}
-
-.create-list-form {
-  min-width: 200px;
-  display: flex;
-  flex-direction: column;
-}
-
-.list-top {
+.board .lists .list .list-top {
   display: flex;
   flex-direction: row;
   justify-content: space-between;

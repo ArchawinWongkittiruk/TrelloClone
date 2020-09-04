@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { getBoard } from '../../actions/board';
 import { CircularProgress, Box } from '@material-ui/core';
 import BoardTitle from '../board/BoardTitle';
+import BoardDrawer from '../board/BoardDrawer';
 import List from '../board/List';
 import CreateList from '../board/CreateList';
 
@@ -28,6 +29,7 @@ const Board = ({ match }) => {
     <section className='board'>
       <div className='board-top'>
         <BoardTitle boardId={board._id} originalTitle={board.title} />
+        <BoardDrawer />
       </div>
       <div className='lists'>
         {board.lists.map((listId) => (
