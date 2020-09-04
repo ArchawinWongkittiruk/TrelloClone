@@ -10,6 +10,7 @@ import {
   GET_LISTS,
   GET_LIST,
   ADD_LIST,
+  RENAME_LIST,
 } from './types';
 
 const config = {
@@ -41,7 +42,7 @@ export const getBoards = () => async (dispatch) => {
 export const getBoard = (id) => async (dispatch) => {
   try {
     dispatch({ type: CLEAR_BOARD });
-    
+
     const res = await axios.get(`/api/boards/${id}`);
 
     if (res) {
@@ -145,6 +146,23 @@ export const addList = (formData) => async (dispatch) => {
 
     dispatch({
       type: ADD_LIST,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: BOARD_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Rename list
+export const renameList = (listId, formData) => async (dispatch) => {
+  try {
+    const res = await axios.patch(`/api/lists/rename/${listId}`, formData, config);
+
+    dispatch({
+      type: RENAME_LIST,
       payload: res.data,
     });
   } catch (err) {

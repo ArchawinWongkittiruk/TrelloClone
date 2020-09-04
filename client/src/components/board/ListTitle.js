@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-// import { renameList } from '../../actions/board';
+import { renameList } from '../../actions/board';
 import { TextField } from '@material-ui/core';
 
 const ListTitle = ({ listId, originalTitle }) => {
   const [title, setTitle] = useState(originalTitle);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    // dispatch(renameList(listId, { title }));
+    dispatch(renameList(listId, { title }));
   };
 
   return (
