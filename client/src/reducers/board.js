@@ -74,32 +74,26 @@ export default function (state = initialState, action) {
           lists: [...state.board.lists, payload._id],
         },
       };
-    case RENAME_LIST: {
-      const index = state.board.listObjects.findIndex((list) => list._id === payload._id);
-      const newListObjects = [...state.board.listObjects];
-      newListObjects[index].title = payload.title;
-
+    case RENAME_LIST:
       return {
         ...state,
         board: {
           ...state.board,
-          listObjects: newListObjects,
+          listObjects: state.board.listObjects.map((list) =>
+            list._id === payload._id ? { ...list, title: payload.title } : list
+          ),
         },
       };
-    }
-    case ARCHIVE_LIST: {
-      const index = state.board.listObjects.findIndex((list) => list._id === payload._id);
-      const newListObjects = [...state.board.listObjects];
-      newListObjects[index].archived = payload.archived;
-
+    case ARCHIVE_LIST:
       return {
         ...state,
         board: {
           ...state.board,
-          listObjects: newListObjects,
+          listObjects: state.board.listObjects.map((list) =>
+            list._id === payload._id ? { ...list, archived: payload.archived } : list
+          ),
         },
       };
-    }
     default:
       return state;
   }
