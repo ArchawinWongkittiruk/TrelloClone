@@ -190,3 +190,9 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+.list-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

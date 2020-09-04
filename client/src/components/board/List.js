@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getList } from '../../actions/board';
 import ListTitle from './ListTitle';
+import ListMenu from './ListMenu';
 
 const List = ({ listId }) => {
   const list = useSelector((state) =>
@@ -20,6 +21,7 @@ const List = ({ listId }) => {
     <div className='list'>
       <div className='list-top'>
         <ListTitle listId={listId} originalTitle={list.title} />
+        <ListMenu />
       </div>
     </div>
   );
