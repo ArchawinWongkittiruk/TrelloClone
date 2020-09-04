@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { TextField } from '@material-ui/core';
 import { getList } from '../../actions/board';
+import ListTitle from './ListTitle';
 
 const List = ({ listId }) => {
-  const [title, setTitle] = useState('');
   const list = useSelector((state) =>
     state.board.board.listObjects.find((object) => object._id === listId)
   );
@@ -15,21 +14,13 @@ const List = ({ listId }) => {
     dispatch(getList(listId));
   }, [dispatch, listId]);
 
-  useEffect(() => {
-    setTitle(list ? list.title : '');
-  }, [setTitle, list]);
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-  };
-
-  return !list ? (
+  return !list || (list && list.archived) ? (
     ''
   ) : (
     <div className='list'>
-      <form onSubmit={(e) => onSubmit(e)}>
-        <TextField required value={title} onChange={(e) => setTitle(e.target.value)} />
-      </form>
+      <div className='list-top'>
+        <ListTitle listId={listId} originalTitle={list.title} />
+      </div>
     </div>
   );
 };
