@@ -42,7 +42,14 @@ const Card = ({ cardId }) => {
     ''
   ) : (
     <Fragment>
-      <CardModal open={openModal} setOpen={setOpenModal} card={card} />
+      <CardModal
+        cardId={cardId}
+        open={openModal}
+        setOpen={setOpenModal}
+        card={card}
+        setCard={setCard}
+        config={config}
+      />
       <CardMUI
         className={`card ${mouseOver && !editing ? 'mouse-over' : ''}`}
         onMouseOver={() => setMouseOver(true)}
