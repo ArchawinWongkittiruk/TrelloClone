@@ -63,7 +63,7 @@ const CardModal = ({ cardId, open, setOpen, card, setCard, config }) => {
         >
           Save All Changes
         </Button>
-        <MoveCard cardId={cardId} setOpen={setOpen} config={config} />
+        <MoveCard cardId={cardId} setOpen={setOpen} />
       </div>
     </Modal>
   );

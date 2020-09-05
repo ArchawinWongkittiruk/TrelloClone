@@ -10,7 +10,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import useStyles from '../../utils/modalStyles';
 
-const MoveCard = ({ cardId, setOpen, config }) => {
+const MoveCard = ({ cardId, setOpen }) => {
   const classes = useStyles();
   const [listObject, setListObject] = useState(null);
   const [listTitle, setListTitle] = useState('');
@@ -45,6 +45,7 @@ const MoveCard = ({ cardId, setOpen, config }) => {
 
   const onSubmit = async () => {
     // dispatch(addCard({ fromId: thisListId, toId: listObject._id, toIndex: position }));
+    setOpen(false);
   };
 
   return (
@@ -100,7 +101,6 @@ const MoveCard = ({ cardId, setOpen, config }) => {
 MoveCard.propTypes = {
   cardId: PropTypes.string.isRequired,
   setOpen: PropTypes.func.isRequired,
-  config: PropTypes.object.isRequired,
 };
 
 export default MoveCard;
