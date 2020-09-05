@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { Modal, TextField, Button } from '@material-ui/core';
@@ -10,6 +10,10 @@ const CardModal = ({ cardId, open, setOpen, card, setCard, config }) => {
   const classes = useStyles();
   const [title, setTitle] = useState(card.title);
   const [description, setDescription] = useState(card.description);
+
+  useEffect(() => {
+    setTitle(card.title);
+  }, [card]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
