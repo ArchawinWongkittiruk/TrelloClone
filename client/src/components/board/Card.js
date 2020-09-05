@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import CardMUI from '@material-ui/core/Card';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
+import SubjectIcon from '@material-ui/icons/Subject';
 import { TextField, CardContent, Button } from '@material-ui/core';
 import CardModal from './CardModal';
 
@@ -68,6 +69,7 @@ const Card = ({ cardId }) => {
             }}
           >
             <p>{card.title}</p>
+            {card.description && <SubjectIcon fontSize='small' />}
           </CardContent>
         ) : (
           <CardContent className='create-card-form'>
