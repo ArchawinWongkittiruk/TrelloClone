@@ -97,7 +97,7 @@ router.patch('/edit/:id', [auth, member], async (req, res) => {
     }
 
     card.title = title ? title : card.title;
-    card.description = description ? description : card.description;
+    card.description = description;
     await card.save();
 
     res.json(card);
