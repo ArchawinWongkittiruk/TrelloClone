@@ -11,58 +11,57 @@ const CardModal = ({ cardId, open, setOpen, card, setCard, config }) => {
   const [title, setTitle] = useState(card.title);
   const [description, setDescription] = useState(card.description);
 
-  const onSubmit = async () => {
+  const onSubmit = async (e) => {
+    e.preventDefault();
     setCard(
       (await axios.patch(`/api/cards/edit/${cardId}`, { title, description }, config))
         .data
     );
+    setOpen(false);
   };
 
   return (
     <Modal open={open} onClose={() => setOpen(false)}>
       <div className={`${classes.paper} ${classes.cardModal}`}>
-        <div className={classes.modalTop}>
+        <form onSubmit={(e) => onSubmit(e)}>
+          <div className={classes.modalTop}>
+            <TextField
+              variant='outlined'
+              margin='normal'
+              required
+              fullWidth
+              multiline
+              id='title'
+              label='Card title'
+              name='title'
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className={classes.cardTitle}
+            />
+            <Button onClick={() => setOpen(false)}>
+              <CloseIcon />
+            </Button>
+          </div>
           <TextField
             variant='outlined'
             margin='normal'
-            required
             fullWidth
             multiline
-            id='title'
-            label='Card title'
-            name='title'
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className={classes.cardTitle}
+            id='description'
+            label='Card description'
+            name='description'
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
           />
-          <Button onClick={() => setOpen(false)}>
-            <CloseIcon />
+          <Button
+            type='submit'
+            variant='contained'
+            color='primary'
+            className={classes.button}
+          >
+            Save All Changes
           </Button>
-        </div>
-        <TextField
-          variant='outlined'
-          margin='normal'
-          required
-          fullWidth
-          multiline
-          id='description'
-          label='Card description'
-          name='description'
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <Button
-          type='submit'
-          variant='contained'
-          color='primary'
-          className={classes.button}
-          onClick={() => {
-            onSubmit();
-            setOpen(false);
-          }}
-        >
-          Save All Changes
-        </Button>
+        </form>
         <MoveCard cardId={cardId} setOpen={setOpen} />
       </div>
     </Modal>
