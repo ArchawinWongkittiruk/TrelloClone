@@ -3,6 +3,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { Modal, TextField, Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
+import MoveCard from './MoveCard';
 import useStyles from '../../utils/modalStyles';
 
 const CardModal = ({ cardId, open, setOpen, card, setCard, config }) => {
@@ -54,6 +55,7 @@ const CardModal = ({ cardId, open, setOpen, card, setCard, config }) => {
           type='submit'
           variant='contained'
           color='primary'
+          className={classes.button}
           onClick={() => {
             onSubmit();
             setOpen(false);
@@ -61,6 +63,7 @@ const CardModal = ({ cardId, open, setOpen, card, setCard, config }) => {
         >
           Save All Changes
         </Button>
+        <MoveCard cardId={cardId} setOpen={setOpen} config={config} />
       </div>
     </Modal>
   );

@@ -10,7 +10,25 @@ const useStyles = makeStyles((theme) => ({
   cardTitle: {
     width: 650,
   },
+  button: {
+    width: 180,
+    marginTop: 10,
+  },
+  moveCardTitle: {
+    marginTop: 50,
+  },
+  moveCard: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  moveCardSelect: {
+    marginTop: 20,
+    marginRight: 20,
+    width: 200,
+  },
   paper: {
+    display: 'flex',
+    flexDirection: 'column',
     position: 'absolute',
     top: '5%',
     left: '50%',
