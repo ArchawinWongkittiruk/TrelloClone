@@ -11,6 +11,7 @@ import {
   RENAME_LIST,
   ARCHIVE_LIST,
   ADD_CARD,
+  MOVE_CARD,
 } from '../actions/types';
 
 const initialState = {
@@ -103,6 +104,20 @@ export default function (state = initialState, action) {
           listObjects: state.board.listObjects.map((list) =>
             list._id === payload.listId
               ? { ...list, cards: [...list.cards, payload.cardId] }
+              : list
+          ),
+        },
+      };
+    case MOVE_CARD:
+      return {
+        ...state,
+        board: {
+          ...state.board,
+          listObjects: state.board.listObjects.map((list) =>
+            list._id === payload.from._id
+              ? payload.from
+              : list._id === payload.to._id
+              ? payload.to
               : list
           ),
         },

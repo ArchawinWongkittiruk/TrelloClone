@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-// import moveCard from '../../actions/board';
+import { moveCard } from '../../actions/board';
 
 import Button from '@material-ui/core/Button';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -30,21 +30,22 @@ const MoveCard = ({ cardId, setOpen }) => {
   useEffect(() => {
     setListObject(thisList);
     setListTitle(thisList.title);
-    setPositions([...Array(thisList.cards.length).keys()]);
     setPosition(thisList.cards.findIndex((id) => id === cardId));
   }, [thisList, cardId]);
 
   useEffect(() => {
     setPositions(
       listObject && listObject.cards.length > 0
-        ? [...Array(listObject.cards.length).keys()]
+        ? [...Array(listObject.cards.length + (listObject !== thisList ? 1 : 0)).keys()]
         : [0]
     );
     listObject && listObject.cards.length === 0 && setPosition(0);
-  }, [listObject]);
+  }, [thisList, listObject]);
 
   const onSubmit = async () => {
-    // dispatch(addCard({ fromId: thisListId, toId: listObject._id, toIndex: position }));
+    dispatch(
+      moveCard(cardId, { fromId: thisListId, toId: listObject._id, toIndex: position })
+    );
     setOpen(false);
   };
 
