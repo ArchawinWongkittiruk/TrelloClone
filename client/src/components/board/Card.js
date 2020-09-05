@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
@@ -6,9 +6,11 @@ import CardMUI from '@material-ui/core/Card';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import { TextField, CardContent, Button } from '@material-ui/core';
+import CardModal from './CardModal';
 
 const Card = ({ cardId }) => {
   const [editing, setEditing] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const [mouseOver, setMouseOver] = useState(false);
   const [card, setCard] = useState(null);
   const [title, setTitle] = useState('');
@@ -29,11 +31,9 @@ const Card = ({ cardId }) => {
     card && setTitle(card.title);
   }, [card]);
 
-  const onSubmitEdit = (e) => {
+  const onSubmitEdit = async (e) => {
     e.preventDefault();
-    (async function editCard() {
-      setCard((await axios.patch(`/api/cards/edit/${cardId}`, { title }, config)).data);
-    })();
+    setCard((await axios.patch(`/api/cards/edit/${cardId}`, { title }, config)).data);
     setEditing(false);
     setMouseOver(false);
   };
@@ -41,21 +41,29 @@ const Card = ({ cardId }) => {
   return !card || (card && card.archived) ? (
     ''
   ) : (
-    <CardMUI
-      className={`card ${mouseOver && !editing ? 'mouse-over' : ''}`}
-      onMouseOver={() => setMouseOver(true)}
-      onMouseLeave={() => setMouseOver(false)}
-    >
-      {mouseOver && !editing && (
-        <Button className='edit-button' onClick={() => setEditing(true)}>
-          <EditIcon fontSize='small' />
-        </Button>
-      )}
-      <CardContent>
+    <Fragment>
+      <CardModal open={openModal} setOpen={setOpenModal} card={card} />
+      <CardMUI
+        className={`card ${mouseOver && !editing ? 'mouse-over' : ''}`}
+        onMouseOver={() => setMouseOver(true)}
+        onMouseLeave={() => setMouseOver(false)}
+      >
+        {mouseOver && !editing && (
+          <Button className='edit-button' onClick={() => setEditing(true)}>
+            <EditIcon fontSize='small' />
+          </Button>
+        )}
         {!editing ? (
-          <p>{card.title}</p>
+          <CardContent
+            onClick={() => {
+              setOpenModal(true);
+              setMouseOver(false);
+            }}
+          >
+            <p>{card.title}</p>
+          </CardContent>
         ) : (
-          <div className='create-card-form'>
+          <CardContent className='create-card-form'>
             <form onSubmit={(e) => onSubmitEdit(e)}>
               <TextField
                 margin='normal'
@@ -84,10 +92,10 @@ const Card = ({ cardId }) => {
                 </Button>
               </div>
             </form>
-          </div>
+          </CardContent>
         )}
-      </CardContent>
-    </CardMUI>
+      </CardMUI>
+    </Fragment>
   );
 };
 

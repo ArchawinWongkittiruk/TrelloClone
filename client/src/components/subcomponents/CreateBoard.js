@@ -18,7 +18,7 @@ const CreateBoard = ({ history }) => {
   };
 
   const body = (
-    <div className={classes.paper}>
+    <div className={`${classes.paper} ${classes.createBoardModal}`}>
       <div className={classes.modalTop}>
         <h1>Create new board</h1>
         <Button onClick={() => setOpen(false)}>

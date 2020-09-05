@@ -225,6 +225,7 @@ body {
 .board .lists .list-wrapper .list .cards .card {
   margin: 5px 0;
   position: relative;
+  cursor: pointer;
 }
 
 .board .lists .list-wrapper .list .cards .card .edit-button {
