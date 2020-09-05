@@ -207,8 +207,15 @@ body {
         flex-direction: column;
       }
 
-      .list {
+      .adding-card {
+        max-height: 81vh;
+      }
+
+      .not-adding-card {
         max-height: 76vh;
+      }
+
+      .list {
         overflow-y: auto;
 
         .cards {

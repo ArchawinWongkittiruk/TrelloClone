@@ -204,8 +204,15 @@ body {
   flex-direction: column;
 }
 
-.board .lists .list-wrapper .list {
+.board .lists .list-wrapper .adding-card {
+  max-height: 81vh;
+}
+
+.board .lists .list-wrapper .not-adding-card {
   max-height: 76vh;
+}
+
+.board .lists .list-wrapper .list {
   overflow-y: auto;
 }
 
