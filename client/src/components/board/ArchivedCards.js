@@ -2,10 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { archiveCard, deleteCard } from '../../actions/board';
 
-import CardMUI from '@material-ui/core/Card';
-import List from '@material-ui/core/List';
-import Button from '@material-ui/core/Button';
-import ListItem from '@material-ui/core/ListItem';
+import { Card, List, ListItem, CardContent, Button } from '@material-ui/core';
 
 const ArchivedCards = () => {
   const cards = useSelector((state) => state.board.board.cardObjects);
@@ -27,7 +24,9 @@ const ArchivedCards = () => {
           .filter((card) => card.archived)
           .map((card, index) => (
             <ListItem key={index} className='archived-card'>
-              <CardMUI>{card.title}</CardMUI>
+              <Card>
+                <CardContent>{card.title}</CardContent>
+              </Card>
               <div>
                 <Button
                   color='secondary'
