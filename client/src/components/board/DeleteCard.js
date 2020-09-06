@@ -21,7 +21,7 @@ const DeleteCard = ({ cardId, setOpen, list }) => {
   };
 
   const onDeleteCard = async () => {
-    // dispatch(deleteCard(cardId, { list._id }));
+    dispatch(deleteCard(list._id, cardId));
     setOpenDialog(false);
     setOpen(false);
   };

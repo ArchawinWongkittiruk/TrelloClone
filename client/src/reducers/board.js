@@ -15,6 +15,7 @@ import {
   EDIT_CARD,
   MOVE_CARD,
   ARCHIVE_CARD,
+  DELETE_CARD,
 } from '../actions/types';
 
 const initialState = {
@@ -150,6 +151,19 @@ export default function (state = initialState, action) {
           ...state.board,
           cardObjects: state.board.cardObjects.map((card) =>
             card._id === payload._id ? { ...card, archived: payload.archived } : card
+          ),
+        },
+      };
+    case DELETE_CARD:
+      return {
+        ...state,
+        board: {
+          ...state.board,
+          cardObjects: state.board.cardObjects.filter((card) => card._id !== payload),
+          listObjects: state.board.listObjects.map((list) =>
+            list.cards.includes(payload)
+              ? { ...list, cards: list.cards.filter((card) => card !== payload) }
+              : list
           ),
         },
       };

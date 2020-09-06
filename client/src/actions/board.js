@@ -17,6 +17,7 @@ import {
   EDIT_CARD,
   MOVE_CARD,
   ARCHIVE_CARD,
+  DELETE_CARD,
 } from './types';
 
 const config = {
@@ -276,6 +277,25 @@ export const archiveCard = (cardId, archive) => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
+    dispatch({
+      type: BOARD_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Delete card
+export const deleteCard = (listId, cardId) => async (dispatch) => {
+  try {
+    const res = await axios.delete(`/api/cards/${listId}/${cardId}`);
+
+    dispatch({
+      type: DELETE_CARD,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err);
+
     dispatch({
       type: BOARD_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
