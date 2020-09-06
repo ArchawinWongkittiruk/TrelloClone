@@ -11,7 +11,7 @@ const ArchivedLists = () => {
   const listObjects = useSelector((state) => state.board.board.listObjects);
   const dispatch = useDispatch();
 
-  const onSubmit = (listId) => {
+  const onSubmit = async (listId) => {
     dispatch(archiveList(listId, false));
   };
 
