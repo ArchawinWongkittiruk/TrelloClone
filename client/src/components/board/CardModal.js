@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Modal, TextField, Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import MoveCard from './MoveCard';
+import DeleteCard from './DeleteCard';
 import useStyles from '../../utils/modalStyles';
 
 const CardModal = ({ cardId, open, setOpen, card, setCard, config }) => {
@@ -15,7 +16,7 @@ const CardModal = ({ cardId, open, setOpen, card, setCard, config }) => {
     setTitle(card.title);
   }, [card]);
 
-  const onSubmit = async (e) => {
+  const onTitleDescriptionSubmit = async (e) => {
     e.preventDefault();
     setCard(
       (await axios.patch(`/api/cards/edit/${cardId}`, { title, description }, config))
@@ -24,10 +25,14 @@ const CardModal = ({ cardId, open, setOpen, card, setCard, config }) => {
     setOpen(false);
   };
 
+  const onArchiveCard = async () => {
+    setOpen(false);
+  };
+
   return (
     <Modal open={open} onClose={() => setOpen(false)}>
       <div className={`${classes.paper} ${classes.cardModal}`}>
-        <form onSubmit={(e) => onSubmit(e)}>
+        <form onSubmit={(e) => onTitleDescriptionSubmit(e)}>
           <div className={classes.modalTop}>
             <TextField
               variant='outlined'
@@ -66,7 +71,19 @@ const CardModal = ({ cardId, open, setOpen, card, setCard, config }) => {
             Save All Changes
           </Button>
         </form>
-        <MoveCard cardId={cardId} setOpen={setOpen} />
+        <div className={classes.modalBottom}>
+          <MoveCard cardId={cardId} setOpen={setOpen} />
+          <div className={classes.modalBottomRight}>
+            <Button
+              variant='contained'
+              className={classes.archiveButton}
+              onClick={onArchiveCard}
+            >
+              Archive Card
+            </Button>
+            <DeleteCard cardId={cardId} setOpen={setOpen} />
+          </div>
+        </div>
       </div>
     </Modal>
   );

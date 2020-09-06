@@ -44,6 +44,18 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
   },
+  modalBottom: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  modalBottomRight: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+  },
+  archiveButton: {
+    marginBottom: 5,
+  },
 }));
 
 export default useStyles;
