@@ -186,10 +186,10 @@ router.patch('/move/:id', [auth, member], async (req, res) => {
 });
 
 // Delete a card
-router.delete('/:id', [auth, member], async (req, res) => {
+router.delete('/:listId/:id', [auth, member], async (req, res) => {
   try {
     const card = await Card.findById(req.params.id);
-    const list = await List.findById(req.body.listId);
+    const list = await List.findById(req.params.listId);
     if (!card || !list) {
       return res.status(404).json({ msg: 'List/card not found' });
     }
