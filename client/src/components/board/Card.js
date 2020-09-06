@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import { getCard, editCard } from '../../actions/board';
 
 import CardMUI from '@material-ui/core/Card';
 import EditIcon from '@material-ui/icons/Edit';
@@ -13,20 +14,15 @@ const Card = ({ cardId }) => {
   const [editing, setEditing] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [mouseOver, setMouseOver] = useState(false);
-  const [card, setCard] = useState(null);
   const [title, setTitle] = useState('');
-
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
+  let card = useSelector((state) =>
+    state.board.board.cardObjects.find((object) => object._id === cardId)
+  );
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    (async function getCard() {
-      setCard((await axios.get(`/api/cards/${cardId}`)).data);
-    })();
-  }, [cardId]);
+    dispatch(getCard(cardId));
+  }, [cardId, dispatch]);
 
   useEffect(() => {
     card && setTitle(card.title);
@@ -34,7 +30,7 @@ const Card = ({ cardId }) => {
 
   const onSubmitEdit = async (e) => {
     e.preventDefault();
-    setCard((await axios.patch(`/api/cards/edit/${cardId}`, { title }, config)).data);
+    dispatch(editCard(cardId, { title }));
     setEditing(false);
     setMouseOver(false);
   };
@@ -43,14 +39,7 @@ const Card = ({ cardId }) => {
     ''
   ) : (
     <Fragment>
-      <CardModal
-        cardId={cardId}
-        open={openModal}
-        setOpen={setOpenModal}
-        card={card}
-        setCard={setCard}
-        config={config}
-      />
+      <CardModal cardId={cardId} open={openModal} setOpen={setOpenModal} card={card} />
       <CardMUI
         className={`card ${mouseOver && !editing ? 'mouse-over' : ''}`}
         onMouseOver={() => setMouseOver(true)}

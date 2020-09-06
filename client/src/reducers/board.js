@@ -10,8 +10,11 @@ import {
   ADD_LIST,
   RENAME_LIST,
   ARCHIVE_LIST,
+  GET_CARD,
   ADD_CARD,
+  EDIT_CARD,
   MOVE_CARD,
+  ARCHIVE_CARD,
 } from '../actions/types';
 
 const initialState = {
@@ -96,6 +99,14 @@ export default function (state = initialState, action) {
           ),
         },
       };
+    case GET_CARD:
+      return {
+        ...state,
+        board: {
+          ...state.board,
+          cardObjects: [...state.board.cardObjects, payload],
+        },
+      };
     case ADD_CARD:
       return {
         ...state,
@@ -105,6 +116,16 @@ export default function (state = initialState, action) {
             list._id === payload.listId
               ? { ...list, cards: [...list.cards, payload.cardId] }
               : list
+          ),
+        },
+      };
+    case EDIT_CARD:
+      return {
+        ...state,
+        board: {
+          ...state.board,
+          cardObjects: state.board.cardObjects.map((card) =>
+            card._id === payload._id ? payload : card
           ),
         },
       };
@@ -119,6 +140,16 @@ export default function (state = initialState, action) {
               : list._id === payload.to._id
               ? payload.to
               : list
+          ),
+        },
+      };
+    case ARCHIVE_CARD:
+      return {
+        ...state,
+        board: {
+          ...state.board,
+          cardObjects: state.board.cardObjects.map((card) =>
+            card._id === payload._id ? { ...card, archived: payload.archived } : card
           ),
         },
       };

@@ -12,8 +12,11 @@ import {
   ADD_LIST,
   RENAME_LIST,
   ARCHIVE_LIST,
+  GET_CARD,
   ADD_CARD,
+  EDIT_CARD,
   MOVE_CARD,
+  ARCHIVE_CARD,
 } from './types';
 
 const config = {
@@ -54,7 +57,7 @@ export const getBoard = (id) => async (dispatch) => {
 
     dispatch({
       type: GET_BOARD,
-      payload: { ...res.data, listObjects: [] },
+      payload: { ...res.data, listObjects: [], cardObjects: [] },
     });
   } catch (err) {
     dispatch({
@@ -191,6 +194,23 @@ export const archiveList = (listId, archive) => async (dispatch) => {
   }
 };
 
+// Get card
+export const getCard = (id) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/cards/${id}`);
+
+    dispatch({
+      type: GET_CARD,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: BOARD_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
 // Add card
 export const addCard = (formData) => async (dispatch) => {
   try {
@@ -210,6 +230,23 @@ export const addCard = (formData) => async (dispatch) => {
   }
 };
 
+// Edit card
+export const editCard = (cardId, formData) => async (dispatch) => {
+  try {
+    const res = await axios.patch(`/api/cards/edit/${cardId}`, formData, config);
+
+    dispatch({
+      type: EDIT_CARD,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: BOARD_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
 // Move card
 export const moveCard = (cardId, formData) => async (dispatch) => {
   try {
@@ -219,6 +256,23 @@ export const moveCard = (cardId, formData) => async (dispatch) => {
 
     dispatch({
       type: MOVE_CARD,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: BOARD_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Archive/Unarchive card
+export const archiveCard = (cardId, archive) => async (dispatch) => {
+  try {
+    const res = await axios.patch(`/api/cards/archive/${archive}/${cardId}`);
+
+    dispatch({
+      type: ARCHIVE_CARD,
       payload: res.data,
     });
   } catch (err) {

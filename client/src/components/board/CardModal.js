@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import { editCard, archiveCard } from '../../actions/board';
 import { Modal, TextField, Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import MoveCard from './MoveCard';
 import DeleteCard from './DeleteCard';
 import useStyles from '../../utils/modalStyles';
 
-const CardModal = ({ cardId, open, setOpen, card, setCard, config }) => {
+const CardModal = ({ cardId, open, setOpen, card }) => {
   const classes = useStyles();
   const [title, setTitle] = useState(card.title);
   const [description, setDescription] = useState(card.description);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setTitle(card.title);
@@ -18,15 +20,12 @@ const CardModal = ({ cardId, open, setOpen, card, setCard, config }) => {
 
   const onTitleDescriptionSubmit = async (e) => {
     e.preventDefault();
-    setCard(
-      (await axios.patch(`/api/cards/edit/${cardId}`, { title, description }, config))
-        .data
-    );
+    dispatch(editCard(cardId, { title, description }));
     setOpen(false);
   };
 
   const onArchiveCard = async () => {
-    setCard((await axios.patch(`/api/cards/archive/true/${cardId}`)).data);
+    dispatch(archiveCard(cardId, true));
     setOpen(false);
   };
 
@@ -95,8 +94,6 @@ CardModal.propTypes = {
   open: PropTypes.bool.isRequired,
   setOpen: PropTypes.func.isRequired,
   card: PropTypes.object.isRequired,
-  setCard: PropTypes.func.isRequired,
-  config: PropTypes.object.isRequired,
 };
 
 export default CardModal;
