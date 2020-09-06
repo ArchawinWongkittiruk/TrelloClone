@@ -26,6 +26,7 @@ const CardModal = ({ cardId, open, setOpen, card, setCard, config }) => {
   };
 
   const onArchiveCard = async () => {
+    setCard((await axios.patch(`/api/cards/archive/true/${cardId}`)).data);
     setOpen(false);
   };
 
