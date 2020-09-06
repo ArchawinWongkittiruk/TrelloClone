@@ -10,7 +10,7 @@ import SubjectIcon from '@material-ui/icons/Subject';
 import { TextField, CardContent, Button } from '@material-ui/core';
 import CardModal from './CardModal';
 
-const Card = ({ cardId }) => {
+const Card = ({ cardId, list }) => {
   const [editing, setEditing] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [mouseOver, setMouseOver] = useState(false);
@@ -39,7 +39,13 @@ const Card = ({ cardId }) => {
     ''
   ) : (
     <Fragment>
-      <CardModal cardId={cardId} open={openModal} setOpen={setOpenModal} card={card} />
+      <CardModal
+        cardId={cardId}
+        open={openModal}
+        setOpen={setOpenModal}
+        card={card}
+        list={list}
+      />
       <CardMUI
         className={`card ${mouseOver && !editing ? 'mouse-over' : ''}`}
         onMouseOver={() => setMouseOver(true)}
@@ -99,6 +105,7 @@ const Card = ({ cardId }) => {
 
 Card.propTypes = {
   cardId: PropTypes.string.isRequired,
+  list: PropTypes.object.isRequired,
 };
 
 export default Card;

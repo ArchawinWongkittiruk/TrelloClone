@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { deleteCard } from '../../actions/board';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -6,19 +8,21 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CloseIcon from '@material-ui/icons/Close';
 
-const DeleteCard = ({ cardId, setOpen }) => {
-  const [openAlert, setOpenAlert] = React.useState(false);
+const DeleteCard = ({ cardId, setOpen, list }) => {
+  const [openDialog, setOpenDialog] = useState(false);
+  const dispatch = useDispatch();
 
   const handleClickOpen = () => {
-    setOpenAlert(true);
+    setOpenDialog(true);
   };
 
   const handleClose = () => {
-    setOpenAlert(false);
+    setOpenDialog(false);
   };
 
-  const onDeleteCard = () => {
-    setOpenAlert(false);
+  const onDeleteCard = async () => {
+    // dispatch(deleteCard(cardId, { list._id }));
+    setOpenDialog(false);
     setOpen(false);
   };
 
@@ -27,7 +31,7 @@ const DeleteCard = ({ cardId, setOpen }) => {
       <Button variant='contained' color='secondary' onClick={handleClickOpen}>
         Delete Card
       </Button>
-      <Dialog open={openAlert} onClose={handleClose}>
+      <Dialog open={openDialog} onClose={handleClose}>
         <DialogTitle>{'Delete card?'}</DialogTitle>
         <DialogActions>
           <Button onClick={onDeleteCard} variant='contained' color='secondary' autoFocus>
@@ -45,6 +49,7 @@ const DeleteCard = ({ cardId, setOpen }) => {
 DeleteCard.propTypes = {
   cardId: PropTypes.string.isRequired,
   setOpen: PropTypes.func.isRequired,
+  list: PropTypes.object.isRequired,
 };
 
 export default DeleteCard;

@@ -35,7 +35,7 @@ const List = ({ listId }) => {
       <div className={`list ${addingCard ? 'adding-card' : 'not-adding-card'}`}>
         <div className='cards'>
           {list.cards.map((cardId) => (
-            <Card key={cardId} cardId={cardId} />
+            <Card key={cardId} cardId={cardId} list={list} />
           ))}
         </div>
         {addingCard && (

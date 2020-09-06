@@ -10,7 +10,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import useStyles from '../../utils/modalStyles';
 
-const MoveCard = ({ cardId, setOpen }) => {
+const MoveCard = ({ cardId, setOpen, thisList }) => {
   const classes = useStyles();
   const [listObject, setListObject] = useState(null);
   const [listTitle, setListTitle] = useState('');
@@ -18,13 +18,13 @@ const MoveCard = ({ cardId, setOpen }) => {
   const [positions, setPositions] = useState([0]);
   const lists = useSelector((state) => state.board.board.lists);
   const listObjects = useSelector((state) =>
-    state.board.board.listObjects.sort(
-      (a, b) =>
-        lists.findIndex((id) => id === a._id) - lists.findIndex((id) => id === b._id)
-    )
+    state.board.board.listObjects
+      .sort(
+        (a, b) =>
+          lists.findIndex((id) => id === a._id) - lists.findIndex((id) => id === b._id)
+      )
+      .filter((list) => !list.archived)
   );
-  const thisListId = listObjects.find((list) => list.cards.includes(cardId))._id;
-  const thisList = listObjects.find((list) => list._id === thisListId);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const MoveCard = ({ cardId, setOpen }) => {
 
   const onSubmit = async () => {
     dispatch(
-      moveCard(cardId, { fromId: thisListId, toId: listObject._id, toIndex: position })
+      moveCard(cardId, { fromId: thisList._id, toId: listObject._id, toIndex: position })
     );
     setOpen(false);
   };
@@ -102,6 +102,7 @@ const MoveCard = ({ cardId, setOpen }) => {
 MoveCard.propTypes = {
   cardId: PropTypes.string.isRequired,
   setOpen: PropTypes.func.isRequired,
+  thisList: PropTypes.object.isRequired,
 };
 
 export default MoveCard;

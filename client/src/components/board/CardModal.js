@@ -8,7 +8,7 @@ import MoveCard from './MoveCard';
 import DeleteCard from './DeleteCard';
 import useStyles from '../../utils/modalStyles';
 
-const CardModal = ({ cardId, open, setOpen, card }) => {
+const CardModal = ({ cardId, open, setOpen, card, list }) => {
   const classes = useStyles();
   const [title, setTitle] = useState(card.title);
   const [description, setDescription] = useState(card.description);
@@ -72,7 +72,7 @@ const CardModal = ({ cardId, open, setOpen, card }) => {
           </Button>
         </form>
         <div className={classes.modalBottom}>
-          <MoveCard cardId={cardId} setOpen={setOpen} />
+          <MoveCard cardId={cardId} setOpen={setOpen} thisList={list} />
           <div className={classes.modalBottomRight}>
             <Button
               variant='contained'
@@ -81,7 +81,7 @@ const CardModal = ({ cardId, open, setOpen, card }) => {
             >
               Archive Card
             </Button>
-            <DeleteCard cardId={cardId} setOpen={setOpen} />
+            <DeleteCard cardId={cardId} setOpen={setOpen} list={list}/>
           </div>
         </div>
       </div>
@@ -94,6 +94,7 @@ CardModal.propTypes = {
   open: PropTypes.bool.isRequired,
   setOpen: PropTypes.func.isRequired,
   card: PropTypes.object.isRequired,
+  list: PropTypes.object.isRequired,
 };
 
 export default CardModal;
