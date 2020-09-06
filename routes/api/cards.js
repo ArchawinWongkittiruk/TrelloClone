@@ -206,7 +206,7 @@ router.delete('/:id', [auth, member], async (req, res) => {
     });
     await board.save();
 
-    res.json({ msg: 'Card removed' });
+    res.json(req.params.id);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
