@@ -13,12 +13,14 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ArchiveIcon from '@material-ui/icons/Archive';
 
 import ArchivedLists from './ArchivedLists';
+import ArchivedCards from './ArchivedCards';
 import useStyles from '../../utils/drawerStyles';
 
 const BoardDrawer = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [viewingArchivedLists, setViewingArchivedLists] = useState(false);
+  const [viewingArchivedCards, setViewingArchivedCards] = useState(false);
 
   return (
     <div>
@@ -38,7 +40,7 @@ const BoardDrawer = () => {
           paper: classes.drawerPaper,
         }}
       >
-        {!viewingArchivedLists ? (
+        {!viewingArchivedLists && !viewingArchivedCards ? (
           <div>
             <div className={classes.drawerHeader}>
               <h3>Menu</h3>
@@ -54,9 +56,15 @@ const BoardDrawer = () => {
                 </ListItemIcon>
                 <ListItemText primary={'Archived Lists'} />
               </ListItem>
+              <ListItem button onClick={() => setViewingArchivedCards(true)}>
+                <ListItemIcon>
+                  <ArchiveIcon />
+                </ListItemIcon>
+                <ListItemText primary={'Archived Cards'} />
+              </ListItem>
             </List>
           </div>
-        ) : (
+        ) : viewingArchivedLists ? (
           <div>
             <div className={classes.drawerHeader}>
               <Button onClick={() => setViewingArchivedLists(false)}>
@@ -69,6 +77,20 @@ const BoardDrawer = () => {
             </div>
             <Divider />
             <ArchivedLists />
+          </div>
+        ) : (
+          <div>
+            <div className={classes.drawerHeader}>
+              <Button onClick={() => setViewingArchivedCards(false)}>
+                <ChevronLeftIcon />
+              </Button>
+              <h3>Archived Cards</h3>
+              <Button onClick={() => setOpen(false)}>
+                <CloseIcon />
+              </Button>
+            </div>
+            <Divider />
+            <ArchivedCards />
           </div>
         )}
         <Divider />
