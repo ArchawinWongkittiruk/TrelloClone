@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import Moment from 'react-moment';
 
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -78,7 +79,10 @@ const BoardDrawer = () => {
             <List>
               {activity.slice(0, activityChunks * 10).map((activity) => (
                 <ListItem key={activity._id}>
-                  <ListItemText primary={activity.text} />
+                  <ListItemText
+                    primary={activity.text}
+                    secondary={<Moment fromNow>{activity.date}</Moment>}
+                  />
                 </ListItem>
               ))}
             </List>
