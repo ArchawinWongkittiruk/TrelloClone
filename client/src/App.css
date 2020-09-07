@@ -167,7 +167,26 @@ body {
 }
 
 .board .board-top .board-top-left .board-members {
+  display: flex;
   margin: 0 20px;
+}
+
+.board .board-top .board-top-left .board-members .avatar {
+  margin-right: 5px;
+}
+
+.board .board-top .board-top-left .board-members .avatar:hover {
+  background-color: #aaa;
+}
+
+.board .board-top .board-top-left .invite {
+  margin-left: 5px;
+  display: flex;
+}
+
+.board .board-top .board-top-left .invite .search-member {
+  width: 300px;
+  margin-right: 10px;
 }
 
 .board .create-list-button {

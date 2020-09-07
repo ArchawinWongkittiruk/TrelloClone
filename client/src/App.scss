@@ -170,7 +170,25 @@ body {
       flex-direction: row;
 
       .board-members {
+        display: flex;
         margin: 0 20px;
+
+        .avatar {
+          margin-right: 5px;
+          &:hover {
+            background-color: #aaa;
+          }
+        }
+      }
+
+      .invite {
+        margin-left: 5px;
+        display: flex;
+
+        .search-member {
+          width: 300px;
+          margin-right: 10px;
+        }
       }
     }
   }

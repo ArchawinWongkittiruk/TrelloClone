@@ -65,9 +65,9 @@ router.post(
 );
 
 // Get users with name/email regex
-router.get('/', auth, async (req, res) => {
+router.get('/:input', auth, async (req, res) => {
   try {
-    const regex = new RegExp(req.body.input, 'i');
+    const regex = new RegExp(req.params.input, 'i');
     const users = await User.find({
       $or: [{ name: regex }, { email: regex }],
     }).select('-password');
