@@ -16,6 +16,7 @@ import {
   MOVE_CARD,
   ARCHIVE_CARD,
   DELETE_CARD,
+  GET_ACTIVITY,
 } from '../actions/types';
 
 const initialState = {
@@ -168,6 +169,14 @@ export default function (state = initialState, action) {
               ? { ...list, cards: list.cards.filter((card) => card !== payload) }
               : list
           ),
+        },
+      };
+    case GET_ACTIVITY:
+      return {
+        ...state,
+        board: {
+          ...state.board,
+          activity: payload,
         },
       };
     default:

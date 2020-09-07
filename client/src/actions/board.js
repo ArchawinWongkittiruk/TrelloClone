@@ -18,6 +18,7 @@ import {
   MOVE_CARD,
   ARCHIVE_CARD,
   DELETE_CARD,
+  GET_ACTIVITY,
 } from './types';
 
 const config = {
@@ -105,6 +106,8 @@ export const renameBoard = (boardId, formData) => async (dispatch) => {
       type: BOARD_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
+
+    dispatch(getActivity());
   }
 };
 
@@ -158,6 +161,8 @@ export const addList = (formData) => async (dispatch) => {
       type: BOARD_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
+
+    dispatch(getActivity());
   }
 };
 
@@ -192,6 +197,8 @@ export const archiveList = (listId, archive) => async (dispatch) => {
       type: BOARD_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
+
+    dispatch(getActivity());
   }
 };
 
@@ -228,6 +235,8 @@ export const addCard = (formData) => async (dispatch) => {
       type: BOARD_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
+
+    dispatch(getActivity());
   }
 };
 
@@ -264,6 +273,8 @@ export const moveCard = (cardId, formData) => async (dispatch) => {
       type: BOARD_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
+
+    dispatch(getActivity());
   }
 };
 
@@ -281,6 +292,8 @@ export const archiveCard = (cardId, archive) => async (dispatch) => {
       type: BOARD_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
+
+    dispatch(getActivity());
   }
 };
 
@@ -294,8 +307,27 @@ export const deleteCard = (listId, cardId) => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
-    console.log(err);
+    dispatch({
+      type: BOARD_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
 
+    dispatch(getActivity());
+  }
+};
+
+// Get activity
+export const getActivity = () => async (dispatch) => {
+  try {
+    const boardId = axios.defaults.headers.common['boardId'];
+
+    const res = await axios.get(`/api/boards/activity/${boardId}`);
+
+    dispatch({
+      type: GET_ACTIVITY,
+      payload: res.data,
+    });
+  } catch (err) {
     dispatch({
       type: BOARD_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
