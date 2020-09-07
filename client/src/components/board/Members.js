@@ -62,7 +62,7 @@ const Members = () => {
             getOptionLabel={(member) => member.email}
             className='search-member'
             renderInput={(params) => (
-              <TextField {...params} helperText='Search for member by email' autoFocus />
+              <TextField {...params} helperText='Search for user by email' autoFocus />
             )}
           />
           <Button disabled={!user} variant='contained' color='primary' onClick={onSubmit}>
