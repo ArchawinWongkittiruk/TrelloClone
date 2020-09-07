@@ -78,6 +78,21 @@ router.get('/:id', auth, async (req, res) => {
   }
 });
 
+// Get a board's activity
+router.get('/activity/:boardId', auth, async (req, res) => {
+  try {
+    const board = await Board.findById(req.params.boardId);
+    if (!board) {
+      return res.status(404).json({ msg: 'Board not found' });
+    }
+
+    res.json(board.activity);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 // Change a board's title
 router.patch(
   '/rename/:id',
