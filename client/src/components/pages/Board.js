@@ -7,6 +7,7 @@ import BoardTitle from '../board/BoardTitle';
 import BoardDrawer from '../board/BoardDrawer';
 import List from '../board/List';
 import CreateList from '../board/CreateList';
+import Members from '../board/Members';
 
 const Board = ({ match }) => {
   const board = useSelector((state) => state.board.board);
@@ -28,7 +29,10 @@ const Board = ({ match }) => {
   ) : (
     <section className='board'>
       <div className='board-top'>
-        <BoardTitle boardId={board._id} originalTitle={board.title} />
+        <div className='board-top-left'>
+          <BoardTitle boardId={board._id} originalTitle={board.title} />
+          <Members />
+        </div>
         <BoardDrawer />
       </div>
       <div className='lists'>

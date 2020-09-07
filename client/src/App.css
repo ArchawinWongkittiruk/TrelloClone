@@ -154,10 +154,20 @@ body {
 }
 
 .board .board-top {
-  height: 4vh;
+  height: 5vh;
+  padding: 5px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.board .board-top .board-top-left {
+  display: flex;
+  flex-direction: row;
+}
+
+.board .board-top .board-top-left .board-members {
+  margin: 0 20px;
 }
 
 .board .create-list-button {
@@ -180,7 +190,7 @@ body {
   display: flex;
   flex-direction: row;
   overflow-x: auto;
-  height: 90vh;
+  height: 89vh;
 }
 
 .board .lists .list-wrapper {
@@ -210,11 +220,11 @@ body {
 }
 
 .board .lists .list-wrapper .adding-card {
-  max-height: 81vh;
+  max-height: 80vh;
 }
 
 .board .lists .list-wrapper .not-adding-card {
-  max-height: 76vh;
+  max-height: 75vh;
 }
 
 .board .lists .list-wrapper .list {
