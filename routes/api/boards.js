@@ -113,7 +113,7 @@ router.patch(
       if (req.body.title !== board.title) {
         const user = await User.findById(req.user.id);
         board.activity.unshift({
-          text: `${user.name} renamed this board (from ${board.title})`,
+          text: `${user.name} renamed this board (from '${board.title}')`,
         });
       }
 

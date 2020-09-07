@@ -36,7 +36,7 @@ router.post(
       const user = await User.findById(req.user.id);
       const board = await Board.findById(boardId);
       board.activity.unshift({
-        text: `${user.name} added ${title} to ${list.title}`,
+        text: `${user.name} added '${title}' to '${list.title}'`,
       });
       await board.save();
 
@@ -125,8 +125,8 @@ router.patch('/archive/:archive/:id', [auth, member], async (req, res) => {
     const board = await Board.findById(req.header('boardId'));
     board.activity.unshift({
       text: card.archived
-        ? `${user.name} archived card ${card.title}`
-        : `${user.name} sent card ${card.title} to the board`,
+        ? `${user.name} archived card '${card.title}'`
+        : `${user.name} sent card '${card.title}' to the board`,
     });
     await board.save();
 
@@ -173,7 +173,7 @@ router.patch('/move/:id', [auth, member], async (req, res) => {
       const board = await Board.findById(boardId);
       const card = await Card.findById(cardId);
       board.activity.unshift({
-        text: `${user.name} moved ${card.title} from ${from.title} to ${to.title}`,
+        text: `${user.name} moved '${card.title}' from '${from.title}' to '${to.title}'`,
       });
       await board.save();
     }
@@ -202,7 +202,7 @@ router.delete('/:listId/:id', [auth, member], async (req, res) => {
     const user = await User.findById(req.user.id);
     const board = await Board.findById(req.header('boardId'));
     board.activity.unshift({
-      text: `${user.name} deleted ${card.title} from ${list.title}`,
+      text: `${user.name} deleted '${card.title}' from '${list.title}'`,
     });
     await board.save();
 

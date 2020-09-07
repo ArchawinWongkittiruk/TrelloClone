@@ -33,7 +33,7 @@ router.post(
       // Log activity
       const user = await User.findById(req.user.id);
       board.activity.unshift({
-        text: `${user.name} added ${title} to this board`,
+        text: `${user.name} added '${title}' to this board`,
       });
       await board.save();
 
@@ -123,8 +123,8 @@ router.patch('/archive/:archive/:id', [auth, member], async (req, res) => {
     const board = await Board.findById(req.header('boardId'));
     board.activity.unshift({
       text: list.archived
-        ? `${user.name} archived list ${list.title}`
-        : `${user.name} sent list ${list.title} to the board`,
+        ? `${user.name} archived list '${list.title}'`
+        : `${user.name} sent list '${list.title}' to the board`,
     });
     await board.save();
 
