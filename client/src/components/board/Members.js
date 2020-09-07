@@ -19,10 +19,6 @@ const Members = () => {
   );
   const dispatch = useDispatch();
 
-  const handleValue = (newMember) => {
-    setUser(newMember);
-  };
-
   const handleInputValue = async (newInputValue) => {
     setInputValue(newInputValue);
     const search = (await axios.get(`/api/users/${inputValue}`)).data;
@@ -55,7 +51,7 @@ const Members = () => {
         <div className='invite'>
           <Autocomplete
             value={user}
-            onChange={(e, newMember) => handleValue(newMember)}
+            onChange={(e, newMember) => setUser(newMember)}
             inputValue={inputValue}
             onInputChange={(e, newInputValue) => handleInputValue(newInputValue)}
             options={searchOptions}
