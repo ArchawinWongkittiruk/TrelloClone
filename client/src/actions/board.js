@@ -101,13 +101,13 @@ export const renameBoard = (boardId, formData) => async (dispatch) => {
       type: RENAME_BOARD,
       payload: res.data,
     });
+
+    dispatch(getActivity());
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
-
-    dispatch(getActivity());
   }
 };
 
@@ -156,13 +156,13 @@ export const addList = (formData) => async (dispatch) => {
       type: ADD_LIST,
       payload: res.data,
     });
+
+    dispatch(getActivity());
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
-
-    dispatch(getActivity());
   }
 };
 
@@ -192,13 +192,13 @@ export const archiveList = (listId, archive) => async (dispatch) => {
       type: ARCHIVE_LIST,
       payload: res.data,
     });
+
+    dispatch(getActivity());
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
-
-    dispatch(getActivity());
   }
 };
 
@@ -230,13 +230,13 @@ export const addCard = (formData) => async (dispatch) => {
       type: ADD_CARD,
       payload: res.data,
     });
+
+    dispatch(getActivity());
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
-
-    dispatch(getActivity());
   }
 };
 
@@ -268,13 +268,13 @@ export const moveCard = (cardId, formData) => async (dispatch) => {
       type: MOVE_CARD,
       payload: res.data,
     });
+
+    dispatch(getActivity());
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
-
-    dispatch(getActivity());
   }
 };
 
@@ -287,13 +287,13 @@ export const archiveCard = (cardId, archive) => async (dispatch) => {
       type: ARCHIVE_CARD,
       payload: res.data,
     });
+
+    dispatch(getActivity());
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
-
-    dispatch(getActivity());
   }
 };
 
@@ -306,13 +306,13 @@ export const deleteCard = (listId, cardId) => async (dispatch) => {
       type: DELETE_CARD,
       payload: res.data,
     });
+
+    dispatch(getActivity());
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
-
-    dispatch(getActivity());
   }
 };
 
