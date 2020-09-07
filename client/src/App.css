@@ -168,6 +168,11 @@ body {
 
 .board .board-top .board-top-left .board-title {
   cursor: pointer;
+  padding: 5px 0 0 5px;
+}
+
+.board .board-top .board-top-left .board-title-form {
+  padding: 5px 0 0 5px;
 }
 
 .board .board-top .board-top-left .board-members {
@@ -235,6 +240,7 @@ body {
 
 .board .lists .list-wrapper .list-top .list-title {
   cursor: pointer;
+  padding: 5px 0 0 5px;
 }
 
 .board .lists .list-wrapper .create-card-button {

@@ -20,7 +20,7 @@ const BoardTitle = ({ boardId, originalTitle }) => {
       {title}
     </h2>
   ) : (
-    <form onSubmit={(e) => onSubmit(e)}>
+    <form className='board-title-form' onSubmit={(e) => onSubmit(e)}>
       <TextField required value={title} onChange={(e) => setTitle(e.target.value)} />
     </form>
   );
