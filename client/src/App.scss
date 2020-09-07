@@ -169,6 +169,10 @@ body {
       display: flex;
       flex-direction: row;
 
+      .board-title {
+        cursor: pointer;
+      }
+
       .board-members {
         display: flex;
         margin: 0 20px;
@@ -229,6 +233,10 @@ body {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+
+        .list-title {
+          cursor: pointer;
+        }
       }
 
       .create-card-button {

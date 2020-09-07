@@ -5,15 +5,21 @@ import { renameList } from '../../actions/board';
 import { TextField } from '@material-ui/core';
 
 const ListTitle = ({ listId, originalTitle }) => {
+  const [editing, setEditing] = useState(false);
   const [title, setTitle] = useState(originalTitle);
   const dispatch = useDispatch();
 
   const onSubmit = async (e) => {
     e.preventDefault();
     dispatch(renameList(listId, { title }));
+    setEditing(false);
   };
 
-  return (
+  return !editing ? (
+    <h3 className='list-title' onClick={() => setEditing(true)}>
+      {title}
+    </h3>
+  ) : (
     <form onSubmit={(e) => onSubmit(e)}>
       <TextField required value={title} onChange={(e) => setTitle(e.target.value)} />
     </form>

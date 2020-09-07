@@ -166,6 +166,10 @@ body {
   flex-direction: row;
 }
 
+.board .board-top .board-top-left .board-title {
+  cursor: pointer;
+}
+
 .board .board-top .board-top-left .board-members {
   display: flex;
   margin: 0 20px;
@@ -227,6 +231,10 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.board .lists .list-wrapper .list-top .list-title {
+  cursor: pointer;
 }
 
 .board .lists .list-wrapper .create-card-button {
