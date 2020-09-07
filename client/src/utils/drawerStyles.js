@@ -28,6 +28,10 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     padding: '20px 20px 0',
   },
+  viewMoreActivityButton: {
+    textAlign: 'center',
+    margin: '0 auto 20px',
+  },
 }));
 
 export default useStyles;

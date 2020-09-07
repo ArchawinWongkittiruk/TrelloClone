@@ -22,7 +22,13 @@ const BoardDrawer = () => {
   const [open, setOpen] = useState(false);
   const [viewingArchivedLists, setViewingArchivedLists] = useState(false);
   const [viewingArchivedCards, setViewingArchivedCards] = useState(false);
+  const [activityChunks, setActivityChunks] = useState(1);
   const activity = useSelector((state) => state.board.board.activity);
+
+  const handleClose = () => {
+    setOpen(false);
+    setActivityChunks(1);
+  };
 
   return (
     <div>
@@ -46,7 +52,7 @@ const BoardDrawer = () => {
           <div>
             <div className={classes.drawerHeader}>
               <h3>Menu</h3>
-              <Button onClick={() => setOpen(false)}>
+              <Button onClick={handleClose}>
                 <CloseIcon />
               </Button>
             </div>
@@ -70,12 +76,17 @@ const BoardDrawer = () => {
               <h3>Activity</h3>
             </div>
             <List>
-              {activity.map((activity) => (
+              {activity.slice(0, activityChunks * 10).map((activity) => (
                 <ListItem key={activity._id}>
                   <ListItemText primary={activity.text} />
                 </ListItem>
               ))}
             </List>
+            <div className={classes.viewMoreActivityButton}>
+              <Button onClick={() => setActivityChunks(activityChunks + 1)}>
+                View More
+              </Button>
+            </div>
           </div>
         ) : viewingArchivedLists ? (
           <div>
@@ -84,7 +95,7 @@ const BoardDrawer = () => {
                 <ChevronLeftIcon />
               </Button>
               <h3>Archived Lists</h3>
-              <Button onClick={() => setOpen(false)}>
+              <Button onClick={handleClose}>
                 <CloseIcon />
               </Button>
             </div>
@@ -98,7 +109,7 @@ const BoardDrawer = () => {
                 <ChevronLeftIcon />
               </Button>
               <h3>Archived Cards</h3>
-              <Button onClick={() => setOpen(false)}>
+              <Button onClick={handleClose}>
                 <CloseIcon />
               </Button>
             </div>
