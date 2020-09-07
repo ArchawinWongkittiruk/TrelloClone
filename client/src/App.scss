@@ -172,6 +172,9 @@ body {
       .board-title {
         cursor: pointer;
         padding: 5px 0 0 5px;
+        max-width: 500px;
+        white-space: nowrap;
+        overflow: hidden;
       }
 
       .board-title-form {
@@ -242,6 +245,8 @@ body {
         .list-title {
           cursor: pointer;
           padding: 5px 0 0 5px;
+          white-space: nowrap;
+          overflow: hidden;
         }
       }
 
