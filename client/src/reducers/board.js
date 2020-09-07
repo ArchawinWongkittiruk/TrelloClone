@@ -17,6 +17,7 @@ import {
   ARCHIVE_CARD,
   DELETE_CARD,
   GET_ACTIVITY,
+  ADD_MEMBER,
 } from '../actions/types';
 
 const initialState = {
@@ -177,6 +178,14 @@ export default function (state = initialState, action) {
         board: {
           ...state.board,
           activity: payload,
+        },
+      };
+    case ADD_MEMBER:
+      return {
+        ...state,
+        board: {
+          ...state.board,
+          members: payload,
         },
       };
     default:

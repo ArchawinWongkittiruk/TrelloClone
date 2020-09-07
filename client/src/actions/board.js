@@ -19,6 +19,7 @@ import {
   ARCHIVE_CARD,
   DELETE_CARD,
   GET_ACTIVITY,
+  ADD_MEMBER,
 } from './types';
 
 const config = {
@@ -325,6 +326,23 @@ export const getActivity = () => async (dispatch) => {
 
     dispatch({
       type: GET_ACTIVITY,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: BOARD_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Add member
+export const addMember = (userId) => async (dispatch) => {
+  try {
+    const res = await axios.put(`/api/boards/addMember/${userId}`);
+
+    dispatch({
+      type: ADD_MEMBER,
       payload: res.data,
     });
   } catch (err) {

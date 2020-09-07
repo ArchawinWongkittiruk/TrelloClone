@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-// import { addMember } from '../../actions/board';
+import { addMember } from '../../actions/board';
 import { TextField, Button } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -30,7 +30,7 @@ const Members = () => {
   };
 
   const onSubmit = async () => {
-    // dispatch(addMember(user._id));
+    dispatch(addMember(user._id));
     setUser(null);
     setInputValue('');
     setInviting(false);

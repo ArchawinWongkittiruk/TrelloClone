@@ -155,7 +155,7 @@ router.put('/addMember/:userId', [auth, member], async (req, res) => {
     });
     await board.save();
 
-    res.json(board);
+    res.json(board.members);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
