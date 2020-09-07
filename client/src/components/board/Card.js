@@ -15,7 +15,7 @@ const Card = ({ cardId, list }) => {
   const [openModal, setOpenModal] = useState(false);
   const [mouseOver, setMouseOver] = useState(false);
   const [title, setTitle] = useState('');
-  let card = useSelector((state) =>
+  const card = useSelector((state) =>
     state.board.board.cardObjects.find((object) => object._id === cardId)
   );
   const dispatch = useDispatch();
