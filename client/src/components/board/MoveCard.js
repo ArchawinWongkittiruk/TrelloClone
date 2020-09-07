@@ -25,6 +25,7 @@ const MoveCard = ({ cardId, setOpen, thisList }) => {
       )
       .filter((list) => !list.archived)
   );
+  const cardObjects = useSelector((state) => state.board.board.cardObjects);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,13 +35,22 @@ const MoveCard = ({ cardId, setOpen, thisList }) => {
   }, [thisList, cardId]);
 
   useEffect(() => {
-    setPositions(
-      listObject && listObject.cards.length > 0
-        ? [...Array(listObject.cards.length + (listObject !== thisList ? 1 : 0)).keys()]
-        : [0]
-    );
-    listObject && listObject.cards.length === 0 && setPosition(0);
-  }, [thisList, listObject]);
+    if (listObject) {
+      const unarchivedListCards = listObject.cards
+        .map((id, index) => {
+          const card = cardObjects.find((object) => object._id === id);
+          const position = index;
+          return { card, position };
+        })
+        .filter((card) => !card.card.archived);
+      let cardPositions = unarchivedListCards.map((card) => card.position);
+      if (listObject !== thisList) {
+        cardPositions = cardPositions.concat(listObject.cards.length);
+      }
+      setPositions(listObject.cards.length > 0 ? cardPositions : [0]);
+      listObject.cards.length === 0 && setPosition(0);
+    }
+  }, [thisList, listObject, cardObjects]);
 
   const onSubmit = async () => {
     dispatch(
@@ -79,9 +89,9 @@ const MoveCard = ({ cardId, setOpen, thisList }) => {
             onChange={(e) => setPosition(e.target.value)}
             displayEmpty
           >
-            {positions.map((position) => (
+            {positions.map((position, index) => (
               <MenuItem key={position} value={position}>
-                {position + 1}
+                {index + 1}
               </MenuItem>
             ))}
           </Select>
