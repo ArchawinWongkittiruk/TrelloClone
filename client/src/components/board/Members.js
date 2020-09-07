@@ -10,7 +10,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 const Members = () => {
   const [inviting, setInviting] = useState(false);
-  const [member, setMember] = useState(null);
+  const [user, setUser] = useState(null);
   const [inputValue, setInputValue] = useState('');
   const [membersWithRegex, setMembersWithRegex] = useState([]);
   const boardMembers = useSelector((state) => state.board.board.members);
@@ -20,7 +20,7 @@ const Members = () => {
   const dispatch = useDispatch();
 
   const handleValue = (newMember) => {
-    setMember(newMember);
+    setUser(newMember);
   };
 
   const handleInputValue = async (newInputValue) => {
@@ -30,8 +30,8 @@ const Members = () => {
   };
 
   const onSubmit = async () => {
-    // dispatch(addMember(member._id));
-    setMember(null);
+    // dispatch(addMember(user._id));
+    setUser(null);
     setInputValue('');
     setInviting(false);
   };
@@ -54,7 +54,7 @@ const Members = () => {
       ) : (
         <div className='invite'>
           <Autocomplete
-            value={member}
+            value={user}
             onChange={(e, newMember) => handleValue(newMember)}
             inputValue={inputValue}
             onInputChange={(e, newInputValue) => handleInputValue(newInputValue)}
@@ -65,12 +65,7 @@ const Members = () => {
               <TextField {...params} helperText='Search for member by email' autoFocus />
             )}
           />
-          <Button
-            disabled={!member}
-            variant='contained'
-            color='primary'
-            onClick={onSubmit}
-          >
+          <Button disabled={!user} variant='contained' color='primary' onClick={onSubmit}>
             Add Member
           </Button>
           <Button onClick={() => setInviting(false)}>
