@@ -91,7 +91,7 @@ const BoardDrawer = () => {
                 disabled={activityChunks * 10 > activity.length}
                 onClick={() => setActivityChunks(activityChunks + 1)}
               >
-                View More
+                View More Activity
               </Button>
             </div>
           </div>
