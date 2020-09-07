@@ -144,7 +144,7 @@ export default function (state = initialState, action) {
               : list
           ),
           cardObjects: state.board.cardObjects.filter(
-            (card) => card._id !== payload.cardId || payload.to === payload.from
+            (card) => card._id !== payload.cardId || payload.to._id === payload.from._id
           ),
         },
       };
