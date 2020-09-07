@@ -142,6 +142,9 @@ export default function (state = initialState, action) {
               ? payload.to
               : list
           ),
+          cardObjects: state.board.cardObjects.filter(
+            (card) => card._id !== payload.cardId
+          ),
         },
       };
     case ARCHIVE_CARD:

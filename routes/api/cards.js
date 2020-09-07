@@ -178,7 +178,7 @@ router.patch('/move/:id', [auth, member], async (req, res) => {
       await board.save();
     }
 
-    res.send({ from, to });
+    res.send({ cardId, from, to });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
