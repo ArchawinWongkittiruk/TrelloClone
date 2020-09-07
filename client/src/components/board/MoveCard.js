@@ -31,7 +31,6 @@ const MoveCard = ({ cardId, setOpen, thisList }) => {
   useEffect(() => {
     setListObject(thisList);
     setListTitle(thisList.title);
-    setPosition(thisList.cards.findIndex((id) => id === cardId));
   }, [thisList, cardId]);
 
   useEffect(() => {
@@ -47,10 +46,15 @@ const MoveCard = ({ cardId, setOpen, thisList }) => {
       if (listObject !== thisList) {
         cardPositions = cardPositions.concat(listObject.cards.length);
       }
-      setPositions(listObject.cards.length > 0 ? cardPositions : [0]);
-      listObject.cards.length === 0 && setPosition(0);
+      if (listObject.cards.length > 0) {
+        setPositions(cardPositions);
+        setPosition(thisList.cards.findIndex((id) => id === cardId));
+      } else {
+        setPositions([0]);
+        setPosition(0);
+      }
     }
-  }, [thisList, listObject, cardObjects]);
+  }, [thisList, cardId, listObject, cardObjects]);
 
   const onSubmit = async () => {
     dispatch(
