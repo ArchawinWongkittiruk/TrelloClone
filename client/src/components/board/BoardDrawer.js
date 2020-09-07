@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -21,6 +22,7 @@ const BoardDrawer = () => {
   const [open, setOpen] = useState(false);
   const [viewingArchivedLists, setViewingArchivedLists] = useState(false);
   const [viewingArchivedCards, setViewingArchivedCards] = useState(false);
+  const activity = useSelector((state) => state.board.board.activity);
 
   return (
     <div>
@@ -62,6 +64,17 @@ const BoardDrawer = () => {
                 </ListItemIcon>
                 <ListItemText primary={'Archived Cards'} />
               </ListItem>
+            </List>
+            <Divider />
+            <div className={classes.activityTitle}>
+              <h3>Activity</h3>
+            </div>
+            <List>
+              {activity.map((activity) => (
+                <ListItem key={activity._id}>
+                  <ListItemText primary={activity.text} />
+                </ListItem>
+              ))}
             </List>
           </div>
         ) : viewingArchivedLists ? (

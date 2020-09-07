@@ -24,6 +24,10 @@ const useStyles = makeStyles((theme) => ({
     padding: '10px 20px',
     justifyContent: 'space-between',
   },
+  activityTitle: {
+    textAlign: 'center',
+    padding: '20px 20px 0',
+  },
 }));
 
 export default useStyles;
