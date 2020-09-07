@@ -20,6 +20,7 @@ import {
   DELETE_CARD,
   GET_ACTIVITY,
   ADD_MEMBER,
+  MOVE_LIST,
 } from './types';
 
 const config = {
@@ -343,6 +344,25 @@ export const addMember = (userId) => async (dispatch) => {
 
     dispatch({
       type: ADD_MEMBER,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: BOARD_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Move list
+export const moveList = (listId, formData) => async (dispatch) => {
+  try {
+    const body = JSON.stringify(formData);
+
+    const res = await axios.patch(`/api/lists/move/${listId}`, body, config);
+
+    dispatch({
+      type: MOVE_LIST,
       payload: res.data,
     });
   } catch (err) {

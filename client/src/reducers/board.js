@@ -18,6 +18,7 @@ import {
   DELETE_CARD,
   GET_ACTIVITY,
   ADD_MEMBER,
+  MOVE_LIST,
 } from '../actions/types';
 
 const initialState = {
@@ -186,6 +187,14 @@ export default function (state = initialState, action) {
         board: {
           ...state.board,
           members: payload,
+        },
+      };
+    case MOVE_LIST:
+      return {
+        ...state,
+        board: {
+          ...state.board,
+          lists: payload,
         },
       };
     default:

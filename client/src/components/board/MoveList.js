@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-// import { moveList } from '../../actions/board';
+import { moveList } from '../../actions/board';
 
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -37,7 +37,7 @@ const MoveList = ({ listId, closeMenu }) => {
   }, [lists, listId, listObjects]);
 
   const onSubmit = async () => {
-    // dispatch(moveList(listId));
+    dispatch(moveList(listId, { toIndex: position }));
     setOpenDialog(false);
     closeMenu();
   };

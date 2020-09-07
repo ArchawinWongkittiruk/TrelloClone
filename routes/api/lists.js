@@ -138,7 +138,7 @@ router.patch('/archive/:archive/:id', [auth, member], async (req, res) => {
 // Move a list
 router.patch('/move/:id', [auth, member], async (req, res) => {
   try {
-    const toIndex = req.body.toIndex;
+    const toIndex = req.body.toIndex ? req.body.toIndex : 0;
     const boardId = req.header('boardId');
     const board = await Board.findById(boardId);
     const listId = req.params.id;
@@ -150,12 +150,7 @@ router.patch('/move/:id', [auth, member], async (req, res) => {
     board.lists.splice(toIndex, 0, listId);
     await board.save();
 
-    const lists = [];
-    for (const listId of board.lists) {
-      lists.push(await List.findById(listId));
-    }
-
-    res.send(lists);
+    res.send(board.lists);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
