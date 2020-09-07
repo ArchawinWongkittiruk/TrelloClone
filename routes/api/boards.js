@@ -138,7 +138,7 @@ router.put('/addMember/:userId', [auth, member], async (req, res) => {
     }
 
     // See if already member of board
-    if (board.members.map((member) => member.user).includes(req.params.id)) {
+    if (board.members.map((member) => member.user).includes(req.params.userId)) {
       return res.status(400).json({ msg: 'Already member of board' });
     }
 
@@ -147,7 +147,7 @@ router.put('/addMember/:userId', [auth, member], async (req, res) => {
     await user.save();
 
     // Add user to board's members with 'normal' role
-    board.members.push({ user: user.id, role: 'normal' });
+    board.members.push({ user: user.id, name: user.name, role: 'normal' });
 
     // Log activity
     board.activity.unshift({
