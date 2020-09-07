@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { archiveList } from '../../actions/board';
 import { Button, Menu, MenuItem } from '@material-ui/core';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import MoveList from './MoveList';
 
 const ListMenu = ({ listId }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -27,7 +28,6 @@ const ListMenu = ({ listId }) => {
         <MoreHorizIcon />
       </Button>
       <Menu
-        id='simple-menu'
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
@@ -43,6 +43,9 @@ const ListMenu = ({ listId }) => {
           }}
         >
           Archive This List
+        </MenuItem>
+        <MenuItem>
+          <MoveList listId={listId} closeMenu={handleClose} />
         </MenuItem>
       </Menu>
     </div>
