@@ -30,7 +30,7 @@ router.post(
       await user.save();
 
       // Add user to board's members as admin
-      board.members.push({ user: user.id });
+      board.members.push({ user: user.id, name: user.name });
 
       // Log activity
       board.activity.unshift({
