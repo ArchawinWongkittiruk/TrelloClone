@@ -26,7 +26,7 @@ const Landing = () => {
       <div className='landing-inner'>
         <h1>TrelloClone</h1>
         <p>
-          Just like <a href='https://trello.com/'>Trello</a>, but made by an amateur!
+          Just like <a href='https://trello.com/'>Trello</a>, but made by just one guy!
         </p>
         <div className='buttons'>
           <Button variant='outlined' color='inherit' href='/register'>
