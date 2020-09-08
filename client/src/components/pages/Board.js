@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { getBoard } from '../../actions/board';
+import { getBoard, moveCard, moveList } from '../../actions/board';
 import { CircularProgress, Box } from '@material-ui/core';
 import BoardTitle from '../board/BoardTitle';
 import BoardDrawer from '../board/BoardDrawer';
@@ -24,20 +24,21 @@ const Board = ({ match }) => {
   }
 
   const onDragEnd = (result) => {
-    // const { destination, source, draggableId, type } = result;
-    // if (!destination) {
-    //   return;
-    // }
-    // dispatch(
-    //   sort(
-    //     source.droppableId,
-    //     destination.droppableId,
-    //     source.index,
-    //     destination.index,
-    //     draggableId,
-    //     type
-    //   )
-    // );
+    const { source, destination, draggableId, type } = result;
+    if (!destination) {
+      return;
+    }
+    if (type === 'card') {
+      dispatch(
+        moveCard(draggableId, {
+          fromId: source.droppableId,
+          toId: destination.droppableId,
+          toIndex: destination.index,
+        })
+      );
+    } else {
+      dispatch(moveList(draggableId, { toIndex: destination.index }));
+    }
   };
 
   return !board ? (
@@ -57,11 +58,11 @@ const Board = ({ match }) => {
         <Droppable droppableId='all-lists' direction='horizontal' type='list'>
           {(provided) => (
             <div className='lists' ref={provided.innerRef} {...provided.droppableProps}>
-              {board.lists.map((listId) => (
-                <List key={listId} listId={listId} />
+              {board.lists.map((listId, index) => (
+                <List key={listId} listId={listId} index={index} />
               ))}
-              <CreateList />
               {provided.placeholder}
+              <CreateList />
             </div>
           )}
         </Droppable>
