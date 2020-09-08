@@ -266,6 +266,7 @@ body {
 }
 
 .board .lists .list-wrapper .list {
+  min-height: 1px;
   overflow-y: auto;
 }
 

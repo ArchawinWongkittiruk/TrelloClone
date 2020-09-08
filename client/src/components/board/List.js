@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Droppable } from 'react-beautiful-dnd';
 import { getList } from '../../actions/board';
 import ListTitle from './ListTitle';
 import ListMenu from './ListMenu';
@@ -32,18 +33,25 @@ const List = ({ listId }) => {
         <ListTitle listId={listId} originalTitle={list.title} />
         <ListMenu listId={listId} />
       </div>
-      <div className={`list ${addingCard ? 'adding-card' : 'not-adding-card'}`}>
-        <div className='cards'>
-          {list.cards.map((cardId) => (
-            <Card key={cardId} cardId={cardId} list={list} />
-          ))}
-        </div>
-        {addingCard && (
-          <div ref={createCardFormRef}>
-            <CreateCardForm listId={listId} setAdding={setAddingCard} />
+      <Droppable droppableId={listId}>
+        {(provided) => (
+          <div {...provided.droppableProps} ref={provided.innerRef}>
+            <div className={`list ${addingCard ? 'adding-card' : 'not-adding-card'}`}>
+              <div className='cards'>
+                {list.cards.map((cardId, index) => (
+                  <Card key={cardId} cardId={cardId} list={list} index={index} />
+                ))}
+              </div>
+              {provided.placeholder}
+              {addingCard && (
+                <div ref={createCardFormRef}>
+                  <CreateCardForm listId={listId} setAdding={setAddingCard} />
+                </div>
+              )}
+            </div>
           </div>
         )}
-      </div>
+      </Droppable>
       {!addingCard && (
         <div className='create-card-button'>
           <Button variant='contained' onClick={() => setAddingCard(true)}>

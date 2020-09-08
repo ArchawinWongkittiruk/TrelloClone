@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { getBoard } from '../../actions/board';
 import { CircularProgress, Box } from '@material-ui/core';
 import BoardTitle from '../board/BoardTitle';
@@ -22,6 +23,23 @@ const Board = ({ match }) => {
     return <Redirect to='/' />;
   }
 
+  const onDragEnd = (result) => {
+    // const { destination, source, draggableId, type } = result;
+    // if (!destination) {
+    //   return;
+    // }
+    // dispatch(
+    //   sort(
+    //     source.droppableId,
+    //     destination.droppableId,
+    //     source.index,
+    //     destination.index,
+    //     draggableId,
+    //     type
+    //   )
+    // );
+  };
+
   return !board ? (
     <Box className='board-loading'>
       <CircularProgress />
@@ -35,12 +53,19 @@ const Board = ({ match }) => {
         </div>
         <BoardDrawer />
       </div>
-      <div className='lists'>
-        {board.lists.map((listId) => (
-          <List key={listId} listId={listId} />
-        ))}
-        <CreateList />
-      </div>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId='all-lists' direction='horizontal' type='list'>
+          {(provided) => (
+            <div className='lists' ref={provided.innerRef} {...provided.droppableProps}>
+              {board.lists.map((listId) => (
+                <List key={listId} listId={listId} />
+              ))}
+              <CreateList />
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
     </section>
   );
 };
