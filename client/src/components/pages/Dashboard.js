@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import { getBoards } from '../../actions/board';
 import CreateBoard from '../subcomponents/CreateBoard';
+import Navbar from '../subcomponents/Navbar';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const Dashboard = () => {
@@ -20,19 +21,22 @@ const Dashboard = () => {
   }
 
   return (
-    <section className='dashboard'>
-      <h1>Welcome {user && user.name}</h1>
-      <h2>Your Boards</h2>
-      {loading && <CircularProgress className='dashboard-loading' />}
-      <div className='boards'>
-        {boards.map((board) => (
-          <Link key={board._id} to={`/board/${board._id}`} className='board-card'>
-            {board.title}
-          </Link>
-        ))}
-        <CreateBoard />
-      </div>
-    </section>
+    <div className='dashboard-and-navbar'>
+      <Navbar />
+      <section className='dashboard'>
+        <h1>Welcome {user && user.name}</h1>
+        <h2>Your Boards</h2>
+        {loading && <CircularProgress className='dashboard-loading' />}
+        <div className='boards'>
+          {boards.map((board) => (
+            <Link key={board._id} to={`/board/${board._id}`} className='board-card'>
+              {board.title}
+            </Link>
+          ))}
+          <CreateBoard />
+        </div>
+      </section>
+    </div>
   );
 };
 

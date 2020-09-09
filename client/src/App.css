@@ -21,7 +21,6 @@ body {
   flex-direction: row;
   justify-content: space-between;
   padding: 10px;
-  background-color: #026aa7;
   height: 4.5vh;
 }
 
@@ -83,6 +82,10 @@ body {
   }
 }
 
+.dashboard-and-navbar .navbar {
+  background-color: #026aa7;
+}
+
 .dashboard {
   display: flex;
   flex-direction: column;
@@ -142,6 +145,15 @@ body {
   background-color: darkgrey;
 }
 
+.board-and-navbar {
+  background: url("https://images.unsplash.com/photo-1598197748967-b4674cb3c266?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2689&q=80");
+  background-size: cover;
+}
+
+.board-and-navbar .navbar {
+  background-color: rgba(50, 50, 50, 0.4);
+}
+
 .board-loading {
   text-align: center;
   margin-top: 20%;
@@ -149,8 +161,6 @@ body {
 
 .board {
   padding: 10px;
-  background: url("https://images.unsplash.com/photo-1598197748967-b4674cb3c266?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2689&q=80");
-  background-size: cover;
 }
 
 @media (min-width: 960px) {
@@ -189,7 +199,7 @@ body {
 }
 
 .board .board-top .board-top-left .board-title-form {
-  padding: 5px 0 0 5px;
+  background-color: snow;
 }
 
 .board .board-top .board-top-left .board-members-wrapper {
@@ -212,10 +222,12 @@ body {
 
 .board .board-top .board-top-left .board-members-wrapper .avatar {
   margin-right: 5px;
+  color: darkslategrey;
+  background-color: #eee;
 }
 
 .board .board-top .board-top-left .board-members-wrapper .avatar:hover {
-  background-color: #aaa;
+  background-color: #ccc;
 }
 
 .board .board-top .board-top-left .invite {

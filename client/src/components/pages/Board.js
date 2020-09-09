@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
@@ -9,6 +9,7 @@ import BoardDrawer from '../board/BoardDrawer';
 import List from '../board/List';
 import CreateList from '../board/CreateList';
 import Members from '../board/Members';
+import Navbar from '../subcomponents/Navbar';
 
 const Board = ({ match }) => {
   const board = useSelector((state) => state.board.board);
@@ -42,32 +43,38 @@ const Board = ({ match }) => {
   };
 
   return !board ? (
-    <Box className='board-loading'>
-      <CircularProgress />
-    </Box>
+    <Fragment>
+      <Navbar />
+      <Box className='board-loading'>
+        <CircularProgress />
+      </Box>
+    </Fragment>
   ) : (
-    <section className='board'>
-      <div className='board-top'>
-        <div className='board-top-left'>
-          <BoardTitle boardId={board._id} originalTitle={board.title} />
-          <Members />
+    <div className='board-and-navbar'>
+      <Navbar />
+      <section className='board'>
+        <div className='board-top'>
+          <div className='board-top-left'>
+            <BoardTitle boardId={board._id} originalTitle={board.title} />
+            <Members />
+          </div>
+          <BoardDrawer />
         </div>
-        <BoardDrawer />
-      </div>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId='all-lists' direction='horizontal' type='list'>
-          {(provided) => (
-            <div className='lists' ref={provided.innerRef} {...provided.droppableProps}>
-              {board.lists.map((listId, index) => (
-                <List key={listId} listId={listId} index={index} />
-              ))}
-              {provided.placeholder}
-              <CreateList />
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
-    </section>
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId='all-lists' direction='horizontal' type='list'>
+            {(provided) => (
+              <div className='lists' ref={provided.innerRef} {...provided.droppableProps}>
+                {board.lists.map((listId, index) => (
+                  <List key={listId} listId={listId} index={index} />
+                ))}
+                {provided.placeholder}
+                <CreateList />
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+      </section>
+    </div>
   );
 };
 
