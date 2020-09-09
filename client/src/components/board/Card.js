@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Draggable } from 'react-beautiful-dnd';
@@ -8,7 +8,7 @@ import CardMUI from '@material-ui/core/Card';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import SubjectIcon from '@material-ui/icons/Subject';
-import { TextField, CardContent, Button } from '@material-ui/core';
+import { TextField, CardContent, Button, Avatar, Tooltip } from '@material-ui/core';
 import CardModal from './CardModal';
 
 const Card = ({ cardId, list, index }) => {
@@ -16,6 +16,8 @@ const Card = ({ cardId, list, index }) => {
   const [openModal, setOpenModal] = useState(false);
   const [mouseOver, setMouseOver] = useState(false);
   const [title, setTitle] = useState('');
+  const [height, setHeight] = useState(0);
+  const cardRef = useRef(null);
   const card = useSelector((state) =>
     state.board.board.cardObjects.find((object) => object._id === cardId)
   );
@@ -28,6 +30,10 @@ const Card = ({ cardId, list, index }) => {
   useEffect(() => {
     card && setTitle(card.title);
   }, [card]);
+
+  useEffect(() => {
+    cardRef && cardRef.current && setHeight(cardRef.current.clientHeight);
+  }, [list, card, cardRef]);
 
   const onSubmitEdit = async (e) => {
     e.preventDefault();
@@ -58,7 +64,15 @@ const Card = ({ cardId, list, index }) => {
             {...provided.dragHandleProps}
           >
             {mouseOver && !editing && (
-              <Button className='edit-button' onClick={() => setEditing(true)}>
+              <Button
+                style={{
+                  position: 'absolute',
+                  bottom: height - 40,
+                  left: '180px',
+                  zIndex: 1,
+                }}
+                onClick={() => setEditing(true)}
+              >
                 <EditIcon fontSize='small' />
               </Button>
             )}
@@ -68,14 +82,32 @@ const Card = ({ cardId, list, index }) => {
                   setOpenModal(true);
                   setMouseOver(false);
                 }}
+                ref={cardRef}
               >
                 {card.label && card.label !== 'none' && (
                   <div className='card-label' style={{ backgroundColor: card.label }} />
                 )}
                 <p>{card.title}</p>
-                {card.description && (
-                  <SubjectIcon className='description-indicator' fontSize='small' />
-                )}
+                <div className='card-bottom'>
+                  <div>
+                    {card.description && (
+                      <SubjectIcon className='description-indicator' fontSize='small' />
+                    )}
+                  </div>
+                  <div className='card-member-avatars'>
+                    {card.members.map((member) => {
+                      let initials = member.name.match(/\b\w/g) || [];
+                      initials = (
+                        (initials.shift() || '') + (initials.pop() || '')
+                      ).toUpperCase();
+                      return (
+                        <Tooltip title={member.name} key={member.user}>
+                          <Avatar className='avatar'>{initials}</Avatar>
+                        </Tooltip>
+                      );
+                    })}
+                  </div>
+                </div>
               </CardContent>
             ) : (
               <CardContent className='create-card-form'>

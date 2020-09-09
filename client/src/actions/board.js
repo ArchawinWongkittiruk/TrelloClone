@@ -7,7 +7,6 @@ import {
   ADD_BOARD,
   BOARD_ERROR,
   RENAME_BOARD,
-  GET_LISTS,
   GET_LIST,
   ADD_LIST,
   RENAME_LIST,
@@ -21,6 +20,7 @@ import {
   GET_ACTIVITY,
   ADD_MEMBER,
   MOVE_LIST,
+  ADD_CARD_MEMBER,
 } from './types';
 
 const config = {
@@ -105,23 +105,6 @@ export const renameBoard = (boardId, formData) => async (dispatch) => {
     });
 
     dispatch(getActivity());
-  } catch (err) {
-    dispatch({
-      type: BOARD_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
-  }
-};
-
-// Get lists
-export const getLists = (boardId) => async (dispatch) => {
-  try {
-    const res = await axios.get(`/api/lists/boardLists/${boardId}`);
-
-    dispatch({
-      type: GET_LISTS,
-      payload: res.data,
-    });
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
@@ -367,6 +350,27 @@ export const moveList = (listId, formData) => async (dispatch) => {
       type: MOVE_LIST,
       payload: res.data,
     });
+  } catch (err) {
+    dispatch({
+      type: BOARD_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Add card member
+export const addCardMember = (formData) => async (dispatch) => {
+  try {
+    const { add, cardId, userId } = formData;
+
+    const res = await axios.put(`/api/cards/addMember/${add}/${cardId}/${userId}`);
+
+    dispatch({
+      type: ADD_CARD_MEMBER,
+      payload: res.data,
+    });
+
+    dispatch(getActivity());
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,

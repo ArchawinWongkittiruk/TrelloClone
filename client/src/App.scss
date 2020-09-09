@@ -214,15 +214,6 @@ body {
           display: flex;
           flex-wrap: wrap;
         }
-
-        .avatar {
-          margin-right: 5px;
-          color: darkslategrey;
-          background-color: #eee;
-          &:hover {
-            background-color: #ccc;
-          }
-        }
       }
 
       .invite {
@@ -241,6 +232,16 @@ body {
           margin-right: 10px;
         }
       }
+    }
+  }
+
+  .avatar {
+    margin-right: 2px;
+    color: darkslategrey;
+    cursor: default;
+    background-color: #eee;
+    &:hover {
+      background-color: #ccc;
     }
   }
 
@@ -336,10 +337,23 @@ body {
               margin: 3px 0 -5px -3px;
             }
 
-            .edit-button {
-              position: absolute;
-              bottom: 20px;
-              left: 180px;
+            .card-bottom {
+              display: flex;
+              justify-content: space-between;
+              flex-wrap: wrap;
+              margin-top: 3px;
+              margin-bottom: -5px;
+
+              .card-member-avatars {
+                display: flex;
+                flex-wrap: wrap;
+
+                .avatar {
+                  width: 30px;
+                  height: 30px;
+                  font-size: 0.8rem;
+                }
+              }
             }
           }
 

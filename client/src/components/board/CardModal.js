@@ -7,6 +7,7 @@ import { Modal, TextField, Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import MoveCard from './MoveCard';
 import DeleteCard from './DeleteCard';
+import CardMembers from './CardMembers';
 import useStyles from '../../utils/modalStyles';
 
 const CardModal = ({ cardId, open, setOpen, card, list }) => {
@@ -73,18 +74,23 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
             Save All Changes
           </Button>
         </form>
-        <h3 className={classes.labelTitle}>Label</h3>
-        <GithubPicker
-          className={classes.colorPicker}
-          onChange={(color) => dispatch(editCard(cardId, { label: color.hex }))}
-        />
-        <Button
-          className={classes.noLabel}
-          variant='outlined'
-          onClick={() => dispatch(editCard(cardId, { label: 'none' }))}
-        >
-          No Label
-        </Button>
+        <div className={classes.modalMiddle}>
+          <CardMembers card={card} />
+          <div>
+            <h3 className={classes.labelTitle}>Label</h3>
+            <GithubPicker
+              className={classes.colorPicker}
+              onChange={async (color) => dispatch(editCard(cardId, { label: color.hex }))}
+            />
+            <Button
+              className={classes.noLabel}
+              variant='outlined'
+              onClick={async () => dispatch(editCard(cardId, { label: 'none' }))}
+            >
+              No Label
+            </Button>
+          </div>
+        </div>
         <div className={classes.modalBottom}>
           <MoveCard cardId={cardId} setOpen={setOpen} thisList={list} />
           <div className={classes.modalBottomRight}>

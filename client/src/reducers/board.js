@@ -5,7 +5,6 @@ import {
   ADD_BOARD,
   BOARD_ERROR,
   RENAME_BOARD,
-  GET_LISTS,
   GET_LIST,
   ADD_LIST,
   RENAME_LIST,
@@ -19,6 +18,7 @@ import {
   GET_ACTIVITY,
   ADD_MEMBER,
   MOVE_LIST,
+  ADD_CARD_MEMBER,
 } from '../actions/types';
 
 const initialState = {
@@ -59,14 +59,6 @@ export default function (state = initialState, action) {
         ...state,
         error: payload,
       };
-    case GET_LISTS:
-      return {
-        ...state,
-        board: {
-          ...state.board,
-          listObjects: payload,
-        },
-      };
     case GET_LIST:
       return {
         ...state,
@@ -83,23 +75,14 @@ export default function (state = initialState, action) {
           lists: [...state.board.lists, payload._id],
         },
       };
+    case ARCHIVE_LIST:
     case RENAME_LIST:
       return {
         ...state,
         board: {
           ...state.board,
           listObjects: state.board.listObjects.map((list) =>
-            list._id === payload._id ? { ...list, title: payload.title } : list
-          ),
-        },
-      };
-    case ARCHIVE_LIST:
-      return {
-        ...state,
-        board: {
-          ...state.board,
-          listObjects: state.board.listObjects.map((list) =>
-            list._id === payload._id ? { ...list, archived: payload.archived } : list
+            list._id === payload._id ? payload : list
           ),
         },
       };
@@ -123,6 +106,8 @@ export default function (state = initialState, action) {
           ),
         },
       };
+    case ARCHIVE_CARD:
+    case ADD_CARD_MEMBER:
     case EDIT_CARD:
       return {
         ...state,
@@ -147,16 +132,6 @@ export default function (state = initialState, action) {
           ),
           cardObjects: state.board.cardObjects.filter(
             (card) => card._id !== payload.cardId || payload.to._id === payload.from._id
-          ),
-        },
-      };
-    case ARCHIVE_CARD:
-      return {
-        ...state,
-        board: {
-          ...state.board,
-          cardObjects: state.board.cardObjects.map((card) =>
-            card._id === payload._id ? { ...card, archived: payload.archived } : card
           ),
         },
       };

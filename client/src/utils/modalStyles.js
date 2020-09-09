@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
     width: 180,
     marginTop: 10,
   },
+  membersTitle: {
+    margin: '20px 0 10px',
+  },
   labelTitle: {
     margin: '20px 0 10px',
   },
@@ -58,6 +61,11 @@ const useStyles = makeStyles((theme) => ({
   modalTop: {
     display: 'flex',
     justifyContent: 'space-between',
+  },
+  modalMiddle: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
   },
   modalBottom: {
     display: 'flex',

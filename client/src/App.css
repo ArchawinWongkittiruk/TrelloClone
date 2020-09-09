@@ -220,16 +220,6 @@ body {
   flex-wrap: wrap;
 }
 
-.board .board-top .board-top-left .board-members-wrapper .avatar {
-  margin-right: 5px;
-  color: darkslategrey;
-  background-color: #eee;
-}
-
-.board .board-top .board-top-left .board-members-wrapper .avatar:hover {
-  background-color: #ccc;
-}
-
 .board .board-top .board-top-left .invite {
   margin-left: 5px;
   display: flex;
@@ -251,6 +241,17 @@ body {
 .board .board-top .board-top-left .invite .search-member {
   width: 250px;
   margin-right: 10px;
+}
+
+.board .avatar {
+  margin-right: 2px;
+  color: darkslategrey;
+  cursor: default;
+  background-color: #eee;
+}
+
+.board .avatar:hover {
+  background-color: #ccc;
 }
 
 .board .create-list-button {
@@ -350,10 +351,23 @@ body {
   margin: 3px 0 -5px -3px;
 }
 
-.board .lists .list-wrapper .list .cards .card .edit-button {
-  position: absolute;
-  bottom: 20px;
-  left: 180px;
+.board .lists .list-wrapper .list .cards .card .card-bottom {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 3px;
+  margin-bottom: -5px;
+}
+
+.board .lists .list-wrapper .list .cards .card .card-bottom .card-member-avatars {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.board .lists .list-wrapper .list .cards .card .card-bottom .card-member-avatars .avatar {
+  width: 30px;
+  height: 30px;
+  font-size: 0.8rem;
 }
 
 .board .lists .list-wrapper .list .cards .mouse-over {

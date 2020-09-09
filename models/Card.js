@@ -11,6 +11,19 @@ const CardSchema = new Schema({
   label: {
     type: String,
   },
+  members: [
+    {
+      _id: false,
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: 'users',
+      },
+      name: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
   archived: {
     type: Boolean,
     required: true,
