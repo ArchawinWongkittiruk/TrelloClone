@@ -69,8 +69,13 @@ const Card = ({ cardId, list, index }) => {
                   setMouseOver(false);
                 }}
               >
+                {card.label && card.label !== 'none' && (
+                  <div className='card-label' style={{ backgroundColor: card.label }} />
+                )}
                 <p>{card.title}</p>
-                {card.description && <SubjectIcon fontSize='small' />}
+                {card.description && (
+                  <SubjectIcon className='description-indicator' fontSize='small' />
+                )}
               </CardContent>
             ) : (
               <CardContent className='create-card-form'>

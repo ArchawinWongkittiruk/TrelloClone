@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import { GithubPicker } from 'react-color';
 import { editCard, archiveCard } from '../../actions/board';
 import { Modal, TextField, Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
@@ -72,6 +73,18 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
             Save All Changes
           </Button>
         </form>
+        <h3 className={classes.labelTitle}>Label</h3>
+        <GithubPicker
+          className={classes.colorPicker}
+          onChange={(color) => dispatch(editCard(cardId, { label: color.hex }))}
+        />
+        <Button
+          className={classes.noLabel}
+          variant='outlined'
+          onClick={() => dispatch(editCard(cardId, { label: 'none' }))}
+        >
+          No Label
+        </Button>
         <div className={classes.modalBottom}>
           <MoveCard cardId={cardId} setOpen={setOpen} thisList={list} />
           <div className={classes.modalBottomRight}>

@@ -17,15 +17,24 @@ const useStyles = makeStyles((theme) => ({
     width: 180,
     marginTop: 10,
   },
+  labelTitle: {
+    margin: '20px 0 10px',
+  },
+  colorPicker: {
+    minWidth: 220,
+  },
+  noLabel: {
+    width: 100,
+  },
   moveCardTitle: {
-    marginTop: 50,
+    marginTop: 20,
   },
   moveCard: {
     display: 'flex',
     flexDirection: 'column',
   },
   moveCardSelect: {
-    marginTop: 20,
+    marginTop: 10,
     marginRight: 20,
     width: 200,
   },

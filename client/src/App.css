@@ -315,6 +315,17 @@ body {
   cursor: pointer;
 }
 
+.board .lists .list-wrapper .list .cards .card .card-label {
+  height: 9px;
+  width: 45px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.board .lists .list-wrapper .list .cards .card .description-indicator {
+  margin: 3px 0 -5px -3px;
+}
+
 .board .lists .list-wrapper .list .cards .card .edit-button {
   position: absolute;
   bottom: 20px;
