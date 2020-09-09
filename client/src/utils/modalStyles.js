@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
   moveCard: {
     display: 'flex',
     flexDirection: 'column',
+    minHeight: '100%',
   },
   moveCardSelect: {
     marginTop: 10,
