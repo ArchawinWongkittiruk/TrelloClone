@@ -241,7 +241,7 @@ body {
     cursor: default;
     background-color: #eee;
     &:hover {
-      background-color: #ccc;
+      background-color: #ddd;
     }
   }
 
@@ -352,6 +352,10 @@ body {
                   width: 30px;
                   height: 30px;
                   font-size: 0.8rem;
+                  background-color: #ddd;
+                  &:hover {
+                    background-color: #ccc;
+                  }
                 }
               }
             }

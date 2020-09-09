@@ -251,7 +251,7 @@ body {
 }
 
 .board .avatar:hover {
-  background-color: #ccc;
+  background-color: #ddd;
 }
 
 .board .create-list-button {
@@ -368,6 +368,11 @@ body {
   width: 30px;
   height: 30px;
   font-size: 0.8rem;
+  background-color: #ddd;
+}
+
+.board .lists .list-wrapper .list .cards .card .card-bottom .card-member-avatars .avatar:hover {
+  background-color: #ccc;
 }
 
 .board .lists .list-wrapper .list .cards .mouse-over {
