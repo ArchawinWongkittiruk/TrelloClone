@@ -62,6 +62,11 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
             type='submit'
             variant='contained'
             color='primary'
+            disabled={
+              title === card.title &&
+              (description === card.description ||
+                (description === '' && !card.description))
+            }
             className={classes.button}
           >
             Save All Changes
