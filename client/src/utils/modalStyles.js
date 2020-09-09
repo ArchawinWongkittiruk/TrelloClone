@@ -58,23 +58,17 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
-  modalTop: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-  modalMiddle: {
+  modalSection: {
     display: 'flex',
     justifyContent: 'space-between',
     flexWrap: 'wrap',
-  },
-  modalBottom: {
-    display: 'flex',
-    justifyContent: 'space-between',
+    height: 'auto',
   },
   modalBottomRight: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-end',
+    marginTop: 20,
   },
   archiveButton: {
     marginBottom: 5,

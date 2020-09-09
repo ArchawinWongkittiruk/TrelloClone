@@ -34,7 +34,7 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
     <Modal open={open} onClose={() => setOpen(false)}>
       <div className={`${classes.paper} ${classes.cardModal}`}>
         <form onSubmit={(e) => onTitleDescriptionSubmit(e)}>
-          <div className={classes.modalTop}>
+          <div className={classes.modalSection}>
             <TextField
               variant='outlined'
               margin='normal'
@@ -73,7 +73,7 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
             Save All Changes
           </Button>
         </form>
-        <div className={classes.modalMiddle}>
+        <div className={classes.modalSection}>
           <CardMembers card={card} />
           <div>
             <h3 className={classes.labelTitle}>Label</h3>
@@ -90,7 +90,7 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
             </Button>
           </div>
         </div>
-        <div className={classes.modalBottom}>
+        <div className={classes.modalSection}>
           <MoveCard cardId={cardId} setOpen={setOpen} thisList={list} />
           <div className={classes.modalBottomRight}>
             <Button
