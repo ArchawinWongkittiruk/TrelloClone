@@ -156,7 +156,9 @@ body {
 .board {
   padding: 10px;
   background-color: snow;
-  height: 95.5vh;
+  @media (min-width: 960px) {
+    height: 95.5vh;
+  }
 
   .board-top {
     padding: 5px;
