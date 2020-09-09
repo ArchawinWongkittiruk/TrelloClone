@@ -46,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
     left: '50%',
     transform: 'translateX(-50%)',
     maxHeight: '90vh',
+    [theme.breakpoints.down('sm')]: {
+      maxHeight: '80vh',
+    },
     overflowY: 'auto',
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
