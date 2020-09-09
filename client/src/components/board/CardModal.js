@@ -23,7 +23,6 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
   const onTitleDescriptionSubmit = async (e) => {
     e.preventDefault();
     dispatch(editCard(cardId, { title, description }));
-    setOpen(false);
   };
 
   const onArchiveCard = async () => {
