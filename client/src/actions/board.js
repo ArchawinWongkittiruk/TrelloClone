@@ -346,6 +346,8 @@ export const addMember = (userId) => async (dispatch) => {
       type: ADD_MEMBER,
       payload: res.data,
     });
+
+    dispatch(getActivity());
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
