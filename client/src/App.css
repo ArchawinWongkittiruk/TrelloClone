@@ -154,16 +154,23 @@ body {
 }
 
 .board .board-top {
-  height: 5vh;
   padding: 5px;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-between;
 }
 
 .board .board-top .board-top-left {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
+}
+
+@media (max-width: 960px) {
+  .board .board-top .board-top-left {
+    flex-direction: column;
+  }
 }
 
 .board .board-top .board-top-left .board-title {
@@ -178,26 +185,52 @@ body {
   padding: 5px 0 0 5px;
 }
 
-.board .board-top .board-top-left .board-members {
+.board .board-top .board-top-left .board-members-wrapper {
   display: flex;
+  flex-wrap: wrap;
   margin: 0 20px;
 }
 
-.board .board-top .board-top-left .board-members .avatar {
+@media (max-width: 960px) {
+  .board .board-top .board-top-left .board-members-wrapper {
+    margin: 20px 0;
+    flex-direction: column;
+  }
+}
+
+.board .board-top .board-top-left .board-members-wrapper .board-members {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.board .board-top .board-top-left .board-members-wrapper .avatar {
   margin-right: 5px;
 }
 
-.board .board-top .board-top-left .board-members .avatar:hover {
+.board .board-top .board-top-left .board-members-wrapper .avatar:hover {
   background-color: #aaa;
 }
 
 .board .board-top .board-top-left .invite {
   margin-left: 5px;
   display: flex;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 960px) {
+  .board .board-top .board-top-left .invite {
+    height: 4vh;
+  }
+}
+
+@media (max-width: 960px) {
+  .board .board-top .board-top-left .invite {
+    margin: 20px 0 0;
+  }
 }
 
 .board .board-top .board-top-left .invite .search-member {
-  width: 300px;
+  width: 250px;
   margin-right: 10px;
 }
 

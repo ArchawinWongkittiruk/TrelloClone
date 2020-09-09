@@ -159,15 +159,19 @@ body {
   height: 95.5vh;
 
   .board-top {
-    height: 5vh;
     padding: 5px;
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-between;
 
     .board-top-left {
       display: flex;
+      flex-wrap: wrap;
       flex-direction: row;
+      @media (max-width: 960px) {
+        flex-direction: column;
+      }
 
       .board-title {
         cursor: pointer;
@@ -181,9 +185,19 @@ body {
         padding: 5px 0 0 5px;
       }
 
-      .board-members {
+      .board-members-wrapper {
         display: flex;
+        flex-wrap: wrap;
         margin: 0 20px;
+        @media (max-width: 960px) {
+          margin: 20px 0;
+          flex-direction: column;
+        }
+
+        .board-members {
+          display: flex;
+          flex-wrap: wrap;
+        }
 
         .avatar {
           margin-right: 5px;
@@ -196,9 +210,16 @@ body {
       .invite {
         margin-left: 5px;
         display: flex;
+        flex-wrap: wrap;
+        @media (min-width: 960px) {
+          height: 4vh;
+        }
+        @media (max-width: 960px) {
+          margin: 20px 0 0;
+        }
 
         .search-member {
-          width: 300px;
+          width: 250px;
           margin-right: 10px;
         }
       }

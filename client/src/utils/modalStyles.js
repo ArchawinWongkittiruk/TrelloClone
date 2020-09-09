@@ -6,6 +6,9 @@ const useStyles = makeStyles((theme) => ({
   },
   cardModal: {
     width: 800,
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: 400,
+    },
   },
   cardTitle: {
     width: 650,

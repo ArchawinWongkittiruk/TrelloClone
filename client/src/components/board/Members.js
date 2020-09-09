@@ -35,16 +35,18 @@ const Members = () => {
   };
 
   return (
-    <div className='board-members'>
-      {boardMembers.map((member) => {
-        let initials = member.name.match(/\b\w/g) || [];
-        initials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
-        return (
-          <Tooltip title={member.name} key={member.user}>
-            <Avatar className='avatar'>{initials}</Avatar>
-          </Tooltip>
-        );
-      })}
+    <div className='board-members-wrapper'>
+      <div className='board-members'>
+        {boardMembers.map((member) => {
+          let initials = member.name.match(/\b\w/g) || [];
+          initials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
+          return (
+            <Tooltip title={member.name} key={member.user}>
+              <Avatar className='avatar'>{initials}</Avatar>
+            </Tooltip>
+          );
+        })}
+      </div>
       {!inviting ? (
         <Button className='invite' variant='outlined' onClick={() => setInviting(true)}>
           Invite
@@ -63,12 +65,19 @@ const Members = () => {
               <TextField {...params} helperText='Search for user by email' autoFocus />
             )}
           />
-          <Button disabled={!user} variant='contained' color='primary' onClick={onSubmit}>
-            Add Member
-          </Button>
-          <Button onClick={() => setInviting(false)}>
-            <CloseIcon />
-          </Button>
+          <div className='add-member'>
+            <Button
+              disabled={!user}
+              variant='contained'
+              color='primary'
+              onClick={onSubmit}
+            >
+              Add Member
+            </Button>
+            <Button onClick={() => setInviting(false)}>
+              <CloseIcon />
+            </Button>
+          </div>
         </div>
       )}
     </div>
