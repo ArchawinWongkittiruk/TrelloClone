@@ -29,9 +29,7 @@ const CreateList = () => {
           variant='filled'
           margin='normal'
           required
-          id='title'
           label='Enter list title'
-          name='title'
           autoFocus
           value={title}
           onChange={(e) => setTitle(e.target.value)}

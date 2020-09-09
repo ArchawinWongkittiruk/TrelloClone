@@ -40,9 +40,7 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
               required
               fullWidth
               multiline
-              id='title'
               label='Card title'
-              name='title'
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               className={classes.cardTitle}
@@ -56,9 +54,7 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
             margin='normal'
             fullWidth
             multiline
-            id='description'
             label='Card description'
-            name='description'
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
@@ -81,7 +77,7 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
             >
               Archive Card
             </Button>
-            <DeleteCard cardId={cardId} setOpen={setOpen} list={list}/>
+            <DeleteCard cardId={cardId} setOpen={setOpen} list={list} />
           </div>
         </div>
       </div>

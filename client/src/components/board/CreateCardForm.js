@@ -24,9 +24,7 @@ const CreateCardForm = ({ listId, setAdding }) => {
         fullWidth
         multiline
         required
-        id='title'
         label='Enter a title for this card'
-        name='title'
         autoFocus
         value={title}
         onChange={(e) => setTitle(e.target.value)}

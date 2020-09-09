@@ -31,9 +31,7 @@ const CreateBoard = ({ history }) => {
           margin='normal'
           required
           fullWidth
-          id='title'
           label='Add board title'
-          name='title'
           autoFocus
           value={title}
           onChange={(e) => setTitle(e.target.value)}

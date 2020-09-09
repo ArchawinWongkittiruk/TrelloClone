@@ -62,11 +62,9 @@ const Register = () => {
             <Grid item xs={12}>
               <TextField
                 autoComplete='name'
-                name='name'
                 variant='outlined'
                 required
                 fullWidth
-                id='name'
                 label='Your Name'
                 autoFocus
                 value={name}
@@ -78,9 +76,7 @@ const Register = () => {
                 variant='outlined'
                 required
                 fullWidth
-                id='email'
                 label='Email Address'
-                name='email'
                 autoComplete='email'
                 value={email}
                 onChange={(e) => onChange(e)}
@@ -91,10 +87,8 @@ const Register = () => {
                 variant='outlined'
                 required
                 fullWidth
-                name='password'
                 label='Password'
                 type='password'
-                id='password'
                 value={password}
                 onChange={(e) => onChange(e)}
               />
@@ -104,10 +98,8 @@ const Register = () => {
                 variant='outlined'
                 required
                 fullWidth
-                name='password2'
                 label='Confirm Password'
                 type='password'
-                id='password2'
                 value={password2}
                 onChange={(e) => onChange(e)}
               />
