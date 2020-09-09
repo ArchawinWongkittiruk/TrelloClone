@@ -48,7 +48,7 @@ const Members = () => {
         })}
       </div>
       {!inviting ? (
-        <Button className='invite' variant='outlined' onClick={() => setInviting(true)}>
+        <Button className='invite' variant='contained' onClick={() => setInviting(true)}>
           Invite
         </Button>
       ) : (

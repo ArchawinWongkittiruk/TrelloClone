@@ -35,7 +35,7 @@ const BoardDrawer = () => {
     <div>
       <Button
         onClick={() => setOpen(true)}
-        variant='outlined'
+        variant='contained'
         className={open ? classes.hide : classes.showMenuButton}
       >
         <MoreHorizIcon fontSize='small' /> Show Menu
