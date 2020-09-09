@@ -21,8 +21,10 @@ const Members = () => {
 
   const handleInputValue = async (newInputValue) => {
     setInputValue(newInputValue);
-    const search = (await axios.get(`/api/users/${inputValue}`)).data;
-    setMembersWithRegex(search.length > 0 ? search : []);
+    if (newInputValue && newInputValue !== '') {
+      const search = (await axios.get(`/api/users/${newInputValue}`)).data;
+      setMembersWithRegex(search && search.length > 0 ? search : []);
+    }
   };
 
   const onSubmit = async () => {
