@@ -42,20 +42,22 @@ const List = ({ listId, index }) => {
           </div>
           <Droppable droppableId={listId} type='card'>
             {(provided) => (
-              <div {...provided.droppableProps} ref={provided.innerRef}>
-                <div className={`list ${addingCard ? 'adding-card' : 'not-adding-card'}`}>
-                  <div className='cards'>
-                    {list.cards.map((cardId, index) => (
-                      <Card key={cardId} cardId={cardId} list={list} index={index} />
-                    ))}
-                  </div>
-                  {provided.placeholder}
-                  {addingCard && (
-                    <div ref={createCardFormRef}>
-                      <CreateCardForm listId={listId} setAdding={setAddingCard} />
-                    </div>
-                  )}
+              <div
+                className={`list ${addingCard ? 'adding-card' : 'not-adding-card'}`}
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                <div className='cards'>
+                  {list.cards.map((cardId, index) => (
+                    <Card key={cardId} cardId={cardId} list={list} index={index} />
+                  ))}
                 </div>
+                {provided.placeholder}
+                {addingCard && (
+                  <div ref={createCardFormRef}>
+                    <CreateCardForm listId={listId} setAdding={setAddingCard} />
+                  </div>
+                )}
               </div>
             )}
           </Droppable>
