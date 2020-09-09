@@ -8,6 +8,9 @@ const CardSchema = new Schema({
   description: {
     type: String,
   },
+  label: {
+    type: String,
+  },
   archived: {
     type: Boolean,
     required: true,
