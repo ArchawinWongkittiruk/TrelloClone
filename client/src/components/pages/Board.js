@@ -6,10 +6,10 @@ import { getBoard, moveCard, moveList } from '../../actions/board';
 import { CircularProgress, Box } from '@material-ui/core';
 import BoardTitle from '../board/BoardTitle';
 import BoardDrawer from '../board/BoardDrawer';
-import List from '../board/List';
+import List from '../list/List';
 import CreateList from '../board/CreateList';
 import Members from '../board/Members';
-import Navbar from '../subcomponents/Navbar';
+import Navbar from '../other/Navbar';
 
 const Board = ({ match }) => {
   const board = useSelector((state) => state.board.board);

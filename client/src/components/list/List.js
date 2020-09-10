@@ -5,7 +5,7 @@ import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { getList } from '../../actions/board';
 import ListTitle from './ListTitle';
 import ListMenu from './ListMenu';
-import Card from './Card';
+import Card from '../card/Card';
 import CreateCardForm from './CreateCardForm';
 import Button from '@material-ui/core/Button';
 

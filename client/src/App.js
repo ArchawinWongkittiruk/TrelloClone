@@ -5,7 +5,7 @@ import Register from './components/pages/Register';
 import Login from './components/pages/Login';
 import Dashboard from './components/pages/Dashboard';
 import Board from './components/pages/Board';
-import Alert from './components/subcomponents/Alert';
+import Alert from './components/other/Alert';
 
 // Redux
 import { Provider } from 'react-redux';

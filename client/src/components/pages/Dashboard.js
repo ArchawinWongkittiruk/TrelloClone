@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import { getBoards } from '../../actions/board';
-import CreateBoard from '../subcomponents/CreateBoard';
-import Navbar from '../subcomponents/Navbar';
+import CreateBoard from '../other/CreateBoard';
+import Navbar from '../other/Navbar';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const Dashboard = () => {
