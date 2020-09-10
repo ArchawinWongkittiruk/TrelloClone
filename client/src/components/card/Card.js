@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Draggable } from 'react-beautiful-dnd';
 import { getCard, editCard } from '../../actions/board';
+import getInitials from '../../utils/getInitials';
 
 import CardMUI from '@material-ui/core/Card';
 import EditIcon from '@material-ui/icons/Edit';
@@ -96,13 +97,9 @@ const Card = ({ cardId, list, index }) => {
                   </div>
                   <div className='card-member-avatars'>
                     {card.members.map((member) => {
-                      let initials = member.name.match(/\b\w/g) || [];
-                      initials = (
-                        (initials.shift() || '') + (initials.pop() || '')
-                      ).toUpperCase();
                       return (
                         <Tooltip title={member.name} key={member.user}>
-                          <Avatar className='avatar'>{initials}</Avatar>
+                          <Avatar className='avatar'>{getInitials(member.name)}</Avatar>
                         </Tooltip>
                       );
                     })}

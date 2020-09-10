@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { addMember } from '../../actions/board';
+import getInitials from '../../utils/getInitials';
 import { TextField, Button } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -38,11 +39,9 @@ const Members = () => {
     <div className='board-members-wrapper'>
       <div className='board-members'>
         {boardMembers.map((member) => {
-          let initials = member.name.match(/\b\w/g) || [];
-          initials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
           return (
             <Tooltip title={member.name} key={member.user}>
-              <Avatar className='avatar'>{initials}</Avatar>
+              <Avatar className='avatar'>{getInitials(member.name)}</Avatar>
             </Tooltip>
           );
         })}
