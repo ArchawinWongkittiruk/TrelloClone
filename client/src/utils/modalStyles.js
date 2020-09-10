@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '20px 0 10px',
   },
   colorPicker: {
-    minWidth: 220,
+    minWidth: 212,
   },
   noLabel: {
     width: 100,
@@ -35,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
   moveCard: {
     display: 'flex',
     flexDirection: 'column',
-    minHeight: '100%',
   },
   moveCardSelect: {
     marginTop: 10,
@@ -46,18 +45,23 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     position: 'absolute',
-    top: '5%',
     left: '50%',
     transform: 'translateX(-50%)',
-    maxHeight: '90vh',
+    [theme.breakpoints.up('md')]: {
+      top: '5%',
+      maxHeight: '90vh',
+    },
     [theme.breakpoints.down('sm')]: {
-      maxHeight: '80vh',
+      height: '100%',
     },
     overflowY: 'auto',
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+  },
+  modalTop: {
+    display: 'flex',
   },
   modalSection: {
     display: 'flex',
