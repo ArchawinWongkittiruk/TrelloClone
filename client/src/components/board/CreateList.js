@@ -38,7 +38,12 @@ const CreateList = () => {
           <Button type='submit' variant='contained' color='primary'>
             Add List
           </Button>
-          <Button onClick={() => setAdding(false)}>
+          <Button
+            onClick={() => {
+              setAdding(false);
+              setTitle('');
+            }}
+          >
             <CloseIcon />
           </Button>
         </div>

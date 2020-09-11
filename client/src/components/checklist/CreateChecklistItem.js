@@ -42,7 +42,12 @@ const CreateChecklistItem = ({ cardId }) => {
           <Button type='submit' variant='contained' color='primary'>
             Add
           </Button>
-          <Button onClick={() => setAdding(false)}>
+          <Button
+            onClick={() => {
+              setAdding(false);
+              setText('');
+            }}
+          >
             <CloseIcon />
           </Button>
         </div>
