@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   cardTitle: {
-    width: 650,
+    width: '100%',
   },
   button: {
     width: 180,
@@ -40,6 +40,32 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 10,
     marginRight: 20,
     width: 200,
+  },
+  header: {
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  checklistItem: {
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'space-between',
+    margin: '2px 0 5px',
+  },
+  checklistFormLabel: {
+    width: '100%',
+  },
+  itemButtons: {
+    display: 'flex',
+    margin: 'auto',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+    },
+  },
+  itemButton: {
+    height: 40,
+  },
+  checklistBottom: {
+    marginTop: 5,
   },
   paper: {
     display: 'flex',

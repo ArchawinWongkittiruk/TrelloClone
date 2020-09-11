@@ -8,6 +8,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import MoveCard from './MoveCard';
 import DeleteCard from './DeleteCard';
 import CardMembers from './CardMembers';
+import Checklist from '../checklist/Checklist';
 import useStyles from '../../utils/modalStyles';
 
 const CardModal = ({ cardId, open, setOpen, card, list }) => {
@@ -91,6 +92,7 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
             </Button>
           </div>
         </div>
+        <Checklist card={card} />
         <div className={classes.modalSection}>
           <MoveCard cardId={cardId} setOpen={setOpen} thisList={list} />
           <div className={classes.modalBottomRight}>
