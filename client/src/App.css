@@ -348,7 +348,25 @@ body {
 }
 
 .board .lists .list-wrapper .list .cards .card .description-indicator {
-  margin: 3px 0 -5px -3px;
+  margin: 3px 5px -5px -3px;
+}
+
+.board .lists .list-wrapper .list .cards .card .checklist-indicator {
+  display: flex;
+  align-items: center;
+  padding: 1px 5px 0 4px;
+  height: 25px;
+  margin: auto;
+}
+
+.board .lists .list-wrapper .list .cards .card .checklist-indicator .checklist-indicator-icon {
+  margin-right: 2px;
+}
+
+.board .lists .list-wrapper .list .cards .card .completed-checklist-indicator {
+  background-color: #00b800;
+  border-radius: 5px;
+  color: snow;
 }
 
 .board .lists .list-wrapper .list .cards .card .card-bottom {
@@ -357,6 +375,10 @@ body {
   flex-wrap: wrap;
   margin-top: 3px;
   margin-bottom: -5px;
+}
+
+.board .lists .list-wrapper .list .cards .card .card-bottom .card-bottom-left {
+  display: flex;
 }
 
 .board .lists .list-wrapper .list .cards .card .card-bottom .card-member-avatars {

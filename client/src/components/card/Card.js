@@ -9,6 +9,7 @@ import CardMUI from '@material-ui/core/Card';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import SubjectIcon from '@material-ui/icons/Subject';
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import { TextField, CardContent, Button, Avatar, Tooltip } from '@material-ui/core';
 import CardModal from './CardModal';
 
@@ -18,6 +19,7 @@ const Card = ({ cardId, list, index }) => {
   const [mouseOver, setMouseOver] = useState(false);
   const [title, setTitle] = useState('');
   const [height, setHeight] = useState(0);
+  const [completeItems, setCompleteItems] = useState(0);
   const cardRef = useRef(null);
   const card = useSelector((state) =>
     state.board.board.cardObjects.find((object) => object._id === cardId)
@@ -29,7 +31,16 @@ const Card = ({ cardId, list, index }) => {
   }, [cardId, dispatch]);
 
   useEffect(() => {
-    card && setTitle(card.title);
+    if (card) {
+      setTitle(card.title);
+      card.checklist &&
+        setCompleteItems(
+          card.checklist.reduce(
+            (completed, item) => (completed += item.complete ? 1 : 0),
+            0
+          )
+        );
+    }
   }, [card]);
 
   useEffect(() => {
@@ -90,9 +101,24 @@ const Card = ({ cardId, list, index }) => {
                 )}
                 <p>{card.title}</p>
                 <div className='card-bottom'>
-                  <div>
+                  <div className='card-bottom-left'>
                     {card.description && (
                       <SubjectIcon className='description-indicator' fontSize='small' />
+                    )}
+                    {card.checklist && card.checklist.length > 0 && (
+                      <div
+                        className={`checklist-indicator ${
+                          completeItems === card.checklist.length
+                            ? 'completed-checklist-indicator'
+                            : ''
+                        }`}
+                      >
+                        <AssignmentTurnedInIcon
+                          fontSize='small'
+                          className='checklist-indicator-icon'
+                        />
+                        {completeItems}/{card.checklist.length}
+                      </div>
                     )}
                   </div>
                   <div className='card-member-avatars'>

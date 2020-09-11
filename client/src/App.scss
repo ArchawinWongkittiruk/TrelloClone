@@ -334,7 +334,25 @@ body {
             }
 
             .description-indicator {
-              margin: 3px 0 -5px -3px;
+              margin: 3px 5px -5px -3px;
+            }
+
+            .checklist-indicator {
+              display: flex;
+              align-items: center;
+              padding: 1px 5px 0 4px;
+              height: 25px;
+              margin: auto;
+
+              .checklist-indicator-icon {
+                margin-right: 2px;
+              }
+            }
+
+            .completed-checklist-indicator {
+              background-color: #00b800;
+              border-radius: 5px;
+              color: snow;
             }
 
             .card-bottom {
@@ -343,6 +361,10 @@ body {
               flex-wrap: wrap;
               margin-top: 3px;
               margin-bottom: -5px;
+
+              .card-bottom-left {
+                display: flex;
+              }
 
               .card-member-avatars {
                 display: flex;
