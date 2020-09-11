@@ -19,6 +19,10 @@ import {
   ADD_MEMBER,
   MOVE_LIST,
   ADD_CARD_MEMBER,
+  ADD_CHECKLIST_ITEM,
+  EDIT_CHECKLIST_ITEM,
+  COMPLETE_CHECKLIST_ITEM,
+  DELETE_CHECKLIST_ITEM,
 } from '../actions/types';
 
 const initialState = {
@@ -106,6 +110,10 @@ export default function (state = initialState, action) {
           ),
         },
       };
+    case ADD_CHECKLIST_ITEM:
+    case EDIT_CHECKLIST_ITEM:
+    case COMPLETE_CHECKLIST_ITEM:
+    case DELETE_CHECKLIST_ITEM:
     case ARCHIVE_CARD:
     case ADD_CARD_MEMBER:
     case EDIT_CARD:

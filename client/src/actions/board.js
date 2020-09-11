@@ -21,6 +21,10 @@ import {
   ADD_MEMBER,
   MOVE_LIST,
   ADD_CARD_MEMBER,
+  ADD_CHECKLIST_ITEM,
+  EDIT_CHECKLIST_ITEM,
+  COMPLETE_CHECKLIST_ITEM,
+  DELETE_CHECKLIST_ITEM,
 } from './types';
 
 const config = {
@@ -371,6 +375,80 @@ export const addCardMember = (formData) => async (dispatch) => {
     });
 
     dispatch(getActivity());
+  } catch (err) {
+    dispatch({
+      type: BOARD_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Add checklist item
+export const addChecklistItem = (cardId, formData) => async (dispatch) => {
+  try {
+    const body = JSON.stringify(formData);
+
+    const res = await axios.post(`/api/checklists/${cardId}`, body, config);
+
+    dispatch({
+      type: ADD_CHECKLIST_ITEM,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: BOARD_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Edit checklist item
+export const editChecklistItem = (cardId, itemId, formData) => async (dispatch) => {
+  try {
+    const body = JSON.stringify(formData);
+
+    const res = await axios.patch(`/api/checklists/${cardId}/${itemId}`, body, config);
+
+    dispatch({
+      type: EDIT_CHECKLIST_ITEM,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: BOARD_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Complete/Uncomplete checklist item
+export const completeChecklistItem = (formData) => async (dispatch) => {
+  try {
+    const { cardId, complete, itemId } = formData;
+
+    const res = await axios.patch(`/api/checklists/${cardId}/${complete}/${itemId}`);
+
+    dispatch({
+      type: COMPLETE_CHECKLIST_ITEM,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: BOARD_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Delete checklist item
+export const deleteChecklistItem = (cardId, itemId) => async (dispatch) => {
+  try {
+    const res = await axios.delete(`/api/checklists/${cardId}/${itemId}`);
+
+    dispatch({
+      type: DELETE_CHECKLIST_ITEM,
+      payload: res.data,
+    });
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-// import { addChecklistItem } from '../../actions/board';
+import { addChecklistItem } from '../../actions/board';
 import { TextField, Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import useStyles from '../../utils/modalStyles';
@@ -10,11 +10,11 @@ const CreateChecklistItem = ({ cardId }) => {
   const classes = useStyles();
   const [adding, setAdding] = useState(false);
   const [text, setText] = useState('');
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    // dispatch(addChecklistItem(cardId, { text }));
+    dispatch(addChecklistItem(cardId, { text }));
     setText('');
   };
 

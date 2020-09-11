@@ -1,7 +1,11 @@
 import React, { Fragment, useState } from 'react';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-// import { completeChecklistItem, editChecklistItem } from '../../actions/board';
+import {
+  completeChecklistItem,
+  editChecklistItem,
+  deleteChecklistItem,
+} from '../../actions/board';
 import { TextField, Button } from '@material-ui/core';
 import { Checkbox, FormControlLabel } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
@@ -13,27 +17,26 @@ const ChecklistItem = ({ item, card }) => {
   const classes = useStyles();
   const [text, setText] = useState(item.text);
   const [editing, setEditing] = useState(false);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const onEdit = async (e) => {
     e.preventDefault();
-    // dispatch(editChecklistItem(cardId, itemId, { text }));
+    dispatch(editChecklistItem(card._id, item._id, { text }));
     setEditing(false);
   };
 
   const onComplete = async (e) => {
-    //   dispatch(
-    //     completeChecklistItem({
-    //       cardId: card._id,
-    //       complete: e.target.checked,
-    //       itemId: item._id,
-    //     })
-    //   )
-    //
+    dispatch(
+      completeChecklistItem({
+        cardId: card._id,
+        complete: e.target.checked,
+        itemId: item._id,
+      })
+    );
   };
 
   const onDelete = async (e) => {
-    // dispatch(deleteChecklistItem(cardId, itemId));
+    dispatch(deleteChecklistItem(card._id, item._id));
   };
 
   return (
