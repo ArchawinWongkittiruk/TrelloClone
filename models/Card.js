@@ -24,6 +24,16 @@ const CardSchema = new Schema({
       },
     },
   ],
+  checklist: [
+    {
+      text: {
+        type: String,
+      },
+      complete: {
+        type: Boolean,
+      },
+    },
+  ],
   archived: {
     type: Boolean,
     required: true,
