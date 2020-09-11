@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addCard } from '../../actions/board';
@@ -9,15 +9,19 @@ const CreateCardForm = ({ listId, setAdding }) => {
   const [title, setTitle] = useState('');
   const dispatch = useDispatch();
 
+  const formRef = useRef(null);
+  useEffect(() => {
+    formRef && formRef.current && formRef.current.scrollIntoView();
+  }, [title]);
+
   const onSubmit = async (e) => {
     e.preventDefault();
     dispatch(addCard({ title, listId }));
     setTitle('');
-    setAdding(false);
   };
 
   return (
-    <form className='create-card-form' onSubmit={(e) => onSubmit(e)}>
+    <form ref={formRef} className='create-card-form' onSubmit={(e) => onSubmit(e)}>
       <TextField
         variant='filled'
         margin='normal'
@@ -28,6 +32,7 @@ const CreateCardForm = ({ listId, setAdding }) => {
         autoFocus
         value={title}
         onChange={(e) => setTitle(e.target.value)}
+        onKeyPress={(e) => e.key === 'Enter' && onSubmit(e)}
       />
       <div>
         <Button type='submit' variant='contained' color='primary'>

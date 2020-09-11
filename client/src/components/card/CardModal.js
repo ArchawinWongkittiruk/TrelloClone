@@ -44,6 +44,7 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
               label='Card title'
               value={title}
               onChange={(e) => setTitle(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && onTitleDescriptionSubmit(e)}
               className={classes.cardTitle}
             />
             <Button onClick={() => setOpen(false)}>
