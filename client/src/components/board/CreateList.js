@@ -13,7 +13,6 @@ const CreateList = () => {
     e.preventDefault();
     dispatch(addList({ title }));
     setTitle('');
-    setAdding(false);
   };
 
   return !adding ? (
