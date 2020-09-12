@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { addList } from '../../actions/board';
 import { TextField, Button } from '@material-ui/core';
@@ -8,6 +8,11 @@ const CreateList = () => {
   const [adding, setAdding] = useState(false);
   const [title, setTitle] = useState('');
   const dispatch = useDispatch();
+
+  const formRef = useRef(null);
+  useEffect(() => {
+    formRef && formRef.current && formRef.current.scrollIntoView();
+  }, [title]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +27,7 @@ const CreateList = () => {
       </Button>
     </div>
   ) : (
-    <div className='create-list-form'>
+    <div ref={formRef} className='create-list-form'>
       <form onSubmit={(e) => onSubmit(e)}>
         <TextField
           variant='filled'
