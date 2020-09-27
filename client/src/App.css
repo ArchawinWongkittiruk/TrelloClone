@@ -260,7 +260,7 @@ body {
 }
 
 .board .create-list-form {
-  min-width: 200px;
+  min-width: 280px;
   padding: 0 10px 10px;
   margin-top: 10px;
   height: fit-content;

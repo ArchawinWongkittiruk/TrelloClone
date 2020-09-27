@@ -30,7 +30,8 @@ const CreateList = () => {
     <div ref={formRef} className='create-list-form'>
       <form onSubmit={(e) => onSubmit(e)}>
         <TextField
-          variant='filled'
+          variant='outlined'
+          fullWidth
           margin='normal'
           required
           label='Enter list title'
