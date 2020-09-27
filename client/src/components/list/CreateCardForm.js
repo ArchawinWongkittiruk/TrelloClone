@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addCard } from '../../actions/board';
-import { TextField, Button } from '@material-ui/core';
+import { Card, CardContent, TextField, Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
 const CreateCardForm = ({ listId, setAdding }) => {
@@ -22,19 +22,22 @@ const CreateCardForm = ({ listId, setAdding }) => {
 
   return (
     <form ref={formRef} className='create-card-form' onSubmit={(e) => onSubmit(e)}>
-      <TextField
-        variant='filled'
-        margin='normal'
-        fullWidth
-        multiline
-        required
-        label='Enter a title for this card'
-        autoFocus
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        onKeyPress={(e) => e.key === 'Enter' && onSubmit(e)}
-      />
-      <div>
+      <Card>
+        <CardContent className='card-edit-content'>
+          <TextField
+            margin='normal'
+            fullWidth
+            multiline
+            required
+            label='Enter a title for this card'
+            autoFocus
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && onSubmit(e)}
+          />
+        </CardContent>
+      </Card>
+      <div className='card-actions'>
         <Button type='submit' variant='contained' color='primary'>
           Add Card
         </Button>

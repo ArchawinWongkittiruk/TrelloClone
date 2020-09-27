@@ -65,30 +65,30 @@ const Card = ({ cardId, list, index }) => {
         card={card}
         list={list}
       />
-      <Draggable draggableId={cardId} index={index}>
-        {(provided) => (
-          <CardMUI
-            className={`card ${mouseOver && !editing ? 'mouse-over' : ''}`}
-            onMouseOver={() => setMouseOver(true)}
-            onMouseLeave={() => setMouseOver(false)}
-            ref={provided.innerRef}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-          >
-            {mouseOver && !editing && (
-              <Button
-                style={{
-                  position: 'absolute',
-                  bottom: height - 40,
-                  left: '180px',
-                  zIndex: 1,
-                }}
-                onClick={() => setEditing(true)}
-              >
-                <EditIcon fontSize='small' />
-              </Button>
-            )}
-            {!editing ? (
+      {!editing ? (
+        <Draggable draggableId={cardId} index={index}>
+          {(provided) => (
+            <CardMUI
+              className={`card ${mouseOver && !editing ? 'mouse-over' : ''}`}
+              onMouseOver={() => setMouseOver(true)}
+              onMouseLeave={() => setMouseOver(false)}
+              ref={provided.innerRef}
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+            >
+              {mouseOver && !editing && (
+                <Button
+                  style={{
+                    position: 'absolute',
+                    bottom: height - 40,
+                    left: '180px',
+                    zIndex: 1,
+                  }}
+                  onClick={() => setEditing(true)}
+                >
+                  <EditIcon fontSize='small' />
+                </Button>
+              )}
               <CardContent
                 onClick={() => {
                   setOpenModal(true);
@@ -132,40 +132,42 @@ const Card = ({ cardId, list, index }) => {
                   </div>
                 </div>
               </CardContent>
-            ) : (
-              <CardContent className='create-card-form'>
-                <form onSubmit={(e) => onSubmitEdit(e)}>
-                  <TextField
-                    margin='normal'
-                    fullWidth
-                    multiline
-                    required
-                    label="Edit this card's title"
-                    autoFocus
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    onKeyPress={(e) => e.key === 'Enter' && onSubmitEdit(e)}
-                  />
-                  <div>
-                    <Button type='submit' variant='contained' color='primary'>
-                      Save
-                    </Button>
-                    <Button
-                      onClick={() => {
-                        setEditing(false);
-                        setMouseOver(false);
-                        setTitle(card.title);
-                      }}
-                    >
-                      <CloseIcon />
-                    </Button>
-                  </div>
-                </form>
-              </CardContent>
-            )}
+            </CardMUI>
+          )}
+        </Draggable>
+      ) : (
+        <form className='create-card-form' onSubmit={(e) => onSubmitEdit(e)}>
+          <CardMUI>
+            <CardContent className='card-edit-content'>
+              <TextField
+                margin='normal'
+                fullWidth
+                multiline
+                required
+                label="Edit this card's title"
+                autoFocus
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && onSubmitEdit(e)}
+              />
+            </CardContent>
           </CardMUI>
-        )}
-      </Draggable>
+          <div className='card-actions'>
+            <Button type='submit' variant='contained' color='primary'>
+              Save
+            </Button>
+            <Button
+              onClick={() => {
+                setEditing(false);
+                setMouseOver(false);
+                setTitle(card.title);
+              }}
+            >
+              <CloseIcon />
+            </Button>
+          </div>
+        </form>
+      )}
     </Fragment>
   );
 };

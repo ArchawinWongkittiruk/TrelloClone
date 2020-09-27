@@ -307,12 +307,22 @@ body {
 }
 
 .board .lists .list-wrapper .create-card-button {
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 .board .lists .list-wrapper .create-card-form {
+  margin-top: 5px;
   display: flex;
   flex-direction: column;
+}
+
+.board .lists .list-wrapper .card-edit-content {
+  padding-top: 0;
+  padding-bottom: 5px;
+}
+
+.board .lists .list-wrapper .card-actions {
+  margin-bottom: 5px;
 }
 
 .board .lists .list-wrapper .adding-card {
