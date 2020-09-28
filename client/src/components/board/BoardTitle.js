@@ -6,7 +6,7 @@ import { TextField } from '@material-ui/core';
 
 const BoardTitle = ({ board }) => {
   const [editing, setEditing] = useState(false);
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState(board.title);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const BoardTitle = ({ board }) => {
 
   return !editing ? (
     <h2 className='board-title' onClick={() => setEditing(true)}>
-      {title}
+      {board.title}
     </h2>
   ) : (
     <form className='board-title-form' onSubmit={(e) => onSubmit(e)}>

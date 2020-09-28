@@ -6,7 +6,7 @@ import { TextField } from '@material-ui/core';
 
 const ListTitle = ({ list }) => {
   const [editing, setEditing] = useState(false);
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState(list.title);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const ListTitle = ({ list }) => {
 
   return !editing ? (
     <h3 className='list-title' onClick={() => setEditing(true)}>
-      {title}
+      {list.title}
     </h3>
   ) : (
     <form onSubmit={(e) => onSubmit(e)}>
