@@ -55,7 +55,7 @@ const Board = ({ match }) => {
       <section className='board'>
         <div className='board-top'>
           <div className='board-top-left'>
-            <BoardTitle boardId={board._id} originalTitle={board.title} />
+            <BoardTitle board={board} />
             <Members />
           </div>
           <BoardDrawer />
