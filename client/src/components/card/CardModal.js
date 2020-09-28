@@ -19,6 +19,7 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
 
   useEffect(() => {
     setTitle(card.title);
+    setDescription(card.description);
   }, [card]);
 
   const onTitleDescriptionSubmit = async (e) => {

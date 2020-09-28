@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -18,6 +18,10 @@ const ChecklistItem = ({ item, card }) => {
   const [text, setText] = useState(item.text);
   const [editing, setEditing] = useState(false);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setText(item.text);
+  }, [item.text]);
 
   const onEdit = async (e) => {
     e.preventDefault();
