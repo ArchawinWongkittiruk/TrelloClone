@@ -37,7 +37,7 @@ const List = ({ listId, index }) => {
           ref={provided.innerRef}
         >
           <div className='list-top'>
-            <ListTitle listId={listId} originalTitle={list.title} />
+            <ListTitle list={list} />
             <ListMenu listId={listId} />
           </div>
           <Droppable droppableId={listId} type='card'>
