@@ -37,8 +37,7 @@ const BoardTitle = ({ board }) => {
 };
 
 BoardTitle.propTypes = {
-  boardId: PropTypes.string.isRequired,
-  originalTitle: PropTypes.string.isRequired,
+  board: PropTypes.object.isRequired,
 };
 
 export default BoardTitle;

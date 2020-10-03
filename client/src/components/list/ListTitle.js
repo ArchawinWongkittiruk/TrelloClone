@@ -31,8 +31,7 @@ const ListTitle = ({ list }) => {
 };
 
 ListTitle.propTypes = {
-  listId: PropTypes.string.isRequired,
-  originalTitle: PropTypes.string.isRequired,
+  list: PropTypes.object.isRequired,
 };
 
 export default ListTitle;
