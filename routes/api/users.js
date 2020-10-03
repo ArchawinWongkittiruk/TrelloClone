@@ -64,12 +64,12 @@ router.post(
   }
 );
 
-// Get users with name/email regex
+// Get users with email regex
 router.get('/:input', auth, async (req, res) => {
   try {
     const regex = new RegExp(req.params.input, 'i');
     const users = await User.find({
-      $or: [{ name: regex }, { email: regex }],
+      email: regex,
     }).select('-password');
 
     res.json(users.filter((user) => user.id !== req.user.id));

@@ -13,18 +13,18 @@ const Members = () => {
   const [inviting, setInviting] = useState(false);
   const [user, setUser] = useState(null);
   const [inputValue, setInputValue] = useState('');
-  const [membersWithRegex, setMembersWithRegex] = useState([]);
+  const [users, setUsers] = useState([]);
   const boardMembers = useSelector((state) => state.board.board.members);
-  const searchOptions = membersWithRegex.filter((member) =>
-    boardMembers.find((boardMember) => boardMember.user === member._id) ? false : true
+  const searchOptions = users.filter((user) =>
+    boardMembers.find((boardMember) => boardMember.user === user._id) ? false : true
   );
   const dispatch = useDispatch();
 
   const handleInputValue = async (newInputValue) => {
     setInputValue(newInputValue);
     if (newInputValue && newInputValue !== '') {
-      const search = (await axios.get(`/api/users/${newInputValue}`)).data;
-      setMembersWithRegex(search && search.length > 0 ? search : []);
+      const search = (await axios.get(`/api/users/${newInputValue}`)).data.slice(0, 5);
+      setUsers(search && search.length > 0 ? search : []);
     }
   };
 
