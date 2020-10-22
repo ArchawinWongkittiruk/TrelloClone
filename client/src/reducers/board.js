@@ -51,7 +51,7 @@ export default function (state = initialState, action) {
     case GET_BOARD:
       return {
         ...state,
-        board: { ...payload, ...state.board },
+        board: { ...state.board, ...payload },
       };
     case ADD_BOARD:
       return {
