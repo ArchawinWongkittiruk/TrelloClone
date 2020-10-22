@@ -50,7 +50,17 @@ const Board = ({ match }) => {
       </Box>
     </Fragment>
   ) : (
-    <div className='board-and-navbar'>
+    <div
+      className='board-and-navbar'
+      style={{
+        backgroundImage:
+          'url(' +
+          (board.backgroundURL
+            ? board.backgroundURL
+            : 'https://images.unsplash.com/photo-1598197748967-b4674cb3c266?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2689&q=80') +
+          ')',
+      }}
+    >
       <Navbar />
       <section className='board'>
         <div className='board-top'>
