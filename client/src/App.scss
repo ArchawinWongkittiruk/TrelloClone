@@ -25,7 +25,6 @@ body {
   flex-direction: row;
   justify-content: space-between;
   padding: 10px;
-  height: 4.5vh;
 
   a {
     text-decoration: none;
@@ -155,6 +154,7 @@ body {
 
 .board-and-navbar {
   background-size: cover;
+  height: 100vh;
 
   .navbar {
     background-color: rgba(50, 50, 50, 0.4);
@@ -168,9 +168,6 @@ body {
 
 .board {
   padding: 10px;
-  @media (min-width: 960px) {
-    height: 95.5vh;
-  }
 
   .board-top {
     padding: 5px;
@@ -205,8 +202,7 @@ body {
         flex-wrap: wrap;
         margin: 0 20px;
         @media (max-width: 960px) {
-          margin: 20px 0;
-          flex-direction: column;
+          margin: 20px 20px 20px 0;
         }
 
         .board-members {
@@ -216,19 +212,14 @@ body {
       }
 
       .invite {
-        margin-left: 5px;
+        margin-left: 10px;
         display: flex;
         flex-wrap: wrap;
-        @media (min-width: 960px) {
-          height: 4vh;
-        }
-        @media (max-width: 960px) {
-          margin: 20px 0 0;
-        }
 
         .search-member {
           width: 250px;
           margin-right: 10px;
+          height: 2.5rem;
         }
       }
     }
@@ -269,7 +260,12 @@ body {
     display: flex;
     flex-direction: row;
     overflow-x: auto;
-    height: 89vh;
+    @media (min-height: 600px) and (min-width: 1000px) {
+      min-height: 83vh;
+    }
+    @media (min-height: 960px) {
+      min-height: 88vh;
+    }
 
     .list-wrapper {
       background-color: #eee;
@@ -313,12 +309,18 @@ body {
         margin-bottom: 5px;
       }
 
-      .adding-card {
-        max-height: 80vh;
+      .not-adding-card {
+        max-height: 64vh;
+        @media (min-height: 960px) {
+          max-height: 75vh;
+        }
       }
 
-      .not-adding-card {
-        max-height: 75vh;
+      .adding-card {
+        max-height: 69vh;
+        @media (min-height: 960px) {
+          max-height: 80vh;
+        }
       }
 
       .list {

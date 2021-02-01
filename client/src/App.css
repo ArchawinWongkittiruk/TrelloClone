@@ -21,7 +21,6 @@ body {
   flex-direction: row;
   justify-content: space-between;
   padding: 10px;
-  height: 4.5vh;
 }
 
 .navbar a {
@@ -147,6 +146,7 @@ body {
 
 .board-and-navbar {
   background-size: cover;
+  height: 100vh;
 }
 
 .board-and-navbar .navbar {
@@ -160,12 +160,6 @@ body {
 
 .board {
   padding: 10px;
-}
-
-@media (min-width: 960px) {
-  .board {
-    height: 95.5vh;
-  }
 }
 
 .board .board-top {
@@ -209,8 +203,7 @@ body {
 
 @media (max-width: 960px) {
   .board .board-top .board-top-left .board-members-wrapper {
-    margin: 20px 0;
-    flex-direction: column;
+    margin: 20px 20px 20px 0;
   }
 }
 
@@ -220,26 +213,15 @@ body {
 }
 
 .board .board-top .board-top-left .invite {
-  margin-left: 5px;
+  margin-left: 10px;
   display: flex;
   flex-wrap: wrap;
-}
-
-@media (min-width: 960px) {
-  .board .board-top .board-top-left .invite {
-    height: 4vh;
-  }
-}
-
-@media (max-width: 960px) {
-  .board .board-top .board-top-left .invite {
-    margin: 20px 0 0;
-  }
 }
 
 .board .board-top .board-top-left .invite .search-member {
   width: 250px;
   margin-right: 10px;
+  height: 2.5rem;
 }
 
 .board .avatar {
@@ -278,7 +260,18 @@ body {
   display: flex;
   flex-direction: row;
   overflow-x: auto;
-  height: 89vh;
+}
+
+@media (min-height: 600px) and (min-width: 1000px) {
+  .board .lists {
+    min-height: 83vh;
+  }
+}
+
+@media (min-height: 960px) {
+  .board .lists {
+    min-height: 88vh;
+  }
 }
 
 .board .lists .list-wrapper {
@@ -324,12 +317,24 @@ body {
   margin-bottom: 5px;
 }
 
-.board .lists .list-wrapper .adding-card {
-  max-height: 80vh;
+.board .lists .list-wrapper .not-adding-card {
+  max-height: 64vh;
 }
 
-.board .lists .list-wrapper .not-adding-card {
-  max-height: 75vh;
+@media (min-height: 960px) {
+  .board .lists .list-wrapper .not-adding-card {
+    max-height: 75vh;
+  }
+}
+
+.board .lists .list-wrapper .adding-card {
+  max-height: 69vh;
+}
+
+@media (min-height: 960px) {
+  .board .lists .list-wrapper .adding-card {
+    max-height: 80vh;
+  }
 }
 
 .board .lists .list-wrapper .list {
