@@ -16,6 +16,10 @@ const Dashboard = () => {
     dispatch(getBoards());
   }, [dispatch]);
 
+  useEffect(() => {
+    document.title = 'Your Boards | TrelloClone';
+  }, []);
+
   if (!isAuthenticated) {
     return <Redirect to='/' />;
   }

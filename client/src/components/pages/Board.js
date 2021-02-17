@@ -20,6 +20,10 @@ const Board = ({ match }) => {
     dispatch(getBoard(match.params.id));
   }, [dispatch, match.params.id]);
 
+  useEffect(() => {
+    if (board?.title) document.title = board.title + ' | TrelloClone';
+  }, [board?.title]);
+
   if (!isAuthenticated) {
     return <Redirect to='/' />;
   }

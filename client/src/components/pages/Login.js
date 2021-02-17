@@ -1,6 +1,6 @@
 // https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/sign-in
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../../actions/auth';
@@ -28,6 +28,10 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const { email, password } = formData;
+
+  useEffect(() => {
+    document.title = 'TrelloClone | Sign In';
+  }, []);
 
   const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
