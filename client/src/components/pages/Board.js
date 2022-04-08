@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { getBoard, moveCard, moveList } from '../../actions/board';
 import { CircularProgress, Box } from '@material-ui/core';
@@ -10,23 +9,25 @@ import List from '../list/List';
 import CreateList from '../board/CreateList';
 import Members from '../board/Members';
 import Navbar from '../other/Navbar';
+import withStore from '../../Store/withStore';
 
-const Board = ({ match }) => {
-  const board = useSelector((state) => state.board.board);
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const dispatch = useDispatch();
+const Board = withStore(['board','auth'],({store, props}) => {
+  const {state, dispatch} = store
+
+  const board = state.boardState.board
+  const isAuthenticated = state.authState.isAuthenticated
+  if (!isAuthenticated) return <Redirect to='/' />;
+
+  const {id} = useParams()
 
   useEffect(() => {
-    dispatch(getBoard(match.params.id));
-  }, [dispatch, match.params.id]);
+    dispatch(getBoard(id));
+  }, [dispatch, id]);
 
   useEffect(() => {
     if (board?.title) document.title = board.title + ' | TrelloClone';
   }, [board?.title]);
 
-  if (!isAuthenticated) {
-    return <Redirect to='/' />;
-  }
 
   const onDragEnd = (result) => {
     const { source, destination, draggableId, type } = result;
@@ -90,6 +91,6 @@ const Board = ({ match }) => {
       </section>
     </div>
   );
-};
+});
 
 export default Board;

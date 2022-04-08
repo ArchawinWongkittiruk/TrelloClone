@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { deleteCard } from '../../actions/board';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
@@ -7,18 +6,17 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CloseIcon from '@material-ui/icons/Close';
+import withStore from '../../Store/withStore';
 
-const DeleteCard = ({ cardId, setOpen, list }) => {
+const DeleteCard = withStore(['board'], ({store, props}) => {
+  const { cardId, setOpen, list } = props
+  const { dispatch } = store;
+
   const [openDialog, setOpenDialog] = useState(false);
-  const dispatch = useDispatch();
 
-  const handleClickOpen = () => {
-    setOpenDialog(true);
-  };
 
-  const handleClose = () => {
-    setOpenDialog(false);
-  };
+  const handleClickOpen = () => setOpenDialog(true);
+  const handleClose = () => setOpenDialog(false);
 
   const onDeleteCard = async () => {
     dispatch(deleteCard(list._id, cardId));
@@ -44,7 +42,7 @@ const DeleteCard = ({ cardId, setOpen, list }) => {
       </Dialog>
     </div>
   );
-};
+});
 
 DeleteCard.propTypes = {
   cardId: PropTypes.string.isRequired,

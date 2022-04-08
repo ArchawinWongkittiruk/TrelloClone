@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
 import { addMember } from '../../actions/board';
 import getInitials from '../../utils/getInitials';
 import { TextField, Button } from '@material-ui/core';
@@ -8,17 +7,21 @@ import Avatar from '@material-ui/core/Avatar';
 import Tooltip from '@material-ui/core/Tooltip';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import CloseIcon from '@material-ui/icons/Close';
+import withStore from '../../Store/withStore';
 
-const Members = () => {
+const Members = withStore(['board'], ({store}) => {
+  const { state, dispatch } = store
+  
+  const boardMembers = state.boardState.board.members
+
   const [inviting, setInviting] = useState(false);
   const [user, setUser] = useState(null);
   const [inputValue, setInputValue] = useState('');
   const [users, setUsers] = useState([]);
-  const boardMembers = useSelector((state) => state.board.board.members);
+  
   const searchOptions = users.filter((user) =>
     boardMembers.find((boardMember) => boardMember.user === user._id) ? false : true
   );
-  const dispatch = useDispatch();
 
   const handleInputValue = async (newInputValue) => {
     setInputValue(newInputValue);
@@ -81,6 +84,6 @@ const Members = () => {
       )}
     </div>
   );
-};
+});
 
 export default Members;

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { GithubPicker } from 'react-color';
 import { editCard, archiveCard } from '../../actions/board';
@@ -10,12 +9,16 @@ import DeleteCard from './DeleteCard';
 import CardMembers from './CardMembers';
 import Checklist from '../checklist/Checklist';
 import useStyles from '../../utils/modalStyles';
+import withStore from '../../Store/withStore';
 
-const CardModal = ({ cardId, open, setOpen, card, list }) => {
+const CardModal = withStore(['board'], ({store, props}) => {
+  const { cardId, open, setOpen, card, list } = props
+  const { dispatch } = store;
+  
   const classes = useStyles();
+
   const [title, setTitle] = useState(card.title);
   const [description, setDescription] = useState(card.description);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     setTitle(card.title);
@@ -110,7 +113,7 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
       </div>
     </Modal>
   );
-};
+});
 
 CardModal.propTypes = {
   cardId: PropTypes.string.isRequired,

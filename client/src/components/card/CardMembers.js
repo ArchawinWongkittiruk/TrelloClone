@@ -1,15 +1,18 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addCardMember } from '../../actions/board';
 import { Checkbox, FormGroup, FormControlLabel, FormControl } from '@material-ui/core';
 import useStyles from '../../utils/modalStyles';
+import withStore from '../../Store/withStore';
 
-const CardMembers = ({ card }) => {
-  const classes = useStyles();
-  const boardMembers = useSelector((state) => state.board.board.members);
+const CardMembers = withStore(['board'], ({store, props}) => {
+  const { card } = props;
+  const { state, dispatch } = store
+
+  const boardMembers = state.boardState.board.members
   const members = card.members.map((member) => member.user);
-  const dispatch = useDispatch();
+
+  const classes = useStyles();
 
   return (
     <div>
@@ -41,7 +44,7 @@ const CardMembers = ({ card }) => {
       </FormControl>
     </div>
   );
-};
+});
 
 CardMembers.propTypes = {
   card: PropTypes.object.isRequired,

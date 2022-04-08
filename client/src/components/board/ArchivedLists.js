@@ -1,19 +1,16 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { archiveList } from '../../actions/board';
-
 import List from '@material-ui/core/List';
 import Button from '@material-ui/core/Button';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import withStore from '../../Store/withStore';
 
-const ArchivedLists = () => {
-  const listObjects = useSelector((state) => state.board.board.listObjects);
-  const dispatch = useDispatch();
+const ArchivedLists = withStore(['board'], ({store}) => {
+  const { state, dispatch } = store
+  const listObjects = state.board.board.listObjects
 
-  const onSubmit = async (listId) => {
-    dispatch(archiveList(listId, false));
-  };
+  const onSubmit = async (listId) => dispatch(archiveList(listId, false))
 
   return (
     <div>
@@ -29,6 +26,6 @@ const ArchivedLists = () => {
       </List>
     </div>
   );
-};
+});
 
 export default ArchivedLists;

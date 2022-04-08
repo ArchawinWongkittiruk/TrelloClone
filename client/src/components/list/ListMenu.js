@@ -1,26 +1,20 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { archiveList } from '../../actions/board';
 import { Button, Menu, MenuItem } from '@material-ui/core';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import MoveList from './MoveList';
+import withStore from '../../Store/withStore';
 
-const ListMenu = ({ listId }) => {
+const ListMenu = withStore(['board'], ({store, props}) => {
+  const { listId } = props
+  const { dispatch } = store
+
   const [anchorEl, setAnchorEl] = useState(null);
-  const dispatch = useDispatch();
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const archive = async () => {
-    dispatch(archiveList(listId, true));
-  };
+  const handleClick = (event) => setAnchorEl(event.currentTarget);
+  const handleClose = () => setAnchorEl(null);
+  const archive = async () => dispatch(archiveList(listId, true));
 
   return (
     <div>
@@ -50,7 +44,7 @@ const ListMenu = ({ listId }) => {
       </Menu>
     </div>
   );
-};
+});
 
 ListMenu.propTypes = {
   listId: PropTypes.string.isRequired,

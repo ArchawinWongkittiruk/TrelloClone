@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
 
@@ -17,8 +16,15 @@ import Container from '@material-ui/core/Container';
 
 import Copyright from '../other/Copyright';
 import useStyles from '../../utils/formStyles';
+import withStore from '../../Store/withStore';
 
-const Register = () => {
+
+const Register = withStore(['auth', 'alert'], ({store, props}) => {
+  const {state, dispatch} = store
+  console.log(state)
+  const isAuthenticated = state.authState.isAuthenticated
+  if (isAuthenticated) return <Redirect to='/dashboard' />;
+
   const classes = useStyles();
 
   const [formData, setFormData] = useState({
@@ -27,8 +33,6 @@ const Register = () => {
     password: '',
     password2: '',
   });
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     document.title = 'TrelloClone | Sign Up';
@@ -40,16 +44,10 @@ const Register = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (password !== password2) {
-      dispatch(setAlert('Passwords do not match', 'error'));
-    } else {
-      dispatch(register({ name, email, password }));
-    }
+    if (password !== password2) dispatch(setAlert('Passwords do not match', 'error'));
+    else dispatch(register({ name, email, password }));
   };
 
-  if (isAuthenticated) {
-    return <Redirect to='/dashboard' />;
-  }
 
   return (
     <Container component='main' maxWidth='xs' className={classes.container}>
@@ -61,7 +59,7 @@ const Register = () => {
         <Typography component='h1' variant='h5'>
           Sign up
         </Typography>
-        <form className={classes.form} onSubmit={(e) => onSubmit(e)}>
+        <form className={classes.form} onSubmit={onSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -73,7 +71,7 @@ const Register = () => {
                 label='Your Name'
                 autoFocus
                 value={name}
-                onChange={(e) => onChange(e)}
+                onChange={onChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -85,7 +83,7 @@ const Register = () => {
                 name='email'
                 autoComplete='email'
                 value={email}
-                onChange={(e) => onChange(e)}
+                onChange={onChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -97,7 +95,7 @@ const Register = () => {
                 label='Password'
                 type='password'
                 value={password}
-                onChange={(e) => onChange(e)}
+                onChange={onChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -109,7 +107,7 @@ const Register = () => {
                 label='Confirm Password'
                 type='password'
                 value={password2}
-                onChange={(e) => onChange(e)}
+                onChange={onChange}
               />
             </Grid>
           </Grid>
@@ -136,6 +134,6 @@ const Register = () => {
       </Box>
     </Container>
   );
-};
+});
 
 export default Register;

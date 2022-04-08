@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import { getBoards } from '../../actions/board';
 import CreateBoard from '../other/CreateBoard';
 import Navbar from '../other/Navbar';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import withStore from '../../Store/withStore';
 
-const Dashboard = () => {
-  const { user, isAuthenticated } = useSelector((state) => state.auth);
-  const boards = useSelector((state) => state.board.boards);
-  const loading = useSelector((state) => state.board.dashboardLoading);
-  const dispatch = useDispatch();
+const Dashboard = withStore(['board', 'auth'], ({store, props}) => {
+  const {state, dispatch} = store
+
+  const { boards, loading } = state.boardState
+  const { user, isAuthenticated } = state.authState
+  if (!isAuthenticated) return <Redirect to='/' />
 
   useEffect(() => {
     dispatch(getBoards());
@@ -20,9 +21,6 @@ const Dashboard = () => {
     document.title = 'Your Boards | TrelloClone';
   }, []);
 
-  if (!isAuthenticated) {
-    return <Redirect to='/' />;
-  }
 
   return (
     <div className='dashboard-and-navbar'>
@@ -42,6 +40,6 @@ const Dashboard = () => {
       </section>
     </div>
   );
-};
+});
 
 export default Dashboard;

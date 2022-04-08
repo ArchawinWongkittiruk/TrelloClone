@@ -1,5 +1,4 @@
 import React, { Fragment, useRef, useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Draggable } from 'react-beautiful-dnd';
 import { getCard, editCard } from '../../actions/board';
@@ -12,19 +11,22 @@ import SubjectIcon from '@material-ui/icons/Subject';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import { TextField, CardContent, Button, Avatar, Tooltip } from '@material-ui/core';
 import CardModal from './CardModal';
+import withStore from '../../Store/withStore';
 
-const Card = ({ cardId, list, index }) => {
+const Card = withStore(['board'], ({store, props}) => {
+  const { cardId, list, index } = props
+  const { state, dispatch } = store
+  
+  const card = state.boardState.board.cardObjects.find((object) => object._id === cardId)
+
   const [editing, setEditing] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [mouseOver, setMouseOver] = useState(false);
   const [title, setTitle] = useState('');
   const [height, setHeight] = useState(0);
   const [completeItems, setCompleteItems] = useState(0);
+
   const cardRef = useRef(null);
-  const card = useSelector((state) =>
-    state.board.board.cardObjects.find((object) => object._id === cardId)
-  );
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getCard(cardId));
@@ -136,7 +138,7 @@ const Card = ({ cardId, list, index }) => {
           )}
         </Draggable>
       ) : (
-        <form className='create-card-form' onSubmit={(e) => onSubmitEdit(e)}>
+        <form className='create-card-form' onSubmit={onSubmitEdit}>
           <CardMUI>
             <CardContent className='card-edit-content'>
               <TextField
@@ -170,7 +172,7 @@ const Card = ({ cardId, list, index }) => {
       )}
     </Fragment>
   );
-};
+});
 
 Card.propTypes = {
   cardId: PropTypes.string.isRequired,

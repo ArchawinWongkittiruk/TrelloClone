@@ -1,13 +1,15 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { addList } from '../../actions/board';
 import { TextField, Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
+import withStore from '../../Store/withStore';
 
-const CreateList = () => {
+
+const CreateList = withStore(['board'], ({store}) => {
+  const { dispatch } = store
+
   const [adding, setAdding] = useState(false);
   const [title, setTitle] = useState('');
-  const dispatch = useDispatch();
 
   const formRef = useRef(null);
   useEffect(() => {
@@ -28,7 +30,7 @@ const CreateList = () => {
     </div>
   ) : (
     <div ref={formRef} className='create-list-form'>
-      <form onSubmit={(e) => onSubmit(e)}>
+      <form onSubmit={onSubmit}>
         <TextField
           variant='outlined'
           fullWidth
@@ -55,6 +57,6 @@ const CreateList = () => {
       </form>
     </div>
   );
-};
+});
 
 export default CreateList;

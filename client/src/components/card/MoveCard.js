@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { moveCard } from '../../actions/board';
 
@@ -9,24 +8,24 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import useStyles from '../../utils/modalStyles';
+import withStore from '../../Store/withStore';
 
-const MoveCard = ({ cardId, setOpen, thisList }) => {
+
+const MoveCard = withStore(['board'], ({store, props}) => {
+  const { cardId, setOpen, thisList } = props
+  const { state, dispatch } = store;
+  
   const classes = useStyles();
+
   const [listObject, setListObject] = useState(null);
   const [listTitle, setListTitle] = useState('');
   const [position, setPosition] = useState(0);
   const [positions, setPositions] = useState([0]);
-  const lists = useSelector((state) => state.board.board.lists);
-  const listObjects = useSelector((state) =>
-    state.board.board.listObjects
-      .sort(
-        (a, b) =>
-          lists.findIndex((id) => id === a._id) - lists.findIndex((id) => id === b._id)
-      )
-      .filter((list) => !list.archived)
-  );
-  const cardObjects = useSelector((state) => state.board.board.cardObjects);
-  const dispatch = useDispatch();
+
+  const {lists, cardObjects} = state.boardState.board;
+  const listObjects = state.boardState.listObjects.sort(
+    (a, b) => lists.findIndex((id) => id === a._id) - lists.findIndex((id) => id === b._id)
+  ).filter((list) => !list.archived)
 
   useEffect(() => {
     setListObject(thisList);
@@ -57,9 +56,7 @@ const MoveCard = ({ cardId, setOpen, thisList }) => {
   }, [thisList, cardId, listObject, cardObjects]);
 
   const onSubmit = async () => {
-    dispatch(
-      moveCard(cardId, { fromId: thisList._id, toId: listObject._id, toIndex: position })
-    );
+    dispatch(moveCard(cardId, { fromId: thisList._id, toId: listObject._id, toIndex: position }));
     setOpen(false);
   };
 
@@ -111,7 +108,7 @@ const MoveCard = ({ cardId, setOpen, thisList }) => {
       </Button>
     </div>
   );
-};
+});
 
 MoveCard.propTypes = {
   cardId: PropTypes.string.isRequired,

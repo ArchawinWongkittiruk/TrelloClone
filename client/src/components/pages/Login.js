@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../../actions/auth';
 
 import Button from '@material-ui/core/Button';
@@ -16,16 +15,19 @@ import Container from '@material-ui/core/Container';
 
 import Copyright from '../other/Copyright';
 import useStyles from '../../utils/formStyles';
+import withStore from '../../Store/withStore';
 
-const Login = () => {
+const Login = withStore(['auth'], ({store, props}) => {
+  const {state, dispatch} = store
+  const isAuthenticated = state.authState.isAuthenticated
+  if (isAuthenticated) return <Redirect to='/dashboard' />;
+
   const classes = useStyles();
 
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const dispatch = useDispatch();
 
   const { email, password } = formData;
 
@@ -40,10 +42,6 @@ const Login = () => {
     dispatch(login(email, password));
   };
 
-  if (isAuthenticated) {
-    return <Redirect to='/dashboard' />;
-  }
-
   return (
     <Container component='main' maxWidth='xs' className={classes.container}>
       <CssBaseline />
@@ -54,7 +52,7 @@ const Login = () => {
         <Typography component='h1' variant='h5'>
           Sign in
         </Typography>
-        <form className={classes.form} onSubmit={(e) => onSubmit(e)}>
+        <form className={classes.form} onSubmit={onSubmit}>
           <TextField
             variant='outlined'
             margin='normal'
@@ -65,7 +63,7 @@ const Login = () => {
             autoComplete='email'
             autoFocus
             value={email}
-            onChange={(e) => onChange(e)}
+            onChange={onChange}
           />
           <TextField
             variant='outlined'
@@ -77,7 +75,7 @@ const Login = () => {
             type='password'
             autoComplete='current-password'
             value={password}
-            onChange={(e) => onChange(e)}
+            onChange={onChange}
           />
           <Button
             type='submit'
@@ -102,6 +100,6 @@ const Login = () => {
       </Box>
     </Container>
   );
-};
+});
 
 export default Login;

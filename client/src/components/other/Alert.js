@@ -1,9 +1,9 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import AlertMUI from '@material-ui/lab/Alert';
+import withStore from '../../Store/withStore';
 
-const Alert = () => {
-  const alerts = useSelector((state) => state.alert);
+export const Alert = withStore(['alert'],({store, props}) => {
+  const alerts = store.state.alertState
 
   return (
     alerts !== null &&
@@ -14,6 +14,6 @@ const Alert = () => {
       </AlertMUI>
     ))
   );
-};
+})
 
 export default Alert;

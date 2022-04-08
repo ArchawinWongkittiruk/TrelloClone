@@ -1,15 +1,17 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addCard } from '../../actions/board';
 import { Card, CardContent, TextField, Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
+import withStore from '../../Store/withStore';
 
-const CreateCardForm = ({ listId, setAdding }) => {
+const CreateCardForm = withStore(['board'], ({store, props}) => {
+  const { listId, setAdding } = props
+  const { dispatch } = store
+  
   const [title, setTitle] = useState('');
-  const dispatch = useDispatch();
-
   const formRef = useRef(null);
+
   useEffect(() => {
     formRef && formRef.current && formRef.current.scrollIntoView();
   }, [title]);
@@ -21,7 +23,7 @@ const CreateCardForm = ({ listId, setAdding }) => {
   };
 
   return (
-    <form ref={formRef} className='create-card-form' onSubmit={(e) => onSubmit(e)}>
+    <form ref={formRef} className='create-card-form' onSubmit={onSubmit}>
       <Card>
         <CardContent className='card-edit-content'>
           <TextField
@@ -52,7 +54,7 @@ const CreateCardForm = ({ listId, setAdding }) => {
       </div>
     </form>
   );
-};
+});
 
 CreateCardForm.propTypes = {
   listId: PropTypes.string.isRequired,

@@ -1,15 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../actions/auth';
+import withStore from '../../Store/withStore';
 
-const Navbar = () => {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const dispatch = useDispatch();
-
-  if (!isAuthenticated) {
-    return '';
-  }
+const Navbar = withStore(['auth'],({store}) => {
+  const {state, dispatch} = store
+  
+  const isAuthenticated = state.authState.isAuthenticated
+  if (!isAuthenticated) return ''
 
   return (
     <nav className='navbar'>
@@ -20,6 +18,6 @@ const Navbar = () => {
       </Link>
     </nav>
   );
-};
+});
 
 export default Navbar;

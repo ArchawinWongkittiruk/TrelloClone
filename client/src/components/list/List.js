@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { getList } from '../../actions/board';
@@ -8,13 +7,16 @@ import ListMenu from './ListMenu';
 import Card from '../card/Card';
 import CreateCardForm from './CreateCardForm';
 import Button from '@material-ui/core/Button';
+import withStore from '../../Store/withStore';
 
-const List = ({ listId, index }) => {
+
+const List = withStore(['board'], ({store, props}) => {
+  const { listId, index } = props
+  const { state, dispatch } = store
+
+  const list = state.boardState.board.listObjects.find((object) => object._id === listId)
+
   const [addingCard, setAddingCard] = useState(false);
-  const list = useSelector((state) =>
-    state.board.board.listObjects.find((object) => object._id === listId)
-  );
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getList(listId));
@@ -72,7 +74,7 @@ const List = ({ listId, index }) => {
       )}
     </Draggable>
   );
-};
+});
 
 List.propTypes = {
   listId: PropTypes.string.isRequired,

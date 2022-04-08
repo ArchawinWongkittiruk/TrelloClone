@@ -1,5 +1,4 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   completeChecklistItem,
@@ -12,12 +11,18 @@ import EditIcon from '@material-ui/icons/Edit';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import CloseIcon from '@material-ui/icons/Close';
 import useStyles from '../../utils/modalStyles';
+import withStore from '../../Store/withStore';
 
-const ChecklistItem = ({ item, card }) => {
+
+const ChecklistItem = withStore(['board'], ({store, props})=> {
+  const { item, card } = props
+  const { dispatch } = store
+
   const classes = useStyles();
+
   const [text, setText] = useState(item.text);
   const [editing, setEditing] = useState(false);
-  const dispatch = useDispatch();
+
 
   useEffect(() => {
     setText(item.text);
@@ -98,7 +103,7 @@ const ChecklistItem = ({ item, card }) => {
       )}
     </div>
   );
-};
+});
 
 ChecklistItem.propTypes = {
   item: PropTypes.object.isRequired,

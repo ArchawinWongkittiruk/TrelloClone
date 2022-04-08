@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Landing from './components/pages/Landing';
 import Register from './components/pages/Register';
@@ -6,26 +6,19 @@ import Login from './components/pages/Login';
 import Dashboard from './components/pages/Dashboard';
 import Board from './components/pages/Board';
 import Alert from './components/other/Alert';
+import {Test} from './test';
 
 // Redux
-import { Provider } from 'react-redux';
-import store from './store';
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 
 import './App.css';
 
-if (localStorage.token) {
-  setAuthToken(localStorage.token);
-}
+if (localStorage.token) setAuthToken(localStorage.token);
 
 const App = () => {
-  useEffect(() => {
-    store.dispatch(loadUser());
-  }, []);
-
   return (
-    <Provider store={store}>
+    <div>
       <Router>
         <Fragment>
           <Alert />
@@ -38,7 +31,10 @@ const App = () => {
           </Switch>
         </Fragment>
       </Router>
-    </Provider>
+
+      <Test a='1'/>
+
+    </div>
   );
 };
 

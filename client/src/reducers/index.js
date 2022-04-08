@@ -1,6 +1,6 @@
-import { combineReducers } from 'redux';
-import alert from './alert';
-import auth from './auth';
-import board from './board';
+import alert, {alertState} from './alert';
+import auth, {authState} from './auth';
+import board, {boardState} from './board';
 
-export default combineReducers({ alert, auth, board });
+export const reducers = { alert, auth, board }
+export const states = { alertState, authState, boardState }

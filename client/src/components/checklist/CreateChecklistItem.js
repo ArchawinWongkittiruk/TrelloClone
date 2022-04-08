@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addChecklistItem } from '../../actions/board';
 import { TextField, Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import useStyles from '../../utils/modalStyles';
+import withStore from '../../Store/withStore';
 
-const CreateChecklistItem = ({ cardId }) => {
+
+const CreateChecklistItem = withStore(['board'], ({store, props}) => {
+  const { cardId } = props
+  const { dispatch } = store
+
   const classes = useStyles();
+
   const [adding, setAdding] = useState(false);
   const [text, setText] = useState('');
-  const dispatch = useDispatch();
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -26,7 +30,7 @@ const CreateChecklistItem = ({ cardId }) => {
     </div>
   ) : (
     <div className={classes.checklistBottom}>
-      <form onSubmit={(e) => onSubmit(e)}>
+      <form onSubmit={onSubmit}>
         <TextField
           variant='filled'
           fullWidth
@@ -54,7 +58,7 @@ const CreateChecklistItem = ({ cardId }) => {
       </form>
     </div>
   );
-};
+});
 
 CreateChecklistItem.propTypes = {
   cardId: PropTypes.string.isRequired,

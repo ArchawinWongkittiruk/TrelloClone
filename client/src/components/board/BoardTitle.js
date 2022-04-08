@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { renameBoard } from '../../actions/board';
 import { TextField } from '@material-ui/core';
+import withStore from '../../Store/withStore';
 
-const BoardTitle = ({ board }) => {
+const BoardTitle = withStore(['board'], ({store, props})=> {
+  const { board } = props;
+  const { dispatch } = store;
+
   const [editing, setEditing] = useState(false);
   const [title, setTitle] = useState(board.title);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     setTitle(board.title);
@@ -24,7 +26,7 @@ const BoardTitle = ({ board }) => {
       {board.title}
     </h2>
   ) : (
-    <form className='board-title-form' onSubmit={(e) => onSubmit(e)}>
+    <form className='board-title-form' onSubmit={onSubmit}>
       <TextField
         variant='outlined'
         required
@@ -34,7 +36,7 @@ const BoardTitle = ({ board }) => {
       />
     </form>
   );
-};
+});
 
 BoardTitle.propTypes = {
   board: PropTypes.object.isRequired,

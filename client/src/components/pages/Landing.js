@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react';
 import { Button } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import withStore from '../../Store/withStore';
 
-const Landing = () => {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+const Landing = withStore(['auth'], ({store, props}) => {
+  const {state} = store
+
+  const isAuthenticated = state.authState.isAuthenticated
+  if (isAuthenticated) return <Redirect to='/dashboard' />;
 
   useEffect(() => {
     document.title = 'TrelloClone';
   }, []);
 
-  if (isAuthenticated) {
-    return <Redirect to='/dashboard' />;
-  }
 
   return (
     <section className='landing'>
@@ -40,6 +40,6 @@ const Landing = () => {
       </div>
     </section>
   );
-};
+});
 
 export default Landing;
