@@ -1,19 +1,16 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { archiveList } from '../../actions/board';
+import React, {useContext} from 'react';
 
 import List from '@material-ui/core/List';
 import Button from '@material-ui/core/Button';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import { BoardContext } from '../../contexts/BoardStore';
+
 
 const ArchivedLists = () => {
-  const listObjects = useSelector((state) => state.board.board.listObjects);
-  const dispatch = useDispatch();
+  const { board: {board: {listObjects}}, archiveList } = useContext(BoardContext);
 
-  const onSubmit = async (listId) => {
-    dispatch(archiveList(listId, false));
-  };
+  const onSubmit = async (listId) => archiveList(listId, false)
 
   return (
     <div>

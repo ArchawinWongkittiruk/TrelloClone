@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { deleteCard } from '../../actions/board';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CloseIcon from '@material-ui/icons/Close';
+import { BoardContext } from '../../contexts/BoardStore';
 
 const DeleteCard = ({ cardId, setOpen, list }) => {
+  const { deleteCard } = useContext(BoardContext);
+
   const [openDialog, setOpenDialog] = useState(false);
-  const dispatch = useDispatch();
 
   const handleClickOpen = () => {
     setOpenDialog(true);
@@ -21,7 +21,7 @@ const DeleteCard = ({ cardId, setOpen, list }) => {
   };
 
   const onDeleteCard = async () => {
-    dispatch(deleteCard(list._id, cardId));
+    deleteCard(list._id, cardId);
     setOpenDialog(false);
     setOpen(false);
   };

@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useContext } from 'react';
 import Moment from 'react-moment';
 
 import Drawer from '@material-ui/core/Drawer';
@@ -17,14 +16,16 @@ import ArchiveIcon from '@material-ui/icons/Archive';
 import ArchivedLists from './ArchivedLists';
 import ArchivedCards from './ArchivedCards';
 import useStyles from '../../utils/drawerStyles';
+import { BoardContext } from '../../contexts/BoardStore';
 
 const BoardDrawer = () => {
+  const { board: {board: {activity}} } = useContext(BoardContext);
+
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [viewingArchivedLists, setViewingArchivedLists] = useState(false);
   const [viewingArchivedCards, setViewingArchivedCards] = useState(false);
   const [activityChunks, setActivityChunks] = useState(1);
-  const activity = useSelector((state) => state.board.board.activity);
 
   const handleClose = () => {
     setOpen(false);

@@ -8,14 +8,14 @@ import {
   LOGOUT,
 } from '../actions/types';
 
-const initialState = {
+export const authState = {
   token: localStorage.getItem('token'),
   isAuthenticated: null,
   loading: true,
   user: null,
 };
 
-export default function (state = initialState, action) {
+export function authReducer(state = authState, action) {
   const { type, payload } = action;
 
   switch (type) {

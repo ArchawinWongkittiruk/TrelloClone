@@ -1,27 +1,28 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useRef, useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { addCard } from '../../actions/board';
 import { Card, CardContent, TextField, Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
+import { BoardContext } from '../../contexts/BoardStore';
+
 
 const CreateCardForm = ({ listId, setAdding }) => {
+  const { addCard } = useContext(BoardContext);
+
   const [title, setTitle] = useState('');
-  const dispatch = useDispatch();
 
   const formRef = useRef(null);
   useEffect(() => {
-    formRef && formRef.current && formRef.current.scrollIntoView();
+    formRef?.current?.scrollIntoView();
   }, [title]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    dispatch(addCard({ title, listId }));
+    addCard({ title, listId })
     setTitle('');
   };
 
   return (
-    <form ref={formRef} className='create-card-form' onSubmit={(e) => onSubmit(e)}>
+    <form ref={formRef} className='create-card-form' onSubmit={onSubmit}>
       <Card>
         <CardContent className='card-edit-content'>
           <TextField

@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useContext } from 'react';
+import { BoardContext } from '../../contexts/BoardStore';
 import PropTypes from 'prop-types';
-import { addChecklistItem } from '../../actions/board';
 import { TextField, Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import useStyles from '../../utils/modalStyles';
 
+
 const CreateChecklistItem = ({ cardId }) => {
+  const { addChecklistItem } = useContext(BoardContext);
+
   const classes = useStyles();
   const [adding, setAdding] = useState(false);
   const [text, setText] = useState('');
-  const dispatch = useDispatch();
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    dispatch(addChecklistItem(cardId, { text }));
+    addChecklistItem(cardId, { text })
     setText('');
   };
 
@@ -26,7 +27,7 @@ const CreateChecklistItem = ({ cardId }) => {
     </div>
   ) : (
     <div className={classes.checklistBottom}>
-      <form onSubmit={(e) => onSubmit(e)}>
+      <form onSubmit={onSubmit}>
         <TextField
           variant='filled'
           fullWidth

@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect, useContext } from 'react';
+import { BoardContext } from '../../contexts/BoardStore';
 import PropTypes from 'prop-types';
-import { renameList } from '../../actions/board';
 import { TextField } from '@material-ui/core';
 
 const ListTitle = ({ list }) => {
+  const { renameList } = useContext(BoardContext);
+
   const [editing, setEditing] = useState(false);
   const [title, setTitle] = useState(list.title);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     setTitle(list.title);
@@ -15,7 +15,7 @@ const ListTitle = ({ list }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    dispatch(renameList(list._id, { title }));
+    renameList(list._id, { title })
     setEditing(false);
   };
 
@@ -24,7 +24,7 @@ const ListTitle = ({ list }) => {
       {list.title}
     </h3>
   ) : (
-    <form onSubmit={(e) => onSubmit(e)}>
+    <form onSubmit={onSubmit}>
       <TextField required value={title} onChange={(e) => setTitle(e.target.value)} />
     </form>
   );

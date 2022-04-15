@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState, useEffect, useContext, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { moveCard } from '../../actions/board';
+import { BoardContext } from '../../contexts/BoardStore';
+
 
 import Button from '@material-ui/core/Button';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -11,22 +11,18 @@ import Select from '@material-ui/core/Select';
 import useStyles from '../../utils/modalStyles';
 
 const MoveCard = ({ cardId, setOpen, thisList }) => {
+  const { board: {board: {listObjects, lists, cardObjects}}, moveCard } = useContext(BoardContext);
+
   const classes = useStyles();
   const [listObject, setListObject] = useState(null);
   const [listTitle, setListTitle] = useState('');
   const [position, setPosition] = useState(0);
   const [positions, setPositions] = useState([0]);
-  const lists = useSelector((state) => state.board.board.lists);
-  const listObjects = useSelector((state) =>
-    state.board.board.listObjects
-      .sort(
-        (a, b) =>
-          lists.findIndex((id) => id === a._id) - lists.findIndex((id) => id === b._id)
-      )
-      .filter((list) => !list.archived)
-  );
-  const cardObjects = useSelector((state) => state.board.board.cardObjects);
-  const dispatch = useDispatch();
+
+  const activeLists = useMemo(() => {
+    return listObjects.filter((list) => !list.archived)
+    .sort((a, b) => lists.findIndex((id) => id === a._id) - lists.findIndex((id) => id === b._id))
+  }, [listObjects, lists]);
 
   useEffect(() => {
     setListObject(thisList);
@@ -57,9 +53,7 @@ const MoveCard = ({ cardId, setOpen, thisList }) => {
   }, [thisList, cardId, listObject, cardObjects]);
 
   const onSubmit = async () => {
-    dispatch(
-      moveCard(cardId, { fromId: thisList._id, toId: listObject._id, toIndex: position })
-    );
+    moveCard(cardId, { fromId: thisList._id, toId: listObject._id, toIndex: position })
     setOpen(false);
   };
 
@@ -74,11 +68,11 @@ const MoveCard = ({ cardId, setOpen, thisList }) => {
             required
             onChange={(e) => {
               setListTitle(e.target.value);
-              setListObject(listObjects.find((list) => list.title === e.target.value));
+              setListObject(activeLists.find((list) => list.title === e.target.value));
             }}
             displayEmpty
           >
-            {listObjects.map((list) => (
+            {activeLists.map((list) => (
               <MenuItem key={list._id} value={list.title}>
                 {list.title}
               </MenuItem>

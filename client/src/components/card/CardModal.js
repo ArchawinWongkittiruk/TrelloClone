@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { BoardContext } from '../../contexts/BoardStore';
+
 import { GithubPicker } from 'react-color';
-import { editCard, archiveCard } from '../../actions/board';
 import { Modal, TextField, Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import MoveCard from './MoveCard';
@@ -12,10 +12,11 @@ import Checklist from '../checklist/Checklist';
 import useStyles from '../../utils/modalStyles';
 
 const CardModal = ({ cardId, open, setOpen, card, list }) => {
+  const { editCard, archiveCard } = useContext(BoardContext);
+
   const classes = useStyles();
   const [title, setTitle] = useState(card.title);
   const [description, setDescription] = useState(card.description);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     setTitle(card.title);
@@ -24,18 +25,18 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
 
   const onTitleDescriptionSubmit = async (e) => {
     e.preventDefault();
-    dispatch(editCard(cardId, { title, description }));
+    editCard(cardId, { title, description })
   };
 
   const onArchiveCard = async () => {
-    dispatch(archiveCard(cardId, true));
+    archiveCard(cardId, true)
     setOpen(false);
   };
 
   return (
     <Modal open={open} onClose={() => setOpen(false)}>
       <div className={`${classes.paper} ${classes.cardModal}`}>
-        <form onSubmit={(e) => onTitleDescriptionSubmit(e)}>
+        <form onSubmit={onTitleDescriptionSubmit}>
           <div className={classes.modalTop}>
             <TextField
               variant='outlined'
@@ -82,12 +83,12 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
             <h3 className={classes.labelTitle}>Label</h3>
             <GithubPicker
               className={classes.colorPicker}
-              onChange={async (color) => dispatch(editCard(cardId, { label: color.hex }))}
+              onChange={async (color) => editCard(cardId, { label: color.hex })}
             />
             <Button
               className={classes.noLabel}
               variant='outlined'
-              onClick={async () => dispatch(editCard(cardId, { label: 'none' }))}
+              onClick={async () => editCard(cardId, { label: 'none' })}
             >
               No Label
             </Button>

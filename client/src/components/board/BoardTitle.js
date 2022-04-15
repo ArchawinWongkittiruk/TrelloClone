@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { renameBoard } from '../../actions/board';
 import { TextField } from '@material-ui/core';
+import { BoardContext } from '../../contexts/BoardStore';
 
 const BoardTitle = ({ board }) => {
+  const { renameBoard } = useContext(BoardContext);
+
   const [editing, setEditing] = useState(false);
   const [title, setTitle] = useState(board.title);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     setTitle(board.title);
@@ -15,7 +15,7 @@ const BoardTitle = ({ board }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    dispatch(renameBoard(board._id, { title }));
+    renameBoard(board._id, { title });
     setEditing(false);
   };
 
@@ -24,7 +24,7 @@ const BoardTitle = ({ board }) => {
       {board.title}
     </h2>
   ) : (
-    <form className='board-title-form' onSubmit={(e) => onSubmit(e)}>
+    <form className='board-title-form' onSubmit={onSubmit}>
       <TextField
         variant='outlined'
         required

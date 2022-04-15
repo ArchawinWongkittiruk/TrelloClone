@@ -1,26 +1,24 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { archiveCard, deleteCard } from '../../actions/board';
+import React, {useContext} from 'react';
+import { BoardContext } from '../../contexts/BoardStore';
+
 
 import { Card, List, ListItem, CardContent, Button } from '@material-ui/core';
 
 const ArchivedCards = () => {
-  const cards = useSelector((state) => state.board.board.cardObjects);
-  const lists = useSelector((state) => state.board.board.listObjects);
-  const dispatch = useDispatch();
+  const { board: {board: {listObjects, cardObjects}}, archiveCard, deleteCard } = useContext(BoardContext);
 
   const onDelete = async (listId, cardId) => {
-    dispatch(deleteCard(listId, cardId));
+    deleteCard(listId, cardId)
   };
 
   const onSendBack = async (cardId) => {
-    dispatch(archiveCard(cardId, false));
+    archiveCard(cardId, false)
   };
 
   return (
     <div>
       <List>
-        {cards
+        {cardObjects
           .filter((card) => card.archived)
           .map((card, index) => (
             <ListItem key={index} className='archived-card'>
@@ -32,7 +30,7 @@ const ArchivedCards = () => {
                   color='secondary'
                   onClick={() =>
                     onDelete(
-                      lists.find((list) => list.cards.includes(card._id))._id,
+                      listObjects.find((list) => list.cards.includes(card._id))._id,
                       card._id
                     )
                   }

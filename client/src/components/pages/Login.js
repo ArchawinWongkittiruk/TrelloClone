@@ -1,10 +1,8 @@
 // https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/sign-in
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { login } from '../../actions/auth';
-
+import { AuthContext } from '../../contexts/AuthStore';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -13,19 +11,18 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-
 import Copyright from '../other/Copyright';
 import useStyles from '../../utils/formStyles';
 
 const Login = () => {
+  const { auth: {isAuthenticated}, login } = useContext(AuthContext);
+
   const classes = useStyles();
 
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const dispatch = useDispatch();
 
   const { email, password } = formData;
 
@@ -37,12 +34,10 @@ const Login = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    dispatch(login(email, password));
+    login(email, password);
   };
 
-  if (isAuthenticated) {
-    return <Redirect to='/dashboard' />;
-  }
+  if (isAuthenticated) return <Redirect to='/dashboard' />
 
   return (
     <Container component='main' maxWidth='xs' className={classes.container}>
@@ -54,7 +49,7 @@ const Login = () => {
         <Typography component='h1' variant='h5'>
           Sign in
         </Typography>
-        <form className={classes.form} onSubmit={(e) => onSubmit(e)}>
+        <form className={classes.form} onSubmit={onSubmit}>
           <TextField
             variant='outlined'
             margin='normal'
@@ -65,7 +60,7 @@ const Login = () => {
             autoComplete='email'
             autoFocus
             value={email}
-            onChange={(e) => onChange(e)}
+            onChange={onChange}
           />
           <TextField
             variant='outlined'
@@ -77,7 +72,7 @@ const Login = () => {
             type='password'
             autoComplete='current-password'
             value={password}
-            onChange={(e) => onChange(e)}
+            onChange={onChange}
           />
           <Button
             type='submit'

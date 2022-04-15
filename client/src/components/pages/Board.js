@@ -1,8 +1,6 @@
-import React, { Fragment, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { Fragment, useEffect, useContext, useMemo } from 'react';
 import { Redirect } from 'react-router-dom';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { getBoard, moveCard, moveList } from '../../actions/board';
 import { CircularProgress, Box } from '@material-ui/core';
 import BoardTitle from '../board/BoardTitle';
 import BoardDrawer from '../board/BoardDrawer';
@@ -10,40 +8,41 @@ import List from '../list/List';
 import CreateList from '../board/CreateList';
 import Members from '../board/Members';
 import Navbar from '../other/Navbar';
+import { BoardContext } from '../../contexts/BoardStore';
+import { AuthContext } from '../../contexts/AuthStore';
 
 const Board = ({ match }) => {
-  const board = useSelector((state) => state.board.board);
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const dispatch = useDispatch();
+  const { auth: {isAuthenticated} } = useContext(AuthContext);
+  const { board: {board}, getBoard, moveCard, moveList } = useContext(BoardContext);
+
+  const [title, backgroundURL, lists] = useMemo(() => {
+    return [board?.title, board?.backgroundURL, board?.lists]
+  }, [board]);
+
+  const defaultBackground = 'https://images.unsplash.com/photo-1598197748967-b4674cb3c266?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2689&q=80'
+  
+  useEffect(() => {
+    getBoard(match.params.id)
+  }, [match.params.id, getBoard]);
 
   useEffect(() => {
-    dispatch(getBoard(match.params.id));
-  }, [dispatch, match.params.id]);
+    if (title) document.title = title + ' | TrelloClone';
+  }, [title]);
 
-  useEffect(() => {
-    if (board?.title) document.title = board.title + ' | TrelloClone';
-  }, [board?.title]);
-
-  if (!isAuthenticated) {
-    return <Redirect to='/' />;
-  }
+  if (!isAuthenticated) return <Redirect to='/' />
 
   const onDragEnd = (result) => {
     const { source, destination, draggableId, type } = result;
-    if (!destination) {
-      return;
-    }
+
+    if (!destination) return
+
     if (type === 'card') {
-      dispatch(
-        moveCard(draggableId, {
+      moveCard(draggableId, {
           fromId: source.droppableId,
           toId: destination.droppableId,
           toIndex: destination.index,
         })
-      );
-    } else {
-      dispatch(moveList(draggableId, { toIndex: destination.index }));
-    }
+    } else moveList(draggableId, { toIndex: destination.index })
   };
 
   return !board ? (
@@ -57,12 +56,7 @@ const Board = ({ match }) => {
     <div
       className='board-and-navbar'
       style={{
-        backgroundImage:
-          'url(' +
-          (board.backgroundURL
-            ? board.backgroundURL
-            : 'https://images.unsplash.com/photo-1598197748967-b4674cb3c266?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2689&q=80') +
-          ')',
+        backgroundImage: `url(${backgroundURL || defaultBackground})`,
       }}
     >
       <Navbar />
@@ -70,15 +64,15 @@ const Board = ({ match }) => {
         <div className='board-top'>
           <div className='board-top-left'>
             <BoardTitle board={board} />
-            <Members />
+            <Members /> 
           </div>
-          <BoardDrawer />
+          <BoardDrawer /> 
         </div>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId='all-lists' direction='horizontal' type='list'>
             {(provided) => (
               <div className='lists' ref={provided.innerRef} {...provided.droppableProps}>
-                {board.lists.map((listId, index) => (
+                {lists.map((listId, index) => (
                   <List key={listId} listId={listId} index={index} />
                 ))}
                 {provided.placeholder}

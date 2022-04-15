@@ -1,14 +1,13 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, {useContext} from 'react';
 import AlertMUI from '@material-ui/lab/Alert';
+import { AuthContext } from '../../contexts/AuthStore';
 
 const Alert = () => {
-  const alerts = useSelector((state) => state.alert);
-
+  const { alert } = useContext(AuthContext);
   return (
-    alerts !== null &&
-    alerts.length > 0 &&
-    alerts.map((alert) => (
+    alert !== null &&
+    alert.length > 0 &&
+    alert.map((alert) => (
       <AlertMUI severity={alert.alertType} key={alert.id}>
         {alert.msg}
       </AlertMUI>

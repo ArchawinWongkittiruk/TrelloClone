@@ -1,24 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useMemo } from 'react';
 import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
-import { addMember } from '../../actions/board';
 import getInitials from '../../utils/getInitials';
 import { TextField, Button } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import Tooltip from '@material-ui/core/Tooltip';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import CloseIcon from '@material-ui/icons/Close';
+import { BoardContext } from '../../contexts/BoardStore';
 
 const Members = () => {
+  const { board: {board: {members}}, addMember } = useContext(BoardContext);
+
   const [inviting, setInviting] = useState(false);
   const [user, setUser] = useState(null);
   const [inputValue, setInputValue] = useState('');
   const [users, setUsers] = useState([]);
-  const boardMembers = useSelector((state) => state.board.board.members);
-  const searchOptions = users.filter((user) =>
-    boardMembers.find((boardMember) => boardMember.user === user._id) ? false : true
-  );
-  const dispatch = useDispatch();
+
+  const searchOptions = useMemo(() => {
+    return users.filter((user) => members.find((boardMember) => boardMember.user === user._id) ? false : true)
+  }, [users, members])
 
   const handleInputValue = async (newInputValue) => {
     setInputValue(newInputValue);
@@ -29,7 +29,7 @@ const Members = () => {
   };
 
   const onSubmit = async () => {
-    dispatch(addMember(user._id));
+    addMember(user._id);
     setUser(null);
     setInputValue('');
     setInviting(false);
@@ -38,7 +38,7 @@ const Members = () => {
   return (
     <div className='board-members-wrapper'>
       <div className='board-members'>
-        {boardMembers.map((member) => {
+        {members.map((member) => {
           return (
             <Tooltip title={member.name} key={member.user}>
               <Avatar className='avatar'>{getInitials(member.name)}</Avatar>

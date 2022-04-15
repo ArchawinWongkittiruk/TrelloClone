@@ -1,8 +1,7 @@
-import React, { Fragment, useRef, useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { Fragment, useRef, useState, useEffect, useMemo, useContext } from 'react';
+import { BoardContext } from '../../contexts/BoardStore';
 import PropTypes from 'prop-types';
 import { Draggable } from 'react-beautiful-dnd';
-import { getCard, editCard } from '../../actions/board';
 import getInitials from '../../utils/getInitials';
 
 import CardMUI from '@material-ui/core/Card';
@@ -14,6 +13,8 @@ import { TextField, CardContent, Button, Avatar, Tooltip } from '@material-ui/co
 import CardModal from './CardModal';
 
 const Card = ({ cardId, list, index }) => {
+  const { board: {board: {cardObjects}}, getCard, editCard } = useContext(BoardContext);
+
   const [editing, setEditing] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [mouseOver, setMouseOver] = useState(false);
@@ -21,14 +22,14 @@ const Card = ({ cardId, list, index }) => {
   const [height, setHeight] = useState(0);
   const [completeItems, setCompleteItems] = useState(0);
   const cardRef = useRef(null);
-  const card = useSelector((state) =>
-    state.board.board.cardObjects.find((object) => object._id === cardId)
-  );
-  const dispatch = useDispatch();
+
+  const card = useMemo(() => {
+    return cardObjects.find((object) => object._id === cardId);
+  }, [cardObjects, cardId]);
 
   useEffect(() => {
-    dispatch(getCard(cardId));
-  }, [cardId, dispatch]);
+    getCard(cardId)
+  }, [cardId, getCard]);
 
   useEffect(() => {
     if (card) {
@@ -44,12 +45,12 @@ const Card = ({ cardId, list, index }) => {
   }, [card]);
 
   useEffect(() => {
-    cardRef && cardRef.current && setHeight(cardRef.current.clientHeight);
+    setHeight(cardRef?.current?.clientHeight);
   }, [list, card, cardRef]);
 
   const onSubmitEdit = async (e) => {
     e.preventDefault();
-    dispatch(editCard(cardId, { title }));
+    editCard(cardId, { title })
     setEditing(false);
     setMouseOver(false);
   };
@@ -136,7 +137,7 @@ const Card = ({ cardId, list, index }) => {
           )}
         </Draggable>
       ) : (
-        <form className='create-card-form' onSubmit={(e) => onSubmitEdit(e)}>
+        <form className='create-card-form' onSubmit={onSubmitEdit}>
           <CardMUI>
             <CardContent className='card-edit-content'>
               <TextField

@@ -1,8 +1,7 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useRef, useState, useEffect, useContext, useMemo } from 'react';
+import { BoardContext } from '../../contexts/BoardStore';
 import PropTypes from 'prop-types';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
-import { getList } from '../../actions/board';
 import ListTitle from './ListTitle';
 import ListMenu from './ListMenu';
 import Card from '../card/Card';
@@ -10,22 +9,24 @@ import CreateCardForm from './CreateCardForm';
 import Button from '@material-ui/core/Button';
 
 const List = ({ listId, index }) => {
+  const { board: {board: {listObjects}}, getList } = useContext(BoardContext);
+
   const [addingCard, setAddingCard] = useState(false);
-  const list = useSelector((state) =>
-    state.board.board.listObjects.find((object) => object._id === listId)
-  );
-  const dispatch = useDispatch();
+
+  const list = useMemo(() => {
+    return listObjects.find((object) => object._id === listId);
+  }, [listObjects, listId]);
 
   useEffect(() => {
-    dispatch(getList(listId));
-  }, [dispatch, listId]);
+    getList(listId)
+  }, [getList, listId]);
 
   const createCardFormRef = useRef(null);
   useEffect(() => {
     addingCard && createCardFormRef.current.scrollIntoView();
   }, [addingCard]);
 
-  return !list || (list && list.archived) ? (
+  return !list || list?.archived ? (
     ''
   ) : (
     <Draggable draggableId={listId} index={index}>

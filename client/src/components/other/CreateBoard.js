@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
-import { addBoard } from '../../actions/board';
+import { BoardContext } from '../../contexts/BoardStore';
 import { Modal, TextField, Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import useStyles from '../../utils/modalStyles';
 
 const CreateBoard = ({ history }) => {
+  const { addBoard } = useContext(BoardContext);
+
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');
-  const dispatch = useDispatch();
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    dispatch(addBoard({ title }, history));
+    addBoard({ title }, history);
   };
 
   const body = (
@@ -25,7 +25,7 @@ const CreateBoard = ({ history }) => {
           <CloseIcon />
         </Button>
       </div>
-      <form onSubmit={(e) => onSubmit(e)}>
+      <form onSubmit={onSubmit}>
         <TextField
           variant='outlined'
           margin='normal'

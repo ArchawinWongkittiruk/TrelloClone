@@ -1,18 +1,16 @@
-import React, { useEffect } from 'react';
-import { Button } from '@material-ui/core';
+import React, { useEffect, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { AuthContext } from '../../contexts/AuthStore';
+import { Button } from '@material-ui/core';
 
 const Landing = () => {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const { auth: {isAuthenticated} } = useContext(AuthContext);
 
   useEffect(() => {
     document.title = 'TrelloClone';
   }, []);
 
-  if (isAuthenticated) {
-    return <Redirect to='/dashboard' />;
-  }
+  if (isAuthenticated) return <Redirect to='/dashboard' />
 
   return (
     <section className='landing'>

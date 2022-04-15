@@ -25,14 +25,14 @@ import {
   DELETE_CHECKLIST_ITEM,
 } from '../actions/types';
 
-const initialState = {
+export const boardState = {
   boards: [],
   board: null,
   dashboardLoading: true,
   error: {},
 };
 
-export default function (state = initialState, action) {
+export function boardReducer(state = boardState, action) {
   const { type, payload } = action;
 
   switch (type) {

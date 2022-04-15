@@ -1,22 +1,22 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { addList } from '../../actions/board';
+import React, { useRef, useState, useEffect, useContext } from 'react';
 import { TextField, Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
+import { BoardContext } from '../../contexts/BoardStore';
 
 const CreateList = () => {
+  const { addList } = useContext(BoardContext);
+
   const [adding, setAdding] = useState(false);
   const [title, setTitle] = useState('');
-  const dispatch = useDispatch();
 
   const formRef = useRef(null);
   useEffect(() => {
-    formRef && formRef.current && formRef.current.scrollIntoView();
+    formRef?.current?.scrollIntoView();
   }, [title]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    dispatch(addList({ title }));
+    addList({ title });
     setTitle('');
   };
 
@@ -28,7 +28,7 @@ const CreateList = () => {
     </div>
   ) : (
     <div ref={formRef} className='create-list-form'>
-      <form onSubmit={(e) => onSubmit(e)}>
+      <form onSubmit={onSubmit}>
         <TextField
           variant='outlined'
           fullWidth

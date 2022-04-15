@@ -1,11 +1,8 @@
 // https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/sign-up
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { setAlert } from '../../actions/alert';
-import { register } from '../../actions/auth';
-
+import { AuthContext } from '../../contexts/AuthStore';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -14,11 +11,12 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-
 import Copyright from '../other/Copyright';
 import useStyles from '../../utils/formStyles';
 
 const Register = () => {
+  const { auth: {isAuthenticated}, setAlert, register } = useContext(AuthContext);
+
   const classes = useStyles();
 
   const [formData, setFormData] = useState({
@@ -27,8 +25,6 @@ const Register = () => {
     password: '',
     password2: '',
   });
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     document.title = 'TrelloClone | Sign Up';
@@ -41,9 +37,9 @@ const Register = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      dispatch(setAlert('Passwords do not match', 'error'));
+      setAlert('Passwords do not match', 'error');
     } else {
-      dispatch(register({ name, email, password }));
+      register({ name, email, password });
     }
   };
 
@@ -61,7 +57,7 @@ const Register = () => {
         <Typography component='h1' variant='h5'>
           Sign up
         </Typography>
-        <form className={classes.form} onSubmit={(e) => onSubmit(e)}>
+        <form className={classes.form} onSubmit={onSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -73,7 +69,7 @@ const Register = () => {
                 label='Your Name'
                 autoFocus
                 value={name}
-                onChange={(e) => onChange(e)}
+                onChange={onChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -85,7 +81,7 @@ const Register = () => {
                 name='email'
                 autoComplete='email'
                 value={email}
-                onChange={(e) => onChange(e)}
+                onChange={onChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -97,7 +93,7 @@ const Register = () => {
                 label='Password'
                 type='password'
                 value={password}
-                onChange={(e) => onChange(e)}
+                onChange={onChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -109,7 +105,7 @@ const Register = () => {
                 label='Confirm Password'
                 type='password'
                 value={password2}
-                onChange={(e) => onChange(e)}
+                onChange={onChange}
               />
             </Grid>
           </Grid>
