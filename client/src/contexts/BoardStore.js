@@ -1,4 +1,4 @@
-import React, {createContext, useReducer, useMemo} from 'react'
+import React, {createContext, useReducer} from 'react'
 import {boardReducer, boardState} from '../reducers/board'
 import * as boardActions from '../actions/board'
 
@@ -7,8 +7,7 @@ export const BoardContext = createContext()
 export default function BoardStore(props) {
     const [board, boardDispatch] = useReducer(boardReducer, boardState)
 
-    const dispatchedActions = useMemo(()=>{
-        return {
+    const dispatchedActions = {
             getBoards: (...e) => boardActions.getBoards(...e)(boardDispatch),
             getBoard: (...e) => boardActions.getBoard(...e)(boardDispatch),
             addBoard: (...e) => boardActions.addBoard(...e)(boardDispatch),
@@ -31,11 +30,8 @@ export default function BoardStore(props) {
             completeChecklistItem: (...e) => boardActions.completeChecklistItem(...e)(boardDispatch),
             deleteChecklistItem: (...e) => boardActions.deleteChecklistItem(...e)(boardDispatch)
         }
-    },[boardDispatch])
  
-    const value = useMemo(() => {
-        return {board, ...dispatchedActions}
-    }, [board, dispatchedActions])
+    const value = {board, ...dispatchedActions}
     
     return (
         <BoardContext.Provider value={{...value}}>

@@ -1,9 +1,8 @@
-import React, { Fragment, useRef, useState, useEffect, useMemo, useContext } from 'react';
+import React, { Fragment, useRef, useState, useEffect, useContext } from 'react';
 import { BoardContext } from '../../contexts/BoardStore';
 import PropTypes from 'prop-types';
 import { Draggable } from 'react-beautiful-dnd';
 import getInitials from '../../utils/getInitials';
-
 import CardMUI from '@material-ui/core/Card';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
@@ -23,9 +22,7 @@ const Card = ({ cardId, list, index }) => {
   const [completeItems, setCompleteItems] = useState(0);
   const cardRef = useRef(null);
 
-  const card = useMemo(() => {
-    return cardObjects.find((object) => object._id === cardId);
-  }, [cardObjects, cardId]);
+  const card = cardObjects.find((object) => object._id === cardId)
 
   useEffect(() => {
     getCard(cardId)

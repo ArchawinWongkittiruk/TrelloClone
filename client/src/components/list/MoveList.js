@@ -1,7 +1,6 @@
-import React, { Fragment, useState, useEffect, useContext, useMemo } from 'react';
+import React, { Fragment, useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { BoardContext } from '../../contexts/BoardStore';
-
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -21,16 +20,13 @@ const MoveList = ({ listId, closeMenu }) => {
   const [position, setPosition] = useState(0);
   const [positions, setPositions] = useState([0]);
 
-  const mappedListObjects = useMemo(()=>{
-    return listObjects.sort((a, b) =>
-        lists.findIndex((id) => id === a._id) - lists.findIndex((id) => id === b._id)
-    ).map((list, index) => ({ list, index })); 
-  }, [listObjects, lists]);
-
   useEffect(() => {
+    const mappedListObjects = listObjects.sort((a, b) =>
+          lists.findIndex((id) => id === a._id) - lists.findIndex((id) => id === b._id)
+      ).map((list, index) => ({ list, index }));
     setPositions(mappedListObjects.filter((list) => !list.list.archived).map((list) => list.index))
     setPosition(mappedListObjects.findIndex((list) => list.list._id === listId))
-  }, [listId, mappedListObjects]);
+  }, [listId, listObjects, lists]);
 
   const onSubmit = async () => {
     moveList(listId, { toIndex: position })

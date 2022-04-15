@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useMemo } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { BoardContext } from '../../contexts/BoardStore';
 
@@ -19,10 +19,8 @@ const MoveCard = ({ cardId, setOpen, thisList }) => {
   const [position, setPosition] = useState(0);
   const [positions, setPositions] = useState([0]);
 
-  const activeLists = useMemo(() => {
-    return listObjects.filter((list) => !list.archived)
+  const activeLists = listObjects.filter((list) => !list.archived)
     .sort((a, b) => lists.findIndex((id) => id === a._id) - lists.findIndex((id) => id === b._id))
-  }, [listObjects, lists]);
 
   useEffect(() => {
     setListObject(thisList);

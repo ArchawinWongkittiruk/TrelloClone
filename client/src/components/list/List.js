@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useContext, useMemo } from 'react';
+import React, { useRef, useState, useEffect, useContext } from 'react';
 import { BoardContext } from '../../contexts/BoardStore';
 import PropTypes from 'prop-types';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
@@ -13,9 +13,7 @@ const List = ({ listId, index }) => {
 
   const [addingCard, setAddingCard] = useState(false);
 
-  const list = useMemo(() => {
-    return listObjects.find((object) => object._id === listId);
-  }, [listObjects, listId]);
+  const list = listObjects.find((object) => object._id === listId)
 
   useEffect(() => {
     getList(listId)

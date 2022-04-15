@@ -1,4 +1,4 @@
-import React, {useContext, useMemo} from 'react';
+import React, {useContext} from 'react';
 import { BoardContext } from '../../contexts/BoardStore';
 
 import PropTypes from 'prop-types';
@@ -8,9 +8,7 @@ import useStyles from '../../utils/modalStyles';
 const CardMembers = ({ card }) => {
   const { board: {board: {members}}, addCardMember } = useContext(BoardContext);
 
-  const cardMembers = useMemo(() => {
-    return card.members.map((member) => member.user)
-  }, [card]);
+  const cardMembers = card.members.map((member) => member.user)
 
   const classes = useStyles();
 

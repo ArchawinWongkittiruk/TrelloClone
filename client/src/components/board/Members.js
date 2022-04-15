@@ -1,4 +1,4 @@
-import React, { useState, useContext, useMemo } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import getInitials from '../../utils/getInitials';
 import { TextField, Button } from '@material-ui/core';
@@ -16,9 +16,7 @@ const Members = () => {
   const [inputValue, setInputValue] = useState('');
   const [users, setUsers] = useState([]);
 
-  const searchOptions = useMemo(() => {
-    return users.filter((user) => members.find((boardMember) => boardMember.user === user._id) ? false : true)
-  }, [users, members])
+  const searchOptions = users.filter((user) => members.find((boardMember) => boardMember.user === user._id) ? false : true)
 
   const handleInputValue = async (newInputValue) => {
     setInputValue(newInputValue);

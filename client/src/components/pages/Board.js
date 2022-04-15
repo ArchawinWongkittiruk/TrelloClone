@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useContext, useMemo } from 'react';
+import React, { Fragment, useEffect, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { CircularProgress, Box } from '@material-ui/core';
@@ -15,9 +15,7 @@ const Board = ({ match }) => {
   const { auth: {isAuthenticated} } = useContext(AuthContext);
   const { board: {board}, getBoard, moveCard, moveList } = useContext(BoardContext);
 
-  const [title, backgroundURL, lists] = useMemo(() => {
-    return [board?.title, board?.backgroundURL, board?.lists]
-  }, [board]);
+  const [title, backgroundURL, lists] = [board?.title, board?.backgroundURL, board?.lists]
 
   const defaultBackground = 'https://images.unsplash.com/photo-1598197748967-b4674cb3c266?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2689&q=80'
   

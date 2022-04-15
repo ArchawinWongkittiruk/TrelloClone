@@ -27,14 +27,10 @@ export default function App() {
             <Route exact path='/' component={Landing} />
             <Route exact path='/register' component={Register} />
             <Route exact path='/login' component={Login} />
-
               <BoardStore>
                 <Route exact path='/dashboard' component={Dashboard} />
                 <Route exact path='/board/:id' component={Board} />
               </BoardStore>
-            
-            
-            
           </Switch>
         </Fragment>
       </Router>
