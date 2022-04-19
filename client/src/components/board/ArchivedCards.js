@@ -9,12 +9,10 @@ const ArchivedCards = ({update}) => {
   const { board: {board: {listObjects, cardObjects}}, archiveCard, deleteCard } = useContext(BoardContext);
 
   const [archivedCards, setArchivedCards] = useState(cardObjects);
-  console.log(archivedCards)
 
   useEffect(() => {
     setArchivedCards(cardObjects)
   }, [cardObjects])
-
 
   const onDelete = async (listId, cardId) => {
     visualDelete(cardId)
