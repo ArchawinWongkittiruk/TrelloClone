@@ -7,6 +7,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import CloseIcon from '@material-ui/icons/Close';
 import { BoardContext } from '../../contexts/BoardStore';
+import { useEffect } from 'react';
 
 const Members = () => {
   const { board: {board: {members}}, addMember } = useContext(BoardContext);
@@ -15,6 +16,7 @@ const Members = () => {
   const [user, setUser] = useState(null);
   const [inputValue, setInputValue] = useState('');
   const [users, setUsers] = useState([]);
+  const [memberList, setMembers] = useState(members);
 
   const searchOptions = users.filter((user) => members.find((boardMember) => boardMember.user === user._id) ? false : true)
 
@@ -27,16 +29,17 @@ const Members = () => {
   };
 
   const onSubmit = async () => {
-    addMember(user._id);
+    setMembers(user.concat(memberList));
     setUser(null);
     setInputValue('');
     setInviting(false);
+    addMember(user._id);
   };
 
   return (
     <div className='board-members-wrapper'>
       <div className='board-members'>
-        {members.map((member) => {
+        {memberList.map((member) => {
           return (
             <Tooltip title={member.name} key={member.user}>
               <Avatar className='avatar'>{getInitials(member.name)}</Avatar>

@@ -6,7 +6,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import useStyles from '../../utils/modalStyles';
 
 
-const CreateChecklistItem = ({ cardId }) => {
+const CreateChecklistItem = ({ cardId, updateList }) => {
   const { addChecklistItem } = useContext(BoardContext);
 
   const classes = useStyles();

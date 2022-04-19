@@ -5,12 +5,18 @@ import Button from '@material-ui/core/Button';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { BoardContext } from '../../contexts/BoardStore';
+import { useEffect } from 'react';
 
 
-const ArchivedLists = () => {
+const ArchivedLists = ({update}) => {
   const { board: {board: {listObjects}}, archiveList } = useContext(BoardContext);
 
-  const onSubmit = async (listId) => archiveList(listId, false)
+  const unarchive = async (listId) => archiveList(listId, false)
+  
+  const visualUnarchive = (listId) => {
+    listObjects.find((object) => object._id === listId).archived=false
+    update()
+  }
 
   return (
     <div>
@@ -20,7 +26,10 @@ const ArchivedLists = () => {
           .map((list, index) => (
             <ListItem key={index}>
               <ListItemText primary={list.title} />
-              <Button onClick={() => onSubmit(list._id)}>Send to Board</Button>
+              <Button onClick={() => {
+                visualUnarchive(list._id)
+                unarchive(list._id)
+                }}>Send to Board</Button>
             </ListItem>
           ))}
       </List>

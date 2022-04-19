@@ -1,0 +1,14 @@
+Known bugs:
+
+Present from before I started:
+1- Entering and quickly leaving a board before all lists and cards are loaded will crash the app.
+2- Dragging a card and leaving the board before the card finishes loading will crash the app.
+3- After unarchiving a list, if the list appears as the first in the board, grabbing it will cause all other lists to move to the left. This always causes the now-first list to get stuck at the first spot for as long as the user drags the list, and sometimes it also affects the now-second for its respective spot, forcing the user to place the dragged list somewhere else.
+
+Optimisticui branch:
+4- Archiving and quickly unarchiving a list will cause it to rearchive and unarchieve itself.
+5- Upon loading a card, the edit button will be placed at the bottom of the card instead of the center. It centers itself after the card is edited.
+6- Unarchiving a card will sometimes cause the edit button to appear at the top of the card instead of the center. It centers itself after the card is edited.
+
+Bugs 5 & 6 were caused by changing "<p>{card.title}</p>" (object value) to "<p>{title}</p>" (useState value) in Card.js. Both had the exact same string literal value, no idea how this could have affected CSS.
+

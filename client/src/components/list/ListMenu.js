@@ -5,9 +5,9 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import MoveList from './MoveList';
 import { BoardContext } from '../../contexts/BoardStore';
 
-const ListMenu = ({ listId }) => {
+const ListMenu = ({ listId, visualArchive }) => {
   const { archiveList } = useContext(BoardContext);
-
+  
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => setAnchorEl(event.currentTarget);
@@ -30,6 +30,7 @@ const ListMenu = ({ listId }) => {
         </MenuItem>
         <MenuItem
           onClick={() => {
+            visualArchive();
             archive();
             handleClose();
           }}

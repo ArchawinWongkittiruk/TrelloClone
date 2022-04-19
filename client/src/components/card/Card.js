@@ -11,7 +11,7 @@ import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import { TextField, CardContent, Button, Avatar, Tooltip } from '@material-ui/core';
 import CardModal from './CardModal';
 
-const Card = ({ cardId, list, index }) => {
+const Card = ({ list, setList, cardId, index, update, archived }) => {
   const { board: {board: {cardObjects}}, getCard, editCard } = useContext(BoardContext);
 
   const [editing, setEditing] = useState(false);
@@ -20,13 +20,23 @@ const Card = ({ cardId, list, index }) => {
   const [title, setTitle] = useState('');
   const [height, setHeight] = useState(0);
   const [completeItems, setCompleteItems] = useState(0);
+  const [archivedState, setArchived] = useState();
   const cardRef = useRef(null);
 
   const card = cardObjects.find((object) => object._id === cardId)
-
   useEffect(() => {
     getCard(cardId)
-  }, [cardId, getCard]);
+  }, [cardId]);
+
+  useEffect(() => {
+    setArchived(!!card?.archived)
+  }, [card?.archived, archived]);
+
+  const visualArchive = () => {
+    card.archived = true
+    setArchived(true)
+    update()
+  }
 
   useEffect(() => {
     if (card) {
@@ -43,7 +53,7 @@ const Card = ({ cardId, list, index }) => {
 
   useEffect(() => {
     setHeight(cardRef?.current?.clientHeight);
-  }, [list, card, cardRef]);
+  }, [card, cardRef]);
 
   const onSubmitEdit = async (e) => {
     e.preventDefault();
@@ -52,7 +62,7 @@ const Card = ({ cardId, list, index }) => {
     setMouseOver(false);
   };
 
-  return !card || (card && card.archived) ? (
+  return !card || archivedState ? (
     ''
   ) : (
     <Fragment>
@@ -62,6 +72,9 @@ const Card = ({ cardId, list, index }) => {
         setOpen={setOpenModal}
         card={card}
         list={list}
+        setList={setList}
+        visualArchive={visualArchive}
+        update={update}
       />
       {!editing ? (
         <Draggable draggableId={cardId} index={index}>
@@ -97,7 +110,7 @@ const Card = ({ cardId, list, index }) => {
                 {card.label && card.label !== 'none' && (
                   <div className='card-label' style={{ backgroundColor: card.label }} />
                 )}
-                <p>{card.title}</p>
+                <p>{title}</p>
                 <div className='card-bottom'>
                   <div className='card-bottom-left'>
                     {card.description && (
@@ -158,7 +171,6 @@ const Card = ({ cardId, list, index }) => {
               onClick={() => {
                 setEditing(false);
                 setMouseOver(false);
-                setTitle(card.title);
               }}
             >
               <CloseIcon />

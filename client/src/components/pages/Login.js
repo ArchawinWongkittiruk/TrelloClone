@@ -15,7 +15,7 @@ import Copyright from '../other/Copyright';
 import useStyles from '../../utils/formStyles';
 
 const Login = () => {
-  const { auth: {isAuthenticated}, login } = useContext(AuthContext);
+  const { auth: {isAuthenticated}, login, alert } = useContext(AuthContext);
 
   const classes = useStyles();
 

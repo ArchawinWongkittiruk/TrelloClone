@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useContext } from 'react';
+import { Fragment, useEffect, useContext, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { CircularProgress, Box } from '@material-ui/core';
@@ -15,17 +15,15 @@ const Board = ({ match }) => {
   const { auth: {isAuthenticated} } = useContext(AuthContext);
   const { board: {board}, getBoard, moveCard, moveList } = useContext(BoardContext);
 
-  const [title, backgroundURL, lists] = [board?.title, board?.backgroundURL, board?.lists]
+  const [force, UpdateArchive] = useState(false);
+
+  const [backgroundURL, lists] = [board?.backgroundURL, board?.lists]
 
   const defaultBackground = 'https://images.unsplash.com/photo-1598197748967-b4674cb3c266?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2689&q=80'
   
   useEffect(() => {
     getBoard(match.params.id)
-  }, [match.params.id, getBoard]);
-
-  useEffect(() => {
-    if (title) document.title = title + ' | TrelloClone';
-  }, [title]);
+  }, [match.params.id]);
 
   if (!isAuthenticated) return <Redirect to='/' />
 
@@ -64,14 +62,14 @@ const Board = ({ match }) => {
             <BoardTitle board={board} />
             <Members /> 
           </div>
-          <BoardDrawer /> 
+          <BoardDrawer update={()=>UpdateArchive(!force)}/> 
         </div>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId='all-lists' direction='horizontal' type='list'>
             {(provided) => (
               <div className='lists' ref={provided.innerRef} {...provided.droppableProps}>
-                {lists.map((listId, index) => (
-                  <List key={listId} listId={listId} index={index} />
+                {lists.map((listId, index, archived) => (
+                  <List key={listId} listId={listId} index={index} archived={archived} update={()=>UpdateArchive(!force)} />
                 ))}
                 {provided.placeholder}
                 <CreateList />

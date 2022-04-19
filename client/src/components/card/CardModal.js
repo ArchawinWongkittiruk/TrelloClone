@@ -11,17 +11,12 @@ import CardMembers from './CardMembers';
 import Checklist from '../checklist/Checklist';
 import useStyles from '../../utils/modalStyles';
 
-const CardModal = ({ cardId, open, setOpen, card, list }) => {
+const CardModal = ({ cardId, open, setOpen, card, list, setList, update, visualArchive }) => {
   const { editCard, archiveCard } = useContext(BoardContext);
 
   const classes = useStyles();
   const [title, setTitle] = useState(card.title);
   const [description, setDescription] = useState(card.description);
-
-  useEffect(() => {
-    setTitle(card.title);
-    setDescription(card.description);
-  }, [card]);
 
   const onTitleDescriptionSubmit = async (e) => {
     e.preventDefault();
@@ -29,8 +24,8 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
   };
 
   const onArchiveCard = async () => {
-    archiveCard(cardId, true)
     setOpen(false);
+    archiveCard(cardId, true)
   };
 
   return (
@@ -101,11 +96,14 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
             <Button
               variant='contained'
               className={classes.archiveButton}
-              onClick={onArchiveCard}
+              onClick={()=>{
+                visualArchive()
+                onArchiveCard()
+              }}
             >
               Archive Card
             </Button>
-            <DeleteCard cardId={cardId} setOpen={setOpen} list={list} />
+            <DeleteCard cardId={cardId} setOpen={setOpen} list={list} setList={setList}/>
           </div>
         </div>
       </div>

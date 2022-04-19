@@ -8,24 +8,20 @@ const ListTitle = ({ list }) => {
 
   const [editing, setEditing] = useState(false);
   const [title, setTitle] = useState(list.title);
-
-  useEffect(() => {
-    setTitle(list.title);
-  }, [list.title]);
-
+  
   const onSubmit = async (e) => {
     e.preventDefault();
-    renameList(list._id, { title })
     setEditing(false);
+    renameList(list._id, { title })
   };
 
   return !editing ? (
     <h3 className='list-title' onClick={() => setEditing(true)}>
-      {list.title}
+      {title}
     </h3>
   ) : (
     <form onSubmit={onSubmit}>
-      <TextField required value={title} onChange={(e) => setTitle(e.target.value)} />
+      <TextField required value={title} onChange={(e) => setTitle(e.target.value)}/>
     </form>
   );
 };

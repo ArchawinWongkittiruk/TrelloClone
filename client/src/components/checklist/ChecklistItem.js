@@ -8,21 +8,22 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import CloseIcon from '@material-ui/icons/Close';
 import useStyles from '../../utils/modalStyles';
 
-const ChecklistItem = ({ item, card }) => {
+const ChecklistItem = ({ item, card, updateList, list }) => {
   const { completeChecklistItem, editChecklistItem, deleteChecklistItem } = useContext(BoardContext);
 
   const classes = useStyles();
   const [text, setText] = useState(item.text);
   const [editing, setEditing] = useState(false);
-
-  useEffect(() => {
-    setText(item.text);
-  }, [item.text]);
+  const [checked, setChecked] = useState(item.complete);
 
   const onEdit = async (e) => {
     e.preventDefault();
     editChecklistItem(card._id, item._id, { text })
     setEditing(false);
+  };
+
+  const visualCheck = (e) => {
+    setChecked(!checked);
   };
 
   const onComplete = async (e) => {
@@ -35,6 +36,10 @@ const ChecklistItem = ({ item, card }) => {
 
   const onDelete = async (e) => {
     deleteChecklistItem(card._id, item._id)
+  };
+
+  const visualDelete = () => {
+    updateList(list.filter(e=>e._id!==item._id));
   };
 
   return (
@@ -70,21 +75,25 @@ const ChecklistItem = ({ item, card }) => {
           <FormControlLabel
             control={
               <Checkbox
-                checked={
-                  card.checklist.find((cardItem) => cardItem._id === item._id).complete
-                }
-                onChange={onComplete}
-                name={item._id}
+                checked={checked}
+                onChange={(e)=>{
+                  visualCheck()
+                  onComplete(e)
+                }}
+                name={item._id.toString()}
               />
             }
-            label={item.text}
+            label={text}
             className={classes.checklistFormLabel}
           />
           <div className={classes.itemButtons}>
             <Button className={classes.itemButton} onClick={() => setEditing(true)}>
               <EditIcon />
             </Button>
-            <Button color='secondary' className={classes.itemButton} onClick={onDelete}>
+            <Button color='secondary' className={classes.itemButton} onClick={(e)=>{
+              visualDelete()
+              onDelete(e)
+              }}>
               <HighlightOffIcon />
             </Button>
           </div>

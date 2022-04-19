@@ -18,7 +18,7 @@ import ArchivedCards from './ArchivedCards';
 import useStyles from '../../utils/drawerStyles';
 import { BoardContext } from '../../contexts/BoardStore';
 
-const BoardDrawer = () => {
+const BoardDrawer = ({update}) => {
   const { board: {board: {activity}} } = useContext(BoardContext);
 
   const classes = useStyles();
@@ -108,7 +108,7 @@ const BoardDrawer = () => {
               </Button>
             </div>
             <Divider />
-            <ArchivedLists />
+            <ArchivedLists update={update}/>
           </div>
         ) : (
           <div>
@@ -122,7 +122,7 @@ const BoardDrawer = () => {
               </Button>
             </div>
             <Divider />
-            <ArchivedCards />
+            <ArchivedCards update={update}/>
           </div>
         )}
         <Divider />

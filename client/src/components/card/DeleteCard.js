@@ -7,18 +7,19 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import CloseIcon from '@material-ui/icons/Close';
 import { BoardContext } from '../../contexts/BoardStore';
 
-const DeleteCard = ({ cardId, setOpen, list }) => {
+const DeleteCard = ({ cardId, setOpen, list, setList }) => {
   const { deleteCard } = useContext(BoardContext);
 
   const [openDialog, setOpenDialog] = useState(false);
 
-  const handleClickOpen = () => {
-    setOpenDialog(true);
-  };
+  const handleClickOpen = () => setOpenDialog(true);
 
-  const handleClose = () => {
-    setOpenDialog(false);
-  };
+  const handleClose = () => setOpenDialog(false);
+
+
+  const visualDelete = () => {
+    setList({...list, cards:list.cards.filter(card => card !== cardId)});
+  }
 
   const onDeleteCard = async () => {
     deleteCard(list._id, cardId);
@@ -34,7 +35,10 @@ const DeleteCard = ({ cardId, setOpen, list }) => {
       <Dialog open={openDialog} onClose={handleClose}>
         <DialogTitle>{'Delete card?'}</DialogTitle>
         <DialogActions>
-          <Button onClick={onDeleteCard} variant='contained' color='secondary' autoFocus>
+          <Button onClick={(e)=>{
+            visualDelete()
+            onDeleteCard(e)
+            }} variant='contained' color='secondary' autoFocus>
             Delete
           </Button>
           <Button onClick={handleClose}>

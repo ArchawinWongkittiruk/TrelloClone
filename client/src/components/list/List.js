@@ -8,23 +8,37 @@ import Card from '../card/Card';
 import CreateCardForm from './CreateCardForm';
 import Button from '@material-ui/core/Button';
 
-const List = ({ listId, index }) => {
+const List = ({ listId, index, archived, update }) => {
   const { board: {board: {listObjects}}, getList } = useContext(BoardContext);
 
   const [addingCard, setAddingCard] = useState(false);
+  const [archivedState, setArchived] = useState();
+  const [list, setList] = useState();
 
-  const list = listObjects.find((object) => object._id === listId)
+  const visualArchive = () => {
+    list.archived = true
+    setArchived(true)
+    update()
+  }
 
   useEffect(() => {
     getList(listId)
-  }, [getList, listId]);
+  }, [listId]);
+
+  useEffect(() => {
+    setList(listObjects.find((object) => object._id === listId))
+  }, [listObjects]);
+
+  useEffect(() => {
+    setArchived(!!list?.archived)
+  }, [list?.archived, archived]);
 
   const createCardFormRef = useRef(null);
   useEffect(() => {
     addingCard && createCardFormRef.current.scrollIntoView();
   }, [addingCard]);
 
-  return !list || list?.archived ? (
+  return !list || archivedState ? (
     ''
   ) : (
     <Draggable draggableId={listId} index={index}>
@@ -37,7 +51,7 @@ const List = ({ listId, index }) => {
         >
           <div className='list-top'>
             <ListTitle list={list} />
-            <ListMenu listId={listId} />
+            <ListMenu listId={listId} visualArchive={visualArchive}/>
           </div>
           <Droppable droppableId={listId} type='card'>
             {(provided) => (
@@ -47,14 +61,14 @@ const List = ({ listId, index }) => {
                 ref={provided.innerRef}
               >
                 <div className='cards'>
-                  {list.cards.map((cardId, index) => (
-                    <Card key={cardId} cardId={cardId} list={list} index={index} />
+                  {list.cards.map((cardId, index, archived) => (
+                    <Card key={cardId} list={list} setList={setList} cardId={cardId} index={index} archived={archived} update={update}/>
                   ))}
                 </div>
                 {provided.placeholder}
                 {addingCard && (
                   <div ref={createCardFormRef}>
-                    <CreateCardForm listId={listId} setAdding={setAddingCard} />
+                    <CreateCardForm listId={listId} setAdding={setAddingCard}/>
                   </div>
                 )}
               </div>

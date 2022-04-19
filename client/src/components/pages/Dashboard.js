@@ -13,7 +13,7 @@ const Dashboard = () => {
   useEffect(() => {
     loadUser() // For some reason, if a user logs out and then logs in, the app doesn't recognize the token in localStorage. Having loadUser both here and in App.js fixes it.
     getBoards();
-  }, [getBoards, loadUser]);
+  }, []);
 
   useEffect(() => {
     document.title = 'Your Boards | TrelloClone';

@@ -16,9 +16,10 @@ import './App.css';
 export default function App() {
 
   const {loadUser} = useContext(AuthContext)
-    useEffect(() => {
-        loadUser();
-    }, [loadUser]);
+  useEffect(() => {
+      loadUser();
+  }, []);
+
   return (
       <Router>
         <Fragment>

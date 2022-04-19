@@ -16,6 +16,7 @@ export default function BoardStore(props) {
             addList: (...e) => boardActions.addList(...e)(boardDispatch),
             renameList: (...e) => boardActions.renameList(...e)(boardDispatch),
             archiveList: (...e) => boardActions.archiveList(...e)(boardDispatch),
+            addCard: (...e) => boardActions.addCard(...e)(boardDispatch),
             getCard: (...e) => boardActions.getCard(...e)(boardDispatch),
             editCard: (...e) => boardActions.editCard(...e)(boardDispatch),
             moveCard: (...e) => boardActions.moveCard(...e)(boardDispatch),
