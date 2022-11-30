@@ -10,7 +10,7 @@ const Checklist = ({ card }) => {
 
   return (
     <Fragment>
-      <h3 className={classes.header}>Checklist</h3>
+      <h3 className={classes.header}>Lista de Controle</h3>
       <FormControl component='fieldset'>
         <FormGroup>
           {card.checklist.map((item) => (

@@ -38,7 +38,7 @@ const BoardDrawer = () => {
         variant='contained'
         className={open ? classes.hide : classes.showMenuButton}
       >
-        <MoreHorizIcon fontSize='small' /> Show Menu
+        <MoreHorizIcon fontSize='small' />  Concluídos
       </Button>
       <Drawer
         className={open ? classes.drawer : classes.hide}
@@ -63,18 +63,18 @@ const BoardDrawer = () => {
                 <ListItemIcon>
                   <ArchiveIcon />
                 </ListItemIcon>
-                <ListItemText primary={'Archived Lists'} />
+                <ListItemText primary={'Listas arquivadas'} />
               </ListItem>
               <ListItem button onClick={() => setViewingArchivedCards(true)}>
                 <ListItemIcon>
                   <ArchiveIcon />
                 </ListItemIcon>
-                <ListItemText primary={'Archived Cards'} />
+                <ListItemText primary={'Cartões arquivados'} />
               </ListItem>
             </List>
             <Divider />
             <div className={classes.activityTitle}>
-              <h3>Activity</h3>
+              <h3>Atividade</h3>
             </div>
             <List>
               {activity.slice(0, activityChunks * 10).map((activity) => (
@@ -91,7 +91,7 @@ const BoardDrawer = () => {
                 disabled={activityChunks * 10 > activity.length}
                 onClick={() => setActivityChunks(activityChunks + 1)}
               >
-                View More Activity
+                Ver mais Atividades
               </Button>
             </div>
           </div>
@@ -101,7 +101,7 @@ const BoardDrawer = () => {
               <Button onClick={() => setViewingArchivedLists(false)}>
                 <ChevronLeftIcon />
               </Button>
-              <h3>Archived Lists</h3>
+              <h3>Listas Arquivadas</h3>
               <Button onClick={handleClose}>
                 <CloseIcon />
               </Button>
@@ -115,7 +115,7 @@ const BoardDrawer = () => {
               <Button onClick={() => setViewingArchivedCards(false)}>
                 <ChevronLeftIcon />
               </Button>
-              <h3>Archived Cards</h3>
+              <h3>Cartões Arquivados</h3>
               <Button onClick={handleClose}>
                 <CloseIcon />
               </Button>

@@ -43,7 +43,7 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
               required
               fullWidth
               multiline
-              label='Card title'
+              label='Título'
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && onTitleDescriptionSubmit(e)}
@@ -58,7 +58,7 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
             margin='normal'
             fullWidth
             multiline
-            label='Card description'
+            label='Descrição'
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
@@ -73,13 +73,13 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
             }
             className={classes.button}
           >
-            Save All Changes
+            Salvar todas as alterações
           </Button>
         </form>
         <div className={classes.modalSection}>
           <CardMembers card={card} />
           <div>
-            <h3 className={classes.labelTitle}>Label</h3>
+            <h3 className={classes.labelTitle}>Etiqueta</h3>
             <GithubPicker
               className={classes.colorPicker}
               onChange={async (color) => dispatch(editCard(cardId, { label: color.hex }))}
@@ -89,7 +89,7 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
               variant='outlined'
               onClick={async () => dispatch(editCard(cardId, { label: 'none' }))}
             >
-              No Label
+              Sem Etiqueta
             </Button>
           </div>
         </div>
@@ -102,7 +102,7 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
               className={classes.archiveButton}
               onClick={onArchiveCard}
             >
-              Archive Card
+              Cartão Arquivado
             </Button>
             <DeleteCard cardId={cardId} setOpen={setOpen} list={list} />
           </div>

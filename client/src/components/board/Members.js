@@ -48,7 +48,7 @@ const Members = () => {
       </div>
       {!inviting ? (
         <Button className='invite' variant='contained' onClick={() => setInviting(true)}>
-          Invite
+          Adicionar Usuário
         </Button>
       ) : (
         <div className='invite'>
@@ -61,7 +61,7 @@ const Members = () => {
             getOptionLabel={(member) => member.email}
             className='search-member'
             renderInput={(params) => (
-              <TextField {...params} helperText='Search for user by email' autoFocus />
+              <TextField {...params} helperText='Pesquise o usuário por e-mail' autoFocus />
             )}
           />
           <div className='add-member'>
@@ -71,7 +71,7 @@ const Members = () => {
               color='primary'
               onClick={onSubmit}
             >
-              Add Member
+              Adicionar Usuário
             </Button>
             <Button onClick={() => setInviting(false)}>
               <CloseIcon />

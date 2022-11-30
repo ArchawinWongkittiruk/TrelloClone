@@ -144,7 +144,7 @@ const Card = ({ cardId, list, index }) => {
                 fullWidth
                 multiline
                 required
-                label="Edit this card's title"
+                label="Editar o título deste cartão"
                 autoFocus
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
@@ -154,7 +154,7 @@ const Card = ({ cardId, list, index }) => {
           </CardMUI>
           <div className='card-actions'>
             <Button type='submit' variant='contained' color='primary'>
-              Save
+              Salvar
             </Button>
             <Button
               onClick={() => {

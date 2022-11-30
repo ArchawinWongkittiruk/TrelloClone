@@ -29,13 +29,13 @@ const DeleteCard = ({ cardId, setOpen, list }) => {
   return (
     <div>
       <Button variant='contained' color='secondary' onClick={handleClickOpen}>
-        Delete Card
+        Excluir Cartão
       </Button>
       <Dialog open={openDialog} onClose={handleClose}>
         <DialogTitle>{'Delete card?'}</DialogTitle>
         <DialogActions>
           <Button onClick={onDeleteCard} variant='contained' color='secondary' autoFocus>
-            Delete
+            Excluir
           </Button>
           <Button onClick={handleClose}>
             <CloseIcon />

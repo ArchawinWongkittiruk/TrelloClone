@@ -29,7 +29,7 @@ const CreateCardForm = ({ listId, setAdding }) => {
             fullWidth
             multiline
             required
-            label='Enter a title for this card'
+            label='Insira um título para este cartão'
             autoFocus
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -39,7 +39,7 @@ const CreateCardForm = ({ listId, setAdding }) => {
       </Card>
       <div className='card-actions'>
         <Button type='submit' variant='contained' color='primary'>
-          Add Card
+          Adicionar Cartão
         </Button>
         <Button
           onClick={() => {

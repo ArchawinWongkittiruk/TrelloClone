@@ -11,7 +11,7 @@ const List = require('../../models/List');
 // Add a list
 router.post(
   '/',
-  [auth, member, [check('title', 'Title is required').not().isEmpty()]],
+  [auth, member, [check('title', 'Título é obrigatório').not().isEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -33,14 +33,14 @@ router.post(
       // Log activity
       const user = await User.findById(req.user.id);
       board.activity.unshift({
-        text: `${user.name} added '${title}' to this board`,
+        text: `${user.name} adicionado '${title}' para este quadro.`,
       });
       await board.save();
 
       res.json(list);
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('Server Error');
+      res.status(500).send('Erro no Servidor');
     }
   }
 );
@@ -50,7 +50,7 @@ router.get('/boardLists/:boardId', auth, async (req, res) => {
   try {
     const board = await Board.findById(req.params.boardId);
     if (!board) {
-      return res.status(404).json({ msg: 'Board not found' });
+      return res.status(404).json({ msg: 'Quadro não encontrado' });
     }
 
     const lists = [];
@@ -61,7 +61,7 @@ router.get('/boardLists/:boardId', auth, async (req, res) => {
     res.json(lists);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send('Erro no Servidor');
   }
 });
 
@@ -70,20 +70,20 @@ router.get('/:id', auth, async (req, res) => {
   try {
     const list = await List.findById(req.params.id);
     if (!list) {
-      return res.status(404).json({ msg: 'List not found' });
+      return res.status(404).json({ msg: 'Lista não encontrada' });
     }
 
     res.json(list);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send('Erro no Servidor');
   }
 });
 
 // Edit a list's title
 router.patch(
   '/rename/:id',
-  [auth, member, [check('title', 'Title is required').not().isEmpty()]],
+  [auth, member, [check('title', 'Título é obrigatório').not().isEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -93,7 +93,7 @@ router.patch(
     try {
       const list = await List.findById(req.params.id);
       if (!list) {
-        return res.status(404).json({ msg: 'List not found' });
+        return res.status(404).json({ msg: 'Lista não encontrada' });
       }
 
       list.title = req.body.title;
@@ -102,7 +102,7 @@ router.patch(
       res.json(list);
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('Server Error');
+      res.status(500).send('Erro no Servidor');
     }
   }
 );
@@ -112,7 +112,7 @@ router.patch('/archive/:archive/:id', [auth, member], async (req, res) => {
   try {
     const list = await List.findById(req.params.id);
     if (!list) {
-      return res.status(404).json({ msg: 'List not found' });
+      return res.status(404).json({ msg: 'Lista não encontrada' });
     }
 
     list.archived = req.params.archive === 'true';
@@ -123,15 +123,15 @@ router.patch('/archive/:archive/:id', [auth, member], async (req, res) => {
     const board = await Board.findById(req.header('boardId'));
     board.activity.unshift({
       text: list.archived
-        ? `${user.name} archived list '${list.title}'`
-        : `${user.name} sent list '${list.title}' to the board`,
+        ? `${user.name} lista arquivada '${list.title}'`
+        : `${user.name} lista enviada '${list.title}' para o quadro`,
     });
     await board.save();
 
     res.json(list);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send('Erro no Servidor');
   }
 });
 
@@ -143,7 +143,7 @@ router.patch('/move/:id', [auth, member], async (req, res) => {
     const board = await Board.findById(boardId);
     const listId = req.params.id;
     if (!listId) {
-      return res.status(404).json({ msg: 'List not found' });
+      return res.status(404).json({ msg: 'Lista não encontrada' });
     }
 
     board.lists.splice(board.lists.indexOf(listId), 1);
@@ -153,7 +153,7 @@ router.patch('/move/:id', [auth, member], async (req, res) => {
     res.send(board.lists);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send('Erro no Servidor');
   }
 });
 

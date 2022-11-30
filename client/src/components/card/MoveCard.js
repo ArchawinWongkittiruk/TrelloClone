@@ -65,10 +65,10 @@ const MoveCard = ({ cardId, setOpen, thisList }) => {
 
   return (
     <div className={classes.moveCard}>
-      <h3 className={classes.moveCardTitle}>Move this card</h3>
+      <h3 className={classes.moveCardTitle}>Mover Cartão</h3>
       <div>
         <FormControl className={classes.moveCardSelect}>
-          <InputLabel shrink>List</InputLabel>
+          <InputLabel shrink>Lista</InputLabel>
           <Select
             value={listTitle}
             required
@@ -86,7 +86,7 @@ const MoveCard = ({ cardId, setOpen, thisList }) => {
           </Select>
         </FormControl>
         <FormControl className={classes.moveCardSelect}>
-          <InputLabel shrink>Position</InputLabel>
+          <InputLabel shrink>Posição</InputLabel>
           <Select
             value={position}
             required
@@ -107,7 +107,7 @@ const MoveCard = ({ cardId, setOpen, thisList }) => {
         color='primary'
         onClick={onSubmit}
       >
-        Move Card
+        Mover Cartão
       </Button>
     </div>
   );

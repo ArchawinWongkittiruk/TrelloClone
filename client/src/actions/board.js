@@ -87,7 +87,7 @@ export const addBoard = (formData, history) => async (dispatch) => {
       payload: res.data,
     });
 
-    dispatch(setAlert('Board Created', 'success'));
+    dispatch(setAlert('Quadro Criado', 'Sucesso'));
 
     history.push(`/board/${res.data._id}`);
   } catch (err) {

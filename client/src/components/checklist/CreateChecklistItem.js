@@ -21,7 +21,7 @@ const CreateChecklistItem = ({ cardId }) => {
   return !adding ? (
     <div className={classes.checklistBottom}>
       <Button variant='contained' onClick={() => setAdding(true)}>
-        + Add an item
+        + Adicionar um item
       </Button>
     </div>
   ) : (
@@ -40,7 +40,7 @@ const CreateChecklistItem = ({ cardId }) => {
         />
         <div>
           <Button type='submit' variant='contained' color='primary'>
-            Add
+            Adicionar
           </Button>
           <Button
             onClick={() => {

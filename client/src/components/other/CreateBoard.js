@@ -20,7 +20,7 @@ const CreateBoard = ({ history }) => {
   const body = (
     <div className={`${classes.paper} ${classes.createBoardModal}`}>
       <div className={classes.modalTop}>
-        <h1>Create new board</h1>
+        <h1>Criar novo projeto</h1>
         <Button onClick={() => setOpen(false)}>
           <CloseIcon />
         </Button>
@@ -31,13 +31,13 @@ const CreateBoard = ({ history }) => {
           margin='normal'
           required
           fullWidth
-          label='Add board title'
+          label='Adicionar título do quadro'
           autoFocus
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
         <Button type='submit' fullWidth variant='contained' color='primary'>
-          Create Board
+        Criar Quadro
         </Button>
       </form>
     </div>
@@ -46,7 +46,7 @@ const CreateBoard = ({ history }) => {
   return (
     <div>
       <button className='board-card create-board-card' onClick={() => setOpen(true)}>
-        Create new board
+      Criar novo Projeto
       </button>
       <Modal open={open} onClose={() => setOpen(false)}>
         {body}

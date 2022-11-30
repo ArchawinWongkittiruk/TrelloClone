@@ -13,7 +13,7 @@ const CardMembers = ({ card }) => {
 
   return (
     <div>
-      <h3 className={classes.membersTitle}>Members</h3>
+      <h3 className={classes.membersTitle}>Usuários</h3>
       <FormControl component='fieldset'>
         <FormGroup>
           {boardMembers.map((member) => (
