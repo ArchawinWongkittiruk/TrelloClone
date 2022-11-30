@@ -17,7 +17,7 @@ const Dashboard = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    document.title = 'Your Boards | TrelloClone';
+    document.title = 'Sua Área de Trabalho | WebAppKanban';
   }, []);
 
   if (!isAuthenticated) {
@@ -28,8 +28,8 @@ const Dashboard = () => {
     <div className='dashboard-and-navbar'>
       <Navbar />
       <section className='dashboard'>
-        <h1>Welcome {user && user.name}</h1>
-        <h2>Your Boards</h2>
+        <h1>Bem-Vindo(a) {user && user.name}</h1>
+        <h2>Área de Trabalho</h2>
         {loading && <CircularProgress className='dashboard-loading' />}
         <div className='boards'>
           {boards.map((board) => (

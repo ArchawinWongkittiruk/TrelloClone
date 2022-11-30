@@ -21,7 +21,7 @@ const Board = ({ match }) => {
   }, [dispatch, match.params.id]);
 
   useEffect(() => {
-    if (board?.title) document.title = board.title + ' | TrelloClone';
+    if (board?.title) document.title = board.title + ' | WebAppKanban';
   }, [board?.title]);
 
   if (!isAuthenticated) {

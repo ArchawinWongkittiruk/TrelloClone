@@ -12,14 +12,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ArchawinWongkittiruk/TrelloClone.git"
+    "url": ""
   },
-  "author": "Archawin Wongkittiruk",
+  "author": "Arthur Ribeker",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ArchawinWongkittiruk/TrelloClone/issues"
-  },
-  "homepage": "https://github.com/ArchawinWongkittiruk/TrelloClone#readme",
+ 
+  "homepage": "url",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",

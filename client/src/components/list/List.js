@@ -43,7 +43,7 @@ const List = ({ listId, index }) => {
           <Droppable droppableId={listId} type='card'>
             {(provided) => (
               <div
-                className={`list ${addingCard ? 'adding-card' : 'not-adding-card'}`}
+                className={`list ${addingCard ? 'cartão de adição' : 'cartão sem adição'}`}
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
@@ -64,7 +64,7 @@ const List = ({ listId, index }) => {
           {!addingCard && (
             <div className='create-card-button'>
               <Button variant='contained' onClick={() => setAddingCard(true)}>
-                + Add a card
+                + Adicionar Cartão
               </Button>
             </div>
           )}

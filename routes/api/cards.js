@@ -12,7 +12,7 @@ const Card = require('../../models/Card');
 // Add a card
 router.post(
   '/',
-  [auth, member, [check('title', 'Title is required').not().isEmpty()]],
+  [auth, member, [check('title', 'Título é Obrigatorio').not().isEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -43,7 +43,7 @@ router.post(
       res.json({ cardId: card.id, listId });
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('Server Error');
+      res.status(500).send('Erro no Servidor');
     }
   }
 );
@@ -53,7 +53,7 @@ router.get('/listCards/:listId', auth, async (req, res) => {
   try {
     const list = await List.findById(req.params.listId);
     if (!list) {
-      return res.status(404).json({ msg: 'List not found' });
+      return res.status(404).json({ msg: 'Lista não encontrada' });
     }
 
     const cards = [];
@@ -64,7 +64,7 @@ router.get('/listCards/:listId', auth, async (req, res) => {
     res.json(cards);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send('Erro no Servidor');
   }
 });
 
@@ -73,13 +73,13 @@ router.get('/:id', auth, async (req, res) => {
   try {
     const card = await Card.findById(req.params.id);
     if (!card) {
-      return res.status(404).json({ msg: 'Card not found' });
+      return res.status(404).json({ msg: 'Cartão não encontrado' });
     }
 
     res.json(card);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send('Erro no Servidor');
   }
 });
 
@@ -88,12 +88,12 @@ router.patch('/edit/:id', [auth, member], async (req, res) => {
   try {
     const { title, description, label } = req.body;
     if (title === '') {
-      return res.status(400).json({ msg: 'Title is required' });
+      return res.status(400).json({ msg: 'Título é obrigatório' });
     }
 
     const card = await Card.findById(req.params.id);
     if (!card) {
-      return res.status(404).json({ msg: 'Card not found' });
+      return res.status(404).json({ msg: 'Cartão não encontrado' });
     }
 
     card.title = title ? title : card.title;
@@ -108,7 +108,7 @@ router.patch('/edit/:id', [auth, member], async (req, res) => {
     res.json(card);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send('Erro no Servidor');
   }
 });
 
@@ -117,7 +117,7 @@ router.patch('/archive/:archive/:id', [auth, member], async (req, res) => {
   try {
     const card = await Card.findById(req.params.id);
     if (!card) {
-      return res.status(404).json({ msg: 'Card not found' });
+      return res.status(404).json({ msg: 'Cartão não encontrado' });
     }
 
     card.archived = req.params.archive === 'true';
@@ -128,15 +128,15 @@ router.patch('/archive/:archive/:id', [auth, member], async (req, res) => {
     const board = await Board.findById(req.header('boardId'));
     board.activity.unshift({
       text: card.archived
-        ? `${user.name} archived card '${card.title}'`
-        : `${user.name} sent card '${card.title}' to the board`,
+        ? `${user.name} cartão arquivado '${card.title}'`
+        : `${user.name} cartão enviado '${card.title}' para o quadro`,
     });
     await board.save();
 
     res.json(card);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send('Erro no Servidor');
   }
 });
 
@@ -150,7 +150,7 @@ router.patch('/move/:id', [auth, member], async (req, res) => {
     const from = await List.findById(fromId);
     let to = await List.findById(toId);
     if (!cardId || !from || !to) {
-      return res.status(404).json({ msg: 'List/card not found' });
+      return res.status(404).json({ msg: 'Lista/Cartão não encontrado' });
     } else if (fromId === toId) {
       to = from;
     }
@@ -176,7 +176,7 @@ router.patch('/move/:id', [auth, member], async (req, res) => {
       const board = await Board.findById(boardId);
       const card = await Card.findById(cardId);
       board.activity.unshift({
-        text: `${user.name} moved '${card.title}' from '${from.title}' to '${to.title}'`,
+        text: `${user.name} movido '${card.title}' de '${from.title}' para '${to.title}'`,
       });
       await board.save();
     }
@@ -184,7 +184,7 @@ router.patch('/move/:id', [auth, member], async (req, res) => {
     res.send({ cardId, from, to });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send('Erro no Servidor');
   }
 });
 
@@ -195,7 +195,7 @@ router.put('/addMember/:add/:cardId/:userId', [auth, member], async (req, res) =
     const card = await Card.findById(cardId);
     const user = await User.findById(userId);
     if (!card || !user) {
-      return res.status(404).json({ msg: 'Card/user not found' });
+      return res.status(404).json({ msg: 'Cartão/usuário não encontrado' });
     }
 
     const add = req.params.add === 'true';
@@ -222,7 +222,7 @@ router.put('/addMember/:add/:cardId/:userId', [auth, member], async (req, res) =
     res.json(card);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send('Erro no Servidor');
   }
 });
 
@@ -232,7 +232,7 @@ router.delete('/:listId/:id', [auth, member], async (req, res) => {
     const card = await Card.findById(req.params.id);
     const list = await List.findById(req.params.listId);
     if (!card || !list) {
-      return res.status(404).json({ msg: 'List/card not found' });
+      return res.status(404).json({ msg: 'Lista/Cartão não encontrado' });
     }
 
     list.cards.splice(list.cards.indexOf(req.params.id), 1);
@@ -243,14 +243,14 @@ router.delete('/:listId/:id', [auth, member], async (req, res) => {
     const user = await User.findById(req.user.id);
     const board = await Board.findById(req.header('boardId'));
     board.activity.unshift({
-      text: `${user.name} deleted '${card.title}' from '${list.title}'`,
+      text: `${user.name} excluído '${card.title}' de '${list.title}'`,
     });
     await board.save();
 
     res.json(req.params.id);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send('Erro no Servidor');
   }
 });
 

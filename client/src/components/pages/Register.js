@@ -31,7 +31,7 @@ const Register = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    document.title = 'TrelloClone | Sign Up';
+    document.title = 'WebAppKanban | Cadastre-se';
   }, []);
 
   const { name, email, password, password2 } = formData;
@@ -41,7 +41,7 @@ const Register = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      dispatch(setAlert('Passwords do not match', 'error'));
+      dispatch(setAlert('As senhas não correspondem', 'erro'));
     } else {
       dispatch(register({ name, email, password }));
     }
@@ -56,10 +56,10 @@ const Register = () => {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component='h1' variant='h4'>
-          TrelloClone
+          WebAppKanban
         </Typography>
         <Typography component='h1' variant='h5'>
-          Sign up
+          Cadastre-se
         </Typography>
         <form className={classes.form} onSubmit={(e) => onSubmit(e)}>
           <Grid container spacing={2}>
@@ -70,7 +70,7 @@ const Register = () => {
                 variant='outlined'
                 required
                 fullWidth
-                label='Your Name'
+                label='Seu Nome'
                 autoFocus
                 value={name}
                 onChange={(e) => onChange(e)}
@@ -81,7 +81,7 @@ const Register = () => {
                 variant='outlined'
                 required
                 fullWidth
-                label='Email Address'
+                label='Seu Email'
                 name='email'
                 autoComplete='email'
                 value={email}
@@ -94,7 +94,7 @@ const Register = () => {
                 required
                 fullWidth
                 name='password'
-                label='Password'
+                label='Sua Senha'
                 type='password'
                 value={password}
                 onChange={(e) => onChange(e)}
@@ -106,7 +106,7 @@ const Register = () => {
                 required
                 fullWidth
                 name='password2'
-                label='Confirm Password'
+                label='Confirme sua Senha'
                 type='password'
                 value={password2}
                 onChange={(e) => onChange(e)}
@@ -120,12 +120,12 @@ const Register = () => {
             color='primary'
             className={classes.submit}
           >
-            Sign Up
+            Cadastrar
           </Button>
           <Grid container justify='flex-end'>
             <Grid item>
               <Link href='/login' variant='body2'>
-                Already have an account? Sign in
+              já tem uma conta? Login
               </Link>
             </Grid>
           </Grid>

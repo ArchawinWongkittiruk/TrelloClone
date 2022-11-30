@@ -44,17 +44,17 @@ const MoveList = ({ listId, closeMenu }) => {
 
   return (
     <Fragment>
-      <div onClick={() => setOpenDialog(true)}>Move This List</div>
+      <div onClick={() => setOpenDialog(true)}>Mover esta lista</div>
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
         <div className={classes.moveListTop}>
-          <DialogTitle>{'Move List'}</DialogTitle>
+          <DialogTitle>{'Mover Lista'}</DialogTitle>
           <Button onClick={() => setOpenDialog(false)}>
             <CloseIcon />
           </Button>
         </div>
         <DialogActions className={classes.moveListBottom}>
           <FormControl>
-            <InputLabel shrink>Position</InputLabel>
+            <InputLabel shrink>Posição</InputLabel>
             <Select
               value={position}
               required
@@ -74,7 +74,7 @@ const MoveList = ({ listId, closeMenu }) => {
               className={classes.moveListButton}
               onClick={onSubmit}
             >
-              Move List
+              Mover lista
             </Button>
           </FormControl>
         </DialogActions>

@@ -30,7 +30,7 @@ const Login = () => {
   const { email, password } = formData;
 
   useEffect(() => {
-    document.title = 'TrelloClone | Sign In';
+    document.title = 'WebAppKanban | Entrar';
   }, []);
 
   const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -49,10 +49,10 @@ const Login = () => {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component='h1' variant='h4'>
-          TrelloClone
+          WebAppKanban
         </Typography>
         <Typography component='h1' variant='h5'>
-          Sign in
+          Login
         </Typography>
         <form className={classes.form} onSubmit={(e) => onSubmit(e)}>
           <TextField
@@ -60,7 +60,7 @@ const Login = () => {
             margin='normal'
             required
             fullWidth
-            label='Email Address'
+            label='E-Mail'
             name='email'
             autoComplete='email'
             autoFocus
@@ -73,7 +73,7 @@ const Login = () => {
             required
             fullWidth
             name='password'
-            label='Password'
+            label='Senha'
             type='password'
             autoComplete='current-password'
             value={password}
@@ -86,12 +86,12 @@ const Login = () => {
             color='primary'
             className={classes.submit}
           >
-            Sign In
+            Login
           </Button>
           <Grid container justify='flex-end'>
             <Grid item>
               <Link href='/register' variant='body2'>
-                Don't have an account? Sign Up
+              Não tem uma conta? Cadastre-se
               </Link>
             </Grid>
           </Grid>

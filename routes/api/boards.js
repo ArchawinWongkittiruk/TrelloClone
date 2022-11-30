@@ -10,7 +10,7 @@ const Board = require('../../models/Board');
 // Add a board
 router.post(
   '/',
-  [auth, [check('title', 'Title is required').not().isEmpty()]],
+  [auth, [check('title', 'O título é obrigatório').not().isEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -34,14 +34,14 @@ router.post(
 
       // Log activity
       board.activity.unshift({
-        text: `${user.name} created this board`,
+        text: `${user.name} Criou este quadro`,
       });
       await board.save();
 
       res.json(board);
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('Server Error');
+      res.status(500).send('Erro no Servidor');
     }
   }
 );
@@ -59,7 +59,7 @@ router.get('/', auth, async (req, res) => {
     res.json(boards);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send('Erro no Servidor');
   }
 });
 
@@ -68,13 +68,13 @@ router.get('/:id', auth, async (req, res) => {
   try {
     const board = await Board.findById(req.params.id);
     if (!board) {
-      return res.status(404).json({ msg: 'Board not found' });
+      return res.status(404).json({ msg: 'Quadro não encontrado!' });
     }
 
     res.json(board);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send('Erro no Servidor');
   }
 });
 
@@ -83,20 +83,20 @@ router.get('/activity/:boardId', auth, async (req, res) => {
   try {
     const board = await Board.findById(req.params.boardId);
     if (!board) {
-      return res.status(404).json({ msg: 'Board not found' });
+      return res.status(404).json({ msg: 'Quadro não encontrado!' });
     }
 
     res.json(board.activity);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send('Erro no Servidor');
   }
 });
 
 // Change a board's title
 router.patch(
   '/rename/:id',
-  [auth, member, [check('title', 'Title is required').not().isEmpty()]],
+  [auth, member, [check('title', 'Título é obrigatório').not().isEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -106,14 +106,14 @@ router.patch(
     try {
       const board = await Board.findById(req.params.id);
       if (!board) {
-        return res.status(404).json({ msg: 'Board not found' });
+        return res.status(404).json({ msg: 'Quadro não encontrado' });
       }
 
       // Log activity
       if (req.body.title !== board.title) {
         const user = await User.findById(req.user.id);
         board.activity.unshift({
-          text: `${user.name} renamed this board (from '${board.title}')`,
+          text: `${user.name} quadro renomeado (from '${board.title}')`,
         });
       }
 
@@ -123,7 +123,7 @@ router.patch(
       res.json(board);
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('Server Error');
+      res.status(500).send('Erro no Servidor');
     }
   }
 );
@@ -134,12 +134,12 @@ router.put('/addMember/:userId', [auth, member], async (req, res) => {
     const board = await Board.findById(req.header('boardId'));
     const user = await User.findById(req.params.userId);
     if (!user) {
-      return res.status(404).json({ msg: 'User not found' });
+      return res.status(404).json({ msg: 'Usuário não encontrado' });
     }
 
     // See if already member of board
     if (board.members.map((member) => member.user).includes(req.params.userId)) {
-      return res.status(400).json({ msg: 'Already member of board' });
+      return res.status(400).json({ msg: 'Já é um membro' });
     }
 
     // Add board to user's boards
@@ -151,14 +151,14 @@ router.put('/addMember/:userId', [auth, member], async (req, res) => {
 
     // Log activity
     board.activity.unshift({
-      text: `${user.name} joined this board`,
+      text: `${user.name} juntou-se a esta quadro`,
     });
     await board.save();
 
     res.json(board.members);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send('Erro no Servidor');
   }
 });
 

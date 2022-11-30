@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const app = express();
 
-// Connect database
+// Conexão Banco de Dados
 (async function connectDB() {
   try {
     await mongoose.connect(process.env.MONGO_URI, {
@@ -14,7 +14,7 @@ const app = express();
       useCreateIndex: true,
       useFindAndModify: false,
     });
-    console.log('MongoDB Connected...');
+    console.log('Banco de Dados MongoDB Connectado...');
   } catch (err) {
     console.error(err.message);
     // Exit process with failure
@@ -33,9 +33,9 @@ app.use('/api/lists', require('./routes/api/lists'));
 app.use('/api/cards', require('./routes/api/cards'));
 app.use('/api/checklists', require('./routes/api/checklists'));
 
-// Serve static assets in production
-if (process.env.NODE_ENV === 'production') {
-  // Set static folder
+// servidor estatico producao
+if (process.env.NODE_ENV === 'produção') {
+  // selecione a pasta estatica
   app.use(express.static('client/build'));
 
   app.get('*', (req, res) => {
@@ -45,4 +45,4 @@ if (process.env.NODE_ENV === 'production') {
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => console.log('Server started on port ' + PORT));
+app.listen(PORT, () => console.log('Servidor Iniciado na Porta ' + PORT));

@@ -14,9 +14,9 @@ const Navbar = () => {
   return (
     <nav className='navbar'>
       <Link to='/dashboard'>Home</Link>
-      <Link to='/dashboard'>TrelloClone</Link>
+      <Link to='/dashboard'>WebAppKanban</Link>
       <Link to='/' onClick={() => dispatch(logout())}>
-        Logout
+        Sair
       </Link>
     </nav>
   );
